@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Brush
@@ -302,7 +303,21 @@ private fun StartPage(tab: Tab) {
             Image(androidx.compose.ui.res.painterResource(dev.wonderdesk.shared.R.drawable.wonderdesk_polaris_icon), "Polaris", Modifier.size(96.dp))
             Text("Polaris", Modifier.padding(top = 8.dp), style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.SemiBold), color = Color.White)
             Text(if (tab.veil) "Veil tab: nothing from here is remembered" else "Search with ${Prefs.engine(context)}", color = Color.White.copy(alpha = .75f), style = MaterialTheme.typography.bodyMedium)
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(14.dp))
+            // Veil on or off for this tab, and whether new tabs start in Veil.
+            var startVeil by remember { mutableStateOf(Prefs.veilDefault(context)) }
+            Row(Modifier.clip(RoundedCornerShape(22.dp)).background(Color.White.copy(alpha = .16f)).padding(4.dp)) {
+                listOf(false to "Normal", true to "Veil").forEach { (v, label) ->
+                    Text(label, Modifier.clip(RoundedCornerShape(18.dp)).background(if (tab.veil == v) (if (v) Color(0xFF5B4BC4) else Color.White) else Color.Transparent)
+                        .clickable { if (tab.veil != v) { val old = tab; Browser.open(context, veil = v); Browser.tabs.indexOf(old).let { i -> if (i >= 0) Browser.close(i) }; Browser.current = Browser.tabs.lastIndex } }.padding(horizontal = 22.dp, vertical = 8.dp),
+                        color = if (tab.veil == v) (if (v) Color.White else Color(0xFF1E3A8A)) else Color.White, fontWeight = FontWeight.SemiBold)
+                }
+            }
+            Row(Modifier.padding(top = 8.dp).clickable { startVeil = !startVeil; Prefs.p(context).edit().putBoolean("veilDefault", startVeil).apply() }, verticalAlignment = Alignment.CenterVertically) {
+                Switch(startVeil, { startVeil = it; Prefs.p(context).edit().putBoolean("veilDefault", it).apply() }, Modifier.scale(.8f))
+                Text("Start new tabs in Veil", color = Color.White.copy(alpha = .85f), style = MaterialTheme.typography.bodySmall)
+            }
+            Spacer(Modifier.height(14.dp))
             Row(Modifier.fillMaxWidth().height(50.dp).clip(RoundedCornerShape(25.dp)).background(Color.White.copy(alpha = .95f)).padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                 Icon(WonderIcons.Search, null, tint = Color(0xFF666666)); Spacer(Modifier.width(10.dp))
                 BasicTextField(q, { q = it }, Modifier.weight(1f), singleLine = true, textStyle = androidx.compose.ui.text.TextStyle(fontSize = 17.sp, color = Color(0xFF111111)), cursorBrush = SolidColor(p.accent),

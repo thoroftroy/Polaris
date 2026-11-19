@@ -1,5 +1,9 @@
 # Polaris changelog
 
+## v0.4.2
+
+- The start page has a Normal / Veil switch for the tab you are on, and a switch for whether new tabs start in Veil
+
 ## v0.4.1
 
 - Polaris keeps its own icon in the Wonderdesk Launcher and App Hub (the size-shrinking step was removing the artwork they look up)
