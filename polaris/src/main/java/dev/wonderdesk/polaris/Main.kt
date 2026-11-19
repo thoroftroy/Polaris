@@ -65,12 +65,14 @@ object Hooks {
     var fullscreen by mutableStateOf(false)
     var typing by mutableStateOf("")
     var toast: (String) -> Unit = {}
+    lateinit var appContext: android.content.Context
     var pickFile: ((Array<String>, Boolean, (List<Uri>) -> Unit) -> Unit)? = null
     var androidPerms: ((Array<String>, (Boolean) -> Unit) -> Unit)? = null
 }
 
 class MainActivity : WonderActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        Hooks.appContext = applicationContext
         Library.init(this); Gecko.init(this)
         super.onCreate(savedInstanceState)
         handle(intent, first = true)
@@ -140,6 +142,7 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
     var siteDialog by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val tab = Browser.currentTab
+    LaunchedEffect(Browser.current, Browser.tabs.size) { Gecko.markActive() }
     LaunchedEffect(Unit) { Hooks.toast = { m -> android.widget.Toast.makeText(context, m, android.widget.Toast.LENGTH_SHORT).show() } }
     // File picker, Android permissions and full-screen video, for the engine.
     var pickCb by remember { mutableStateOf<((List<Uri>) -> Unit)?>(null) }
@@ -613,6 +616,7 @@ private fun ExtensionsScreen(onBack: () -> Unit) {
                 val builtIn = e.isBuiltIn
                 Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(p.panel).padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) { Text(e.metaData.name ?: e.id, style = MaterialTheme.typography.titleSmall); Text("Version ${e.metaData.version}" + (if (builtIn) " · comes with Polaris" else "") + (if (e.metaData.allowedInPrivateBrowsing) " · on in Veil tabs" else ""), style = MaterialTheme.typography.bodySmall, color = p.secondaryText) }
+                    Gecko.actions[e.id]?.let { a -> TextButton(onClick = { Gecko.markActive(); a.click() }) { Text("Open") } }
                     if (!builtIn) TextButton(onClick = { Gecko.runtime.webExtensionController.uninstall(e).accept({ Gecko.extensions.removeAll { it.id == e.id } }, { }) }) { Text("Remove") }
                 }
             }

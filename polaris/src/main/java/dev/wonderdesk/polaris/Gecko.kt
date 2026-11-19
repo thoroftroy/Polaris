@@ -28,6 +28,7 @@ object Gecko {
     val extensions = mutableStateListOf<WebExtension>()
     var ubo by mutableStateOf<WebExtension?>(null)
     var uboAction by mutableStateOf<WebExtension.Action?>(null)
+    val actions = androidx.compose.runtime.mutableStateMapOf<String, WebExtension.Action>()
     var popup by mutableStateOf<GeckoSession?>(null)
     var status by mutableStateOf("")
 
@@ -83,12 +84,28 @@ object Gecko {
     /** Keeps the list of extensions current and hands each one's toolbar button to the menu. */
     fun watch(ext: WebExtension) {
         if (extensions.none { it.id == ext.id }) extensions.add(ext)
-        ext.setActionDelegate(object : WebExtension.ActionDelegate {
-            override fun onBrowserAction(e: WebExtension, session: GeckoSession?, action: WebExtension.Action) { if (e.id == UBO_ID) uboAction = action }
+        val actionDelegate = object : WebExtension.ActionDelegate {
+            override fun onBrowserAction(e: WebExtension, session: GeckoSession?, action: WebExtension.Action) { actions[e.id] = action; if (e.id == UBO_ID) uboAction = action }
             override fun onTogglePopup(e: WebExtension, action: WebExtension.Action): GeckoResult<GeckoSession>? = openPopup()
             override fun onOpenPopup(e: WebExtension, action: WebExtension.Action): GeckoResult<GeckoSession>? = openPopup()
+        }
+        ext.setActionDelegate(actionDelegate)
+        // Extensions can open tabs and their settings pages; those become Polaris tabs.
+        ext.setTabDelegate(object : WebExtension.TabDelegate {
+            override fun onNewTab(e: WebExtension, details: WebExtension.CreateTabDetails): GeckoResult<GeckoSession>? {
+                val t = Browser.open(Hooks.appContext, null, veil = false, adopt = true)
+                details.url?.let { u -> t.url = u }
+                return GeckoResult.fromValue(t.session)
+            }
+            override fun onOpenOptionsPage(e: WebExtension) { e.metaData.optionsPageUrl?.let { Browser.open(Hooks.appContext, it, veil = false) } }
         })
+        Browser.tabs.forEach { it.session.webExtensionController.setActionDelegate(ext, actionDelegate) }
+        delegates[ext.id] = actionDelegate
     }
+
+    val delegates = HashMap<String, WebExtension.ActionDelegate>()
+    /** Tells every extension which tab is in front, so popups act on the page you are looking at. */
+    fun markActive() { Browser.tabs.forEachIndexed { i, t -> runCatching { runtime.webExtensionController.setTabActive(t.session, i == Browser.current) } } }
 
     private fun openPopup(): GeckoResult<GeckoSession> { val s = GeckoSession(); popup = s; return GeckoResult.fromValue(s) }
 
@@ -119,7 +136,7 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
     private var pendingUrl: String? = null
     val isStart get() = url.isEmpty()
 
-    init { install() }
+    init { install(); Gecko.extensions.forEach { e -> Gecko.delegates[e.id]?.let { d -> session.webExtensionController.setActionDelegate(e, d) } } }
 
     fun ensureOpen() { if (!session.isOpen && !adopted) session.open(Gecko.runtime) }
 

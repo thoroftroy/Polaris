@@ -11,6 +11,7 @@ class SiteActivity : Activity() {
     private var tab: Tab? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Hooks.appContext = applicationContext
         Library.init(this); Gecko.init(this)
         val url = intent.dataString ?: return finish()
         val t = Tab(-1, applicationContext, veil = false).also { tab = it }
