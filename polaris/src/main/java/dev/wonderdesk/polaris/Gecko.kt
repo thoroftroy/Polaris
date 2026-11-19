@@ -67,12 +67,21 @@ object Gecko {
         })
         // Every extension shipped in assets/extensions starts with the browser and is allowed in Veil (private) tabs too.
         val dirs = runCatching { appCtx.assets.list("extensions")?.toList() }.getOrNull() ?: emptyList()
+        ctl.list().accept({ installed ->
+            val have = installed?.filter { !it.isBuiltIn }?.map { it.id }?.toSet() ?: emptySet()
+            installed?.forEach { watch(it) }
+            loadBundled(appCtx, ctl, dirs, have)
+        }, { loadBundled(appCtx, ctl, dirs, emptySet()) })
+    }
+
+    private fun loadBundled(appCtx: Context, ctl: WebExtensionController, dirs: List<String>, have: Set<String>) {
         for (dir in dirs) {
             val id = runCatching {
                 val m = org.json.JSONObject(appCtx.assets.open("extensions/$dir/manifest.json").bufferedReader().readText())
                 (m.optJSONObject("browser_specific_settings") ?: m.optJSONObject("applications"))?.optJSONObject("gecko")?.optString("id")
             }.getOrNull()?.takeIf { it.isNotBlank() } ?: continue
             if (id == RUFFLE_ID && !Prefs.flash(appCtx)) continue
+            if (id in have) continue   // a newer copy from the store is already installed
             ctl.ensureBuiltIn("resource://android/assets/extensions/$dir/", id).accept({ ext ->
                 if (ext != null) {
                     ctl.setAllowedInPrivateBrowsing(ext, true).accept({ e2 -> val x = e2 ?: ext; watch(x); if (x.id == UBO_ID) ubo = x }, { watch(ext); if (ext.id == UBO_ID) ubo = ext })
@@ -106,6 +115,15 @@ object Gecko {
     val delegates = HashMap<String, WebExtension.ActionDelegate>()
     /** Tells every extension which tab is in front, so popups act on the page you are looking at. */
     fun markActive() { Browser.tabs.forEachIndexed { i, t -> runCatching { runtime.webExtensionController.setTabActive(t.session, i == Browser.current) } } }
+
+    /** Installs (or updates to) a catalogue version, with the same Veil permission as the bundled ones. */
+    fun installFromStore(a: Addon, done: (Boolean, String) -> Unit = { _, _ -> }) {
+        runtime.webExtensionController.install(a.xpiUrl).accept({ ext ->
+            if (ext == null) { done(false, "Couldn't add it"); return@accept }
+            runtime.webExtensionController.setAllowedInPrivateBrowsing(ext, true).accept({ e2 -> watch(e2 ?: ext); done(true, a.name) }, { watch(ext); done(true, a.name) })
+            AddonStore.updates = AddonStore.updates.filter { it.first != ext.id }
+        }, { e -> done(false, e?.message ?: "Couldn't add it") })
+    }
 
     private fun openPopup(): GeckoResult<GeckoSession> { val s = GeckoSession(); popup = s; return GeckoResult.fromValue(s) }
 

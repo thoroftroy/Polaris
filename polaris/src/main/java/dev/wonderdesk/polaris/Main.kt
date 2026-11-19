@@ -37,6 +37,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -94,7 +95,7 @@ class MainActivity : WonderActivity() {
     @Composable override fun Content() = PolarisApp(this)
 }
 
-enum class Screen { Browser, Tabs, History, Bookmarks, Downloads, Extensions, Settings, Sites }
+enum class Screen { Browser, Tabs, History, Bookmarks, Downloads, Extensions, Store, Settings, Sites }
 
 /** An installed app (not a browser) that handles this link, if any: package and name. */
 fun appFor(c: android.content.Context, u: Uri): Pair<String, String>? {
@@ -143,6 +144,7 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
     val scope = rememberCoroutineScope()
     val tab = Browser.currentTab
     LaunchedEffect(Browser.current, Browser.tabs.size) { Gecko.markActive() }
+    LaunchedEffect(Unit) { kotlinx.coroutines.delay(15_000); AddonStore.checkIfDue(context) }
     LaunchedEffect(Unit) { Hooks.toast = { m -> android.widget.Toast.makeText(context, m, android.widget.Toast.LENGTH_SHORT).show() } }
     // File picker, Android permissions and full-screen video, for the engine.
     var pickCb by remember { mutableStateOf<((List<Uri>) -> Unit)?>(null) }
@@ -164,7 +166,8 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
         when (screen) {
             Screen.Tabs -> TabsScreen(onBack = { screen = Screen.Browser })
             Screen.History -> HistoryScreen(onBack = { screen = Screen.Browser }, open = { Browser.currentTab?.go(it); screen = Screen.Browser })
-            Screen.Extensions -> ExtensionsScreen(onBack = { screen = Screen.Browser })
+            Screen.Store -> StoreScreen(onBack = { screen = Screen.Extensions })
+            Screen.Extensions -> ExtensionsScreen(onBack = { screen = Screen.Browser }, store = { screen = Screen.Store })
             Screen.Downloads -> DownloadsScreen(onBack = { screen = Screen.Browser })
             Screen.Bookmarks -> BookmarksScreen(onBack = { screen = Screen.Browser }, open = { Browser.currentTab?.go(it); screen = Screen.Browser })
             Screen.Settings -> SettingsScreen(onBack = { screen = Screen.Browser }, sites = { screen = Screen.Sites })
@@ -599,25 +602,78 @@ private fun PopupDialog(session: org.mozilla.geckoview.GeckoSession, close: () -
 }
 
 @Composable
-private fun ExtensionsScreen(onBack: () -> Unit) {
+private fun ExtensionsScreen(onBack: () -> Unit, store: () -> Unit) {
     val context = LocalContext.current
     val p = wonderPalette()
+    var auto by remember { mutableStateOf(Prefs.autoUpdateAddons(context)) }
     LaunchedEffect(Unit) { Gecko.refreshList() }
     val install = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) {
             val f = java.io.File(context.cacheDir, "install.xpi"); context.contentResolver.openInputStream(uri)?.use { i -> f.outputStream().use { o -> i.copyTo(o) } }
-            Gecko.runtime.webExtensionController.install(Uri.fromFile(f).toString()).accept({ e -> if (e != null) { Gecko.watch(e); Hooks.toast("Added ${e.metaData.name}") } }, { e -> Hooks.toast("Couldn't add it: ${e?.message}") })
+            Gecko.runtime.webExtensionController.install(Uri.fromFile(f).toString()).accept({ e -> if (e != null) { Gecko.runtime.webExtensionController.setAllowedInPrivateBrowsing(e, true); Gecko.watch(e); Hooks.toast("Added ${e.metaData.name}") } }, { e -> Hooks.toast("Couldn't add it: ${e?.message}") })
         }
     }
-    WonderScreen("Extensions", onBack, actions = { TextButton(onClick = { install.launch(arrayOf("*/*")) }) { Text("Add from file", color = Color.White) } }) {
+    WonderScreen("Extensions", onBack, actions = { TextButton(onClick = store) { Text("Find more", color = Color.White) }; TextButton(onClick = { install.launch(arrayOf("*/*")) }) { Text("From file", color = Color.White) } }) {
         LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            item { Text("Polaris runs real Firefox extensions. uBlock Origin, Ruffle, Video DownloadHelper, FastForward, ClearURLs, SponsorBlock, Return YouTube Dislike and Improve YouTube come with it, and work in Veil tabs too. To make your own, write a normal WebExtension (manifest.json plus scripts), zip it as an .xpi file and add it here. Mozilla's WebExtension guide on developer.mozilla.org explains how.", color = p.secondaryText, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(bottom = 6.dp)) }
+            item {
+                Panel {
+                    ListRow(if (AddonStore.checking) "Checking for updates…" else if (AddonStore.updates.isEmpty()) "Everything is up to date" else "${AddonStore.updates.size} update${if (AddonStore.updates.size == 1) "" else "s"} available",
+                        subtitle = if (AddonStore.updates.isEmpty()) "Checked against Mozilla's add-on site" else AddonStore.updates.joinToString { it.second.name }, icon = WonderIcons.Refresh, tint = Color(0xFF1E7FE8),
+                        onClick = { if (AddonStore.updates.isNotEmpty()) AddonStore.updates.forEach { (_, a) -> Gecko.installFromStore(a) { ok, m -> Hooks.toast(if (ok) "Updated $m" else m) } } else AddonStore.check(context) })
+                    PanelDivider()
+                    SwitchRow("Update automatically", auto, { auto = it; Prefs.p(context).edit().putBoolean("addonAuto", it).apply() }, subtitle = "Checks twice a day", icon = WonderIcons.Download, tint = Color(0xFF2E9E44))
+                }
+            }
+            item { Text("Polaris runs real Firefox extensions. Eight come with it and work in Veil tabs too. Find more in Mozilla's store, or write your own WebExtension (manifest.json plus scripts), zip it as an .xpi and add it from a file.", color = p.secondaryText, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(vertical = 6.dp)) }
             items(Gecko.extensions.toList(), key = { it.id }) { e ->
                 val builtIn = e.isBuiltIn
-                Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(p.panel).padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Column(Modifier.weight(1f)) { Text(e.metaData.name ?: e.id, style = MaterialTheme.typography.titleSmall); Text("Version ${e.metaData.version}" + (if (builtIn) " · comes with Polaris" else "") + (if (e.metaData.allowedInPrivateBrowsing) " · on in Veil tabs" else ""), style = MaterialTheme.typography.bodySmall, color = p.secondaryText) }
-                    Gecko.actions[e.id]?.let { a -> TextButton(onClick = { Gecko.markActive(); a.click() }) { Text("Open") } }
-                    if (!builtIn) TextButton(onClick = { Gecko.runtime.webExtensionController.uninstall(e).accept({ Gecko.extensions.removeAll { it.id == e.id } }, { }) }) { Text("Remove") }
+                var veil by remember(e.id) { mutableStateOf(e.metaData.allowedInPrivateBrowsing) }
+                Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(p.panel).padding(12.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) { Text(e.metaData.name ?: e.id, style = MaterialTheme.typography.titleSmall); Text("Version ${e.metaData.version}" + if (builtIn) " · comes with Polaris" else "", style = MaterialTheme.typography.bodySmall, color = p.secondaryText) }
+                        Gecko.actions[e.id]?.let { a -> TextButton(onClick = { Gecko.markActive(); a.click() }) { Text("Open") } }
+                        if (!builtIn) TextButton(onClick = { Gecko.runtime.webExtensionController.uninstall(e).accept({ Gecko.extensions.removeAll { it.id == e.id } }, { }) }) { Text("Remove") }
+                    }
+                    Row(verticalAlignment = Alignment.CenterVertically) { Text("Works in Veil tabs", Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium); Switch(veil, { on -> veil = on; Gecko.runtime.webExtensionController.setAllowedInPrivateBrowsing(e, on) }) }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun StoreScreen(onBack: () -> Unit) {
+    val p = wonderPalette()
+    var q by remember { mutableStateOf("") }
+    var results by remember { mutableStateOf<List<Addon>?>(null) }
+    var failed by remember { mutableStateOf(false) }
+    var busy by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
+    fun load() { results = null; failed = false; scope.launch { val r = withContext(Dispatchers.IO) { runCatching { AddonStore.search(q) } }; results = r.getOrNull(); failed = r.isFailure } }
+    LaunchedEffect(Unit) { load() }
+    WonderScreen("Extension store", onBack) {
+        Column(Modifier.fillMaxSize()) {
+            Box(Modifier.padding(12.dp)) { Field(q, { q = it }, "Search Mozilla's add-ons", imeAction = ImeAction.Search, onDone = { load() }) }
+            val list = results
+            when {
+                failed -> Text("Couldn't reach Mozilla's add-on site. Check your connection.", Modifier.padding(24.dp), color = p.danger)
+                list == null -> Text("Loading…", Modifier.padding(24.dp), color = p.secondaryText)
+                list.isEmpty() -> Text("No add-ons found.", Modifier.padding(24.dp), color = p.secondaryText)
+                else -> LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    items(list, key = { it.guid }) { a ->
+                        val have = Gecko.extensions.any { it.id == a.guid }
+                        val icon by produceState<Bitmap?>(null, a.iconUrl) { value = withContext(Dispatchers.IO) { AddonStore.icon(a.iconUrl) } }
+                        Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(p.panel).padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Box(Modifier.size(44.dp).clip(RoundedCornerShape(10.dp)).background(p.window)) { icon?.let { Image(it.asImageBitmap(), null, Modifier.fillMaxSize()) } }
+                            Spacer(Modifier.width(12.dp))
+                            Column(Modifier.weight(1f)) {
+                                Text(a.name, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
+                                Text(a.summary, maxLines = 2, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall, color = p.secondaryText)
+                                Text("%,d users".format(a.users) + if (a.rating > 0) " · ★ %.1f".format(a.rating) else "", style = MaterialTheme.typography.labelSmall, color = p.secondaryText)
+                            }
+                            TextButton(enabled = !have && busy != a.guid, onClick = { busy = a.guid; Gecko.installFromStore(a) { ok, m -> busy = null; Hooks.toast(if (ok) "Added $m" else "Couldn't add it: $m") } }) { Text(if (have) "Added" else if (busy == a.guid) "…" else "Add") }
+                        }
+                    }
                 }
             }
         }

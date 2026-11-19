@@ -1,3 +1,5 @@
+// Phones are arm64. For the emulator build with: ./gradlew -Pabi=x86_64 :polaris:assembleDebug
+val polarisAbi: String = (findProperty("abi") as String?) ?: "arm64-v8a"
 plugins { id("com.android.application"); id("org.jetbrains.kotlin.android") }
 
 // Keep the newest installable APK in the repo root (BlissPlayer-style) so it
@@ -23,7 +25,7 @@ afterEvaluate {
 }
 
 dependencies {
-    implementation("org.mozilla.geckoview:geckoview-omni:140.0.20250707120347")
+    implementation("org.mozilla.geckoview:geckoview-${polarisAbi}:140.0.20250707120347")
     testImplementation("junit:junit:4.13.2")
 }
 
@@ -33,7 +35,11 @@ configurations.all { resolutionStrategy { force("androidx.core:core:1.15.0", "an
 }
 
 
-android { defaultConfig { ndk { abiFilters += listOf("arm64-v8a", "x86_64") } } }
+android {
+    defaultConfig { ndk { abiFilters += polarisAbi } }
+    // Compress the native libraries inside the APK; Android unpacks them on install. Halves the download.
+    packaging { jniLibs { useLegacyPackaging = true } }
+}
 
 // Extensions keep their translations in a folder called _locales, which Android would otherwise leave out of the app.
 android { androidResources { ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~" } }

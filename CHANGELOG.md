@@ -1,5 +1,12 @@
 # Polaris changelog
 
+## v0.4.0
+
+- Extension store: search and browse Mozilla's add-on site from inside Polaris (recommended extensions first), see icons, ratings and user counts, and add one with a permission prompt
+- Extensions update by themselves (checked twice a day, switch off in Extensions), or tap the update row to do it now
+- Each extension has its own "Works in Veil tabs" switch
+- Much smaller app: the phone build now carries only the arm64 engine, shrunk and compressed, about 119 MB instead of 415 MB
+
 ## v0.3.0
 
 - Polaris now runs on Firefox's own engine (GeckoView 140) instead of Android's system WebView

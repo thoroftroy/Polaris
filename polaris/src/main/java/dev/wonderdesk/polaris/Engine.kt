@@ -26,6 +26,7 @@ object Prefs {
     /** 0 standard, 1 strict tracking protection. */
     fun strict(c: Context) = p(c).getBoolean("strict", false)
     fun tor(c: Context) = p(c).getBoolean("tor", false)
+    fun autoUpdateAddons(c: Context) = p(c).getBoolean("addonAuto", true)
     fun flash(c: Context) = p(c).getBoolean("flash", true)
     fun upgradeHttps(c: Context) = p(c).getBoolean("https", true)
     fun uaKey(c: Context) = p(c).getString("ua", "default") ?: "default"

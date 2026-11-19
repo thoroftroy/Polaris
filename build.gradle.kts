@@ -40,8 +40,8 @@ subprojects {
             buildTypes {
                 getByName("debug") {
                     isDebuggable = false
-                    isMinifyEnabled = project.name != "polaris"
-                    isShrinkResources = false
+                    isMinifyEnabled = true
+                    isShrinkResources = project.name == "polaris"
                     proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), rootDir.resolve("wonderdesk-rules.pro"))
                 }
             }

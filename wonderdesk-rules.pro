@@ -13,3 +13,11 @@
 -keep class com.hierynomus.** { *; }
 -keep class net.engio.** { *; }
 -keepattributes RuntimeVisibleAnnotations
+
+# Polaris: GeckoView and its WebExtension classes are used from native code and by reflection.
+-keep class org.mozilla.** { *; }
+-keep class mozilla.** { *; }
+-dontwarn org.mozilla.**
+-dontwarn androidx.annotation.**
+-dontwarn java.beans.**
+-dontwarn org.yaml.snakeyaml.**
