@@ -33,7 +33,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -61,6 +63,9 @@ object Hooks {
     var appAsk by mutableStateOf<AppAsk?>(null)
     var customView by mutableStateOf<View?>(null)
     var customCallback: WebChromeClient.CustomViewCallback? = null
+    class Ctx(val url: String, val image: Boolean, val veil: Boolean)
+    var ctxMenu by mutableStateOf<Ctx?>(null)
+    var typing by mutableStateOf("")
     var toast: (String) -> Unit = {}
     var filePick: ((Array<String>, ValueCallback<Array<Uri>>?) -> Unit)? = null
     var permAsk: ((PermissionRequest) -> Unit)? = null
@@ -90,7 +95,7 @@ class MainActivity : WonderActivity() {
     @Composable override fun Content() = PolarisApp(this)
 }
 
-enum class Screen { Browser, Tabs, History, Bookmarks, Settings, Sites }
+enum class Screen { Browser, Tabs, History, Bookmarks, Downloads, Settings, Sites }
 
 /** One client per tab: blocks ads, hands links to apps, keeps history, and reports progress. */
 fun clients(act: Activity, tab: Tab): Triple<WebViewClient, WebChromeClient, DownloadListener> {
@@ -146,11 +151,14 @@ fun clients(act: Activity, tab: Tab): Triple<WebViewClient, WebChromeClient, Dow
         override fun onJsAlert(v: WebView, url: String, message: String, r: JsResult): Boolean { android.app.AlertDialog.Builder(act).setMessage(message).setPositiveButton("OK") { _, _ -> r.confirm() }.setOnCancelListener { r.cancel() }.show(); return true }
         override fun onJsConfirm(v: WebView, url: String, message: String, r: JsResult): Boolean { android.app.AlertDialog.Builder(act).setMessage(message).setPositiveButton("OK") { _, _ -> r.confirm() }.setNegativeButton("Cancel") { _, _ -> r.cancel() }.setOnCancelListener { r.cancel() }.show(); return true }
         override fun onCreateWindow(v: WebView, dialog: Boolean, userGesture: Boolean, msg: android.os.Message): Boolean {
+            if (!userGesture) return false
             val t = Browser.open(act, null, veil = tab.veil)
-            val w = t.webView(clients(act, t).first, clients(act, t).second, clients(act, t).third)
+            val trio = clients(act, t)
+            val w = t.webView(trio.first, trio.second, trio.third)
             (msg.obj as WebView.WebViewTransport).webView = w; msg.sendToTarget(); return true
         }
     }
+    tab.web?.let { }
     val dl = DownloadListener { url, ua, cd, mime, _ ->
         runCatching {
             val name = URLUtil.guessFileName(url, cd, mime)
@@ -230,6 +238,7 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
         when (screen) {
             Screen.Tabs -> TabsScreen(onBack = { screen = Screen.Browser })
             Screen.History -> HistoryScreen(onBack = { screen = Screen.Browser }, open = { Browser.currentTab?.go(it); screen = Screen.Browser })
+            Screen.Downloads -> DownloadsScreen(onBack = { screen = Screen.Browser })
             Screen.Bookmarks -> BookmarksScreen(onBack = { screen = Screen.Browser }, open = { Browser.currentTab?.go(it); screen = Screen.Browser })
             Screen.Settings -> SettingsScreen(onBack = { screen = Screen.Browser }, sites = { screen = Screen.Sites })
             Screen.Sites -> SitesScreen(onBack = { screen = Screen.Settings })
@@ -238,11 +247,13 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
                     TopBar(tab, onMenu = { menu = true }, onHome = { tab.web?.stopLoading(); tab.url = ""; tab.title = "" })
                     Box(Modifier.weight(1f).fillMaxWidth()) {
                         if (tab.isStart) StartPage(tab) else key(tab.id) {
-                            AndroidView({ _ -> tab.ctx.baseContext.let { tab.ctx.setBaseContext(act) }; val (c, ch, d) = clients(act, tab); tab.webView(c, ch, d).also { w -> (w.parent as? android.view.ViewGroup)?.removeView(w); tab.pendingUrl?.let { u -> w.loadUrl(u); tab.pendingUrl = null } } }, Modifier.fillMaxSize())
+                            AndroidView({ _ -> tab.ctx.baseContext.let { tab.ctx.setBaseContext(act) }; val (c, ch, d) = clients(act, tab); tab.webView(c, ch, d).also { w -> w.setFindListener { active, count, _ -> tab.findIndex = active + 1; tab.findCount = count }; w.setOnLongClickListener { v -> val r = (v as WebView).hitTestResult; when (r.type) { WebView.HitTestResult.SRC_ANCHOR_TYPE, WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE -> { Hooks.ctxMenu = Hooks.Ctx(r.extra ?: "", false, tab.veil); true } WebView.HitTestResult.IMAGE_TYPE -> { Hooks.ctxMenu = Hooks.Ctx(r.extra ?: "", true, tab.veil); true } else -> false } }; (w.parent as? android.view.ViewGroup)?.removeView(w); tab.pendingUrl?.let { u -> w.loadUrl(u); tab.pendingUrl = null } } }, Modifier.fillMaxSize())
                         }
                         Hooks.customView?.let { v -> AndroidView({ _ -> FrameLayout(act).apply { setBackgroundColor(android.graphics.Color.BLACK); (v.parent as? android.view.ViewGroup)?.removeView(v); addView(v) } }, Modifier.fillMaxSize()) }
+                        if (Hooks.typing.isNotBlank()) Suggestions(tab)
                         DropdownMenu(menu, { menu = false }, Modifier.background(p.panel)) { BrowserMenu(tab, { menu = false }, { screen = it }, { siteDialog = true }) }
                     }
+                    tab.findText?.let { FindBar(tab) }
                     BottomBar(tab, onTabs = { screen = Screen.Tabs })
                 }
             }
@@ -258,6 +269,7 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
         })
     }
     if (siteDialog && tab != null) SiteDialog(tab) { siteDialog = false }
+    Hooks.ctxMenu?.let { c -> LinkMenu(c) { Hooks.ctxMenu = null } }
 }
 
 @Composable
@@ -273,9 +285,11 @@ private fun TopBar(tab: Tab, onMenu: () -> Unit, onHome: () -> Unit) {
                 Icon(if (tab.url.startsWith("https")) WonderIcons.Lock else WonderIcons.Language, null, Modifier.size(16.dp), tint = if (tab.url.startsWith("https")) Color(0xFF2E9E44) else Color(0xFF666666))
                 Spacer(Modifier.width(8.dp))
                 if (tab.veil) Text("Veil", Modifier.clip(RoundedCornerShape(8.dp)).background(Color(0xFF5B4BC4)).padding(horizontal = 6.dp, vertical = 1.dp), color = Color.White, fontSize = 11.sp).also { Spacer(Modifier.width(6.dp)) }
-                BasicTextField(if (focused) text else (Uri.parse(tab.url).host?.removePrefix("www.") ?: tab.url), { text = it }, Modifier.weight(1f).onFocusChanged { focused = it.isFocused },
+                BasicTextField(if (focused) text else (Uri.parse(tab.url).host?.removePrefix("www.") ?: tab.url), { text = it; Hooks.typing = it }, Modifier.weight(1f).onFocusChanged { focused = it.isFocused; if (!it.isFocused) Hooks.typing = "" else { text = ""; Hooks.typing = "" } },
                     singleLine = true, textStyle = androidx.compose.ui.text.TextStyle(color = Color(0xFF111111), fontSize = 15.sp), cursorBrush = SolidColor(p.accent),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri, imeAction = ImeAction.Go), keyboardActions = KeyboardActions(onGo = { tab.go(text) }))
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri, imeAction = ImeAction.Go), keyboardActions = KeyboardActions(onGo = { Hooks.typing = ""; tab.go(text) }))
+                if (tab.url.startsWith("http")) { var star by remember(tab.url) { mutableStateOf(Library.bookmarks.all().any { it.url == tab.url }) }
+                    IconButton(onClick = { if (star) Library.bookmarks.remove(tab.url) else Library.bookmarks.add(Entry(tab.url, tab.title.ifBlank { tab.url }, System.currentTimeMillis()), unique = true); star = !star }, Modifier.size(28.dp)) { Icon(if (star) WonderIcons.Star else WonderIcons.StarBorder, "Bookmark", Modifier.size(18.dp), tint = if (star) Color(0xFFF2A516) else Color(0xFF444444)) } }
                 IconButton(onClick = { if (tab.loading) tab.web?.stopLoading() else tab.web?.reload() }, Modifier.size(28.dp)) { Icon(if (tab.loading) WonderIcons.Close else WonderIcons.Refresh, null, Modifier.size(18.dp), tint = Color(0xFF444444)) }
             }
             IconButton(onClick = onMenu) { Icon(WonderIcons.MoreVert, "Menu", tint = Color.White) }
@@ -308,9 +322,12 @@ private fun BrowserMenu(tab: Tab, close: () -> Unit, go: (Screen) -> Unit, site:
     }()
     item("Bookmarks", WonderIcons.Star) { go(Screen.Bookmarks) }()
     item("History", WonderIcons.History) { go(Screen.History) }()
+    item("Downloads", WonderIcons.Download) { go(Screen.Downloads) }()
     HorizontalDivider()
     DropdownMenuItem({ Text(if (tab.desktop) "Mobile site" else "Desktop site") }, { close(); tab.desktop = !tab.desktop; tab.applyUa(Uri.parse(tab.url).host); tab.web?.reload() }, leadingIcon = { Icon(WonderIcons.Language, null) })
     item("This site…", WonderIcons.Tune, site)()
+    item("Find in page", WonderIcons.Search) { tab.findText = "" }()
+    item("Reader view", WonderIcons.Visibility) { tab.web?.evaluateJavascript(READER_JS, null) }()
     item("Add to home screen", WonderIcons.Apps) { addToHome(context, tab) }()
     item("Screenshot", WonderIcons.PhotoCamera) { Hooks.toast(if (tab.web?.let { screenshot(context, it) } == true) "Saved to Pictures/Polaris" else "Couldn't save the screenshot") }()
     item("Share", WonderIcons.Share) { context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, tab.url), "Share").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }()
@@ -548,3 +565,78 @@ private fun SettingsScreen(onBack: () -> Unit, sites: () -> Unit) {
         }
     }
 }
+
+const val READER_JS = """(function(){var a=document.querySelector('article')||document.querySelector('main')||document.body;var ps=[].slice.call(a.querySelectorAll('h1,h2,h3,p,li,blockquote,img')).filter(function(e){return e.tagName=='IMG'?e.width>150:e.innerText.trim().length>25||/^H/.test(e.tagName)});var h='<meta name=viewport content="width=device-width,initial-scale=1"><body style="max-width:40em;margin:auto;padding:1.2em;font:19px/1.6 Georgia,serif;color:#222;background:#faf7f0"><h1>'+document.title+'</h1>';ps.forEach(function(e){h+=e.tagName=='IMG'?'<img src="'+e.src+'" style="max-width:100%">':'<'+e.tagName.toLowerCase()+'>'+e.innerText+'</'+e.tagName.toLowerCase()+'>'});document.open();document.write(h+'</body>');document.close()})()"""
+
+@Composable
+private fun FindBar(tab: Tab) {
+    val p = wonderPalette()
+    val focus = remember { androidx.compose.ui.focus.FocusRequester() }
+    LaunchedEffect(Unit) { runCatching { focus.requestFocus() } }
+    Row(Modifier.fillMaxWidth().background(p.panel).padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+        BasicTextField(tab.findText ?: "", { tab.findText = it; if (it.isNotEmpty()) tab.web?.findAllAsync(it) else tab.web?.clearMatches() }, Modifier.weight(1f).androidx_focus(focus).clip(RoundedCornerShape(10.dp)).background(p.window).padding(10.dp), singleLine = true,
+            textStyle = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, color = p.text), cursorBrush = SolidColor(p.accent), keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search), keyboardActions = KeyboardActions(onSearch = { tab.web?.findNext(true) }))
+        Text(if (tab.findCount == 0) "0" else "${tab.findIndex}/${tab.findCount}", Modifier.padding(horizontal = 8.dp), color = p.secondaryText)
+        IconButton(onClick = { tab.web?.findNext(false) }) { Icon(WonderIcons.ArrowBack, "Previous", Modifier.rotate(90f)) }
+        IconButton(onClick = { tab.web?.findNext(true) }) { Icon(WonderIcons.ArrowBack, "Next", Modifier.rotate(-90f)) }
+        IconButton(onClick = { tab.web?.clearMatches(); tab.findText = null }) { Icon(WonderIcons.Close, "Close") }
+    }
+}
+
+@Composable
+private fun Suggestions(tab: Tab) {
+    val p = wonderPalette()
+    val q = Hooks.typing.trim()
+    val hits = remember(q) {
+        (Library.bookmarks.all() + Library.history.all()).filter { it.url.contains(q, true) || it.title.contains(q, true) }.distinctBy { it.url }.take(6)
+    }
+    Column(Modifier.fillMaxWidth().background(p.window).border(1.dp, p.panelBorder)) {
+        Row(Modifier.fillMaxWidth().clickable { Hooks.typing = ""; tab.go(q) }.padding(14.dp), verticalAlignment = Alignment.CenterVertically) { Icon(WonderIcons.Search, null, tint = p.accent); Spacer(Modifier.width(12.dp)); Text("Search for “$q”", maxLines = 1, overflow = TextOverflow.Ellipsis) }
+        hits.forEach { e -> Row(Modifier.fillMaxWidth().clickable { Hooks.typing = ""; tab.go(e.url) }.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+            Icon(WonderIcons.History, null, tint = p.secondaryText); Spacer(Modifier.width(12.dp))
+            Column { Text(e.title.ifBlank { e.url }, maxLines = 1, overflow = TextOverflow.Ellipsis); Text(e.url, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall, color = p.secondaryText) } } }
+    }
+}
+
+@Composable
+private fun LinkMenu(c: Hooks.Ctx, close: () -> Unit) {
+    val context = LocalContext.current
+    WonderDialog(onDismissRequest = close, title = { Text(c.url.take(80), maxLines = 2, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall) }, text = {
+        Panel {
+            if (!c.image) {
+                ListRow("Open in a new tab", icon = WonderIcons.Add, onClick = { close(); Browser.open(context, c.url, veil = c.veil) }); PanelDivider()
+                ListRow("Open in a new Veil tab", icon = WonderIcons.VisibilityOff, onClick = { close(); Browser.open(context, c.url, veil = true) }); PanelDivider()
+            } else { ListRow("Open image in a new tab", icon = WonderIcons.Add, onClick = { close(); Browser.open(context, c.url, veil = c.veil) }); PanelDivider()
+                ListRow("Download image", icon = WonderIcons.Download, onClick = { close(); runCatching { context.getSystemService(DownloadManager::class.java).enqueue(DownloadManager.Request(Uri.parse(c.url)).setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED).setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, URLUtil.guessFileName(c.url, null, null))) ; Hooks.toast("Downloading") } }); PanelDivider() }
+            ListRow("Copy address", icon = WonderIcons.ContentCopy, onClick = { close(); context.getSystemService(android.content.ClipboardManager::class.java).setPrimaryClip(android.content.ClipData.newPlainText("Link", c.url)); Hooks.toast("Copied") }); PanelDivider()
+            ListRow("Share", icon = WonderIcons.Share, onClick = { close(); context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, c.url), "Share").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) })
+        }
+    }, confirmButton = { TextButton(onClick = close) { Text("Close") } })
+}
+
+@Composable
+private fun DownloadsScreen(onBack: () -> Unit) {
+    val context = LocalContext.current
+    val p = wonderPalette()
+    var tick by remember { mutableIntStateOf(0) }
+    val items = remember(tick) {
+        val out = mutableListOf<Triple<String, String, Long>>()
+        runCatching { context.getSystemService(DownloadManager::class.java).query(DownloadManager.Query().setFilterByStatus(DownloadManager.STATUS_SUCCESSFUL or DownloadManager.STATUS_RUNNING or DownloadManager.STATUS_PENDING or DownloadManager.STATUS_FAILED))?.use { c ->
+            while (c.moveToNext()) out += Triple(c.getString(c.getColumnIndexOrThrow(DownloadManager.COLUMN_TITLE)) ?: "File", c.getString(c.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI)) ?: "", c.getLong(c.getColumnIndexOrThrow(DownloadManager.COLUMN_ID)))
+        } }
+        out.reversed()
+    }
+    WonderScreen("Downloads", onBack, actions = { TextButton(onClick = { runCatching { context.startActivity(Intent(DownloadManager.ACTION_VIEW_DOWNLOADS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } }) { Text("Open folder", color = Color.White) } }) {
+        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(12.dp)) {
+            items(items, key = { it.third }) { (name, uri, id) ->
+                Row(Modifier.fillMaxWidth().clickable { runCatching { context.startActivity(Intent(Intent.ACTION_VIEW).setDataAndType(context.getSystemService(DownloadManager::class.java).getUriForDownloadedFile(id), context.getSystemService(DownloadManager::class.java).getMimeTypeForDownloadedFile(id)).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)) } }.padding(vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Icon(WonderIcons.Download, null, tint = p.accent); Spacer(Modifier.width(12.dp)); Text(name, Modifier.weight(1f), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    IconButton(onClick = { context.getSystemService(DownloadManager::class.java).remove(id); tick++ }) { Icon(WonderIcons.Delete, "Remove") }
+                }
+            }
+            if (items.isEmpty()) item { Text("No downloads yet.", color = p.secondaryText, modifier = Modifier.padding(24.dp)) }
+        }
+    }
+}
+
+private fun Modifier.androidx_focus(f: androidx.compose.ui.focus.FocusRequester) = this.then(Modifier.focusRequester(f))

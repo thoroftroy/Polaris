@@ -177,6 +177,9 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
     var blocked by mutableIntStateOf(0)
     var favicon by mutableStateOf<Bitmap?>(null)
     var web: WebView? = null
+    var findText by mutableStateOf<String?>(null)
+    var findCount by mutableIntStateOf(0)
+    var findIndex by mutableIntStateOf(0)
     var pendingUrl: String? = null
     val isStart get() = url.isEmpty()
 
@@ -187,7 +190,7 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
             settings.javaScriptEnabled = true; settings.domStorageEnabled = true; settings.databaseEnabled = true
             settings.setSupportZoom(true); settings.builtInZoomControls = true; settings.displayZoomControls = false
             settings.loadWithOverviewMode = true; settings.useWideViewPort = true; settings.mediaPlaybackRequiresUserGesture = true
-            settings.allowFileAccess = false; settings.setGeolocationEnabled(true); settings.javaScriptCanOpenWindowsAutomatically = false
+            settings.allowFileAccess = false; settings.setGeolocationEnabled(true); settings.javaScriptCanOpenWindowsAutomatically = true; settings.setSupportMultipleWindows(true); settings.safeBrowsingEnabled = true
             settings.mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
             settings.textZoom = Prefs.textZoom(appContext)
             settings.saveFormData = !veil
