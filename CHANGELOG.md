@@ -1,5 +1,9 @@
 # Polaris changelog
 
+## v0.4.1
+
+- Polaris keeps its own icon in the Wonderdesk Launcher and App Hub (the size-shrinking step was removing the artwork they look up)
+
 ## v0.4.0
 
 - Extension store: search and browse Mozilla's add-on site from inside Polaris (recommended extensions first), see icons, ratings and user counts, and add one with a permission prompt
