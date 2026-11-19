@@ -1,5 +1,12 @@
 # Polaris changelog
 
+## v0.4.3
+
+- Saved logins: Polaris now lets Android autofill see login boxes, so Wonderdesk Vault can offer your saved passwords and save new ones (turn Vault on as the autofill service in Android settings)
+- The ⋮ menu opens right under its button instead of in the wrong place
+- Extension buttons are in the ⋮ menu, and extension pop-ups open in a larger, tidier window with a close button
+- Start page: pin sites (⋮ menu, then Pin to start page), long-press a tile for options, and Customize this page to show or hide pinned sites, bookmarks, recent pages and the Normal/Veil switch, and to set tiles per row
+
 ## v0.4.2
 
 - The start page has a Normal / Veil switch for the tab you are on, and a switch for whether new tabs start in Veil

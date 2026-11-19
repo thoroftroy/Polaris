@@ -44,7 +44,7 @@ object Gecko {
             .cookieBehavior(ContentBlocking.CookieBehavior.ACCEPT_NON_TRACKERS)
             .cookieBehaviorPrivateMode(ContentBlocking.CookieBehavior.ACCEPT_FIRST_PARTY_AND_ISOLATE_OTHERS)
             .safeBrowsing(ContentBlocking.SafeBrowsing.DEFAULT).build()
-        val b = GeckoRuntimeSettings.Builder().contentBlocking(cb).aboutConfigEnabled(true).consoleOutput(false)
+        val b = GeckoRuntimeSettings.Builder().contentBlocking(cb).aboutConfigEnabled(true).consoleOutput(false).loginAutofillEnabled(true)
             .preferredColorScheme(GeckoRuntimeSettings.COLOR_SCHEME_SYSTEM)
         // Routing everything through Tor (Orbot's local proxy) is a startup setting.
         if (Prefs.tor(app)) {

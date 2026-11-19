@@ -32,6 +32,12 @@ object Prefs {
     fun uaKey(c: Context) = p(c).getString("ua", "default") ?: "default"
     fun clearOnExit(c: Context) = p(c).getBoolean("clearOnExit", false)
     fun textZoom(c: Context) = p(c).getInt("textZoom", 100)
+    // Start page
+    fun homePins(c: Context) = p(c).getBoolean("homePins", true)
+    fun homeBookmarks(c: Context) = p(c).getBoolean("homeBookmarks", true)
+    fun homeRecent(c: Context) = p(c).getBoolean("homeRecent", true)
+    fun homeVeilSwitch(c: Context) = p(c).getBoolean("homeVeilSwitch", true)
+    fun homeColumns(c: Context) = p(c).getInt("homeColumns", 4)
 }
 
 /** Which browser the page is told it is talking to. */
@@ -86,7 +92,8 @@ class EntryStore(private val file: File, private val cap: Int) {
 object Library {
     lateinit var history: EntryStore
     lateinit var bookmarks: EntryStore
-    fun init(c: Context) { if (!::history.isInitialized) { history = EntryStore(File(c.filesDir, "history.json"), 20000); bookmarks = EntryStore(File(c.filesDir, "bookmarks.json"), 5000) } }
+    lateinit var pins: EntryStore
+    fun init(c: Context) { if (!::history.isInitialized) { history = EntryStore(File(c.filesDir, "history.json"), 20000); bookmarks = EntryStore(File(c.filesDir, "bookmarks.json"), 5000); pins = EntryStore(File(c.filesDir, "pins.json"), 40) } }
 
     /** Reads the standard bookmarks file every browser can export (Chrome, Firefox, Edge, Safari, Brave). */
     fun importHtml(html: String): List<Entry> = Regex("<A\\s+[^>]*?HREF=\"([^\"]+)\"[^>]*>(.*?)</A>", setOf(RegexOption.IGNORE_CASE, RegexOption.DOT_MATCHES_ALL)).findAll(html)

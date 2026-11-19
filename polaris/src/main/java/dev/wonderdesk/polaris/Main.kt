@@ -60,6 +60,7 @@ import java.util.Date
 /** Things the page asks for that need the screen: leaving for an app, full-screen video, permissions, file pickers. */
 object Hooks {
     class AppAsk(val url: String, val host: String, val label: String, val pkg: String)
+    var extQuick by mutableStateOf(false)
     var appAsk by mutableStateOf<AppAsk?>(null)
     class Ctx(val url: String, val image: Boolean, val veil: Boolean)
     var ctxMenu by mutableStateOf<Ctx?>(null)
@@ -175,7 +176,7 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
             Screen.Sites -> SitesScreen(onBack = { screen = Screen.Settings })
             Screen.Browser -> Column(Modifier.fillMaxSize()) {
                 if (tab != null) {
-                    if (!Hooks.fullscreen) TopBar(tab, onMenu = { menu = true }, onHome = { tab.session.stop(); tab.url = ""; tab.title = "" })
+                    if (!Hooks.fullscreen) TopBar(tab, onMenu = { menu = true }, onHome = { tab.session.stop(); tab.url = ""; tab.title = "" }, menuOpen = menu, menuContent = { DropdownMenu(menu, { menu = false }, Modifier.background(p.panel)) { BrowserMenu(tab, { menu = false }, { screen = it }, { siteDialog = true }) } })
                     Box(Modifier.weight(1f).fillMaxWidth()) {
                         if (tab.isStart) StartPage(tab) else key(tab.id) {
                             AndroidView({ ctx -> org.mozilla.geckoview.GeckoView(ctx).also { gv -> gv.setAutofillEnabled(true); tab.ensureOpen(); gv.setSession(tab.session); tab.view = gv
@@ -183,7 +184,6 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
                                 Modifier.fillMaxSize(), update = { gv -> if (gv.session !== tab.session) { gv.releaseSession(); tab.ensureOpen(); gv.setSession(tab.session); tab.view = gv } })
                         }
                         if (Hooks.typing.isNotBlank()) Suggestions(tab)
-                        DropdownMenu(menu, { menu = false }, Modifier.background(p.panel)) { BrowserMenu(tab, { menu = false }, { screen = it }, { siteDialog = true }) }
                     }
                     tab.findText?.let { FindBar(tab) }
                     BottomBar(tab, onTabs = { screen = Screen.Tabs })
@@ -201,13 +201,20 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
         })
     }
     if (siteDialog && tab != null) SiteDialog(tab) { siteDialog = false }
+    if (Hooks.extQuick) WonderDialog(onDismissRequest = { Hooks.extQuick = false }, title = { Text("Extension buttons") }, text = {
+        Panel {
+            val list = Gecko.extensions.toList().filter { Gecko.actions[it.id] != null }
+            if (list.isEmpty()) Text("No extension has a button yet.", Modifier.padding(14.dp))
+            list.forEachIndexed { i, e -> if (i > 0) PanelDivider(); ListRow(e.metaData.name ?: e.id, icon = WonderIcons.Widgets, onClick = { Hooks.extQuick = false; Gecko.markActive(); Gecko.actions[e.id]?.click() }) }
+        }
+    }, confirmButton = { TextButton(onClick = { Hooks.extQuick = false }) { Text("Close") } })
     Hooks.ctxMenu?.let { c -> LinkMenu(c) { Hooks.ctxMenu = null } }
     Hooks.ask?.let { a -> AskDialog(a) { Hooks.ask = null } }
     Gecko.popup?.let { ps -> PopupDialog(ps) { Gecko.popup = null } }
 }
 
 @Composable
-private fun TopBar(tab: Tab, onMenu: () -> Unit, onHome: () -> Unit) {
+private fun TopBar(tab: Tab, onMenu: () -> Unit, onHome: () -> Unit, menuOpen: Boolean = false, menuContent: @Composable () -> Unit = {}) {
     val context = LocalContext.current
     val p = wonderPalette()
     var text by remember(tab.id, tab.url) { mutableStateOf(tab.url) }
@@ -226,7 +233,7 @@ private fun TopBar(tab: Tab, onMenu: () -> Unit, onHome: () -> Unit) {
                     IconButton(onClick = { if (star) Library.bookmarks.remove(tab.url) else Library.bookmarks.add(Entry(tab.url, tab.title.ifBlank { tab.url }, System.currentTimeMillis()), unique = true); star = !star }, Modifier.size(28.dp)) { Icon(if (star) WonderIcons.Star else WonderIcons.StarBorder, "Bookmark", Modifier.size(18.dp), tint = if (star) Color(0xFFF2A516) else Color(0xFF444444)) } }
                 IconButton(onClick = { if (tab.loading) tab.session.stop() else tab.session.reload() }, Modifier.size(28.dp)) { Icon(if (tab.loading) WonderIcons.Close else WonderIcons.Refresh, null, Modifier.size(18.dp), tint = Color(0xFF444444)) }
             }
-            IconButton(onClick = onMenu) { Icon(WonderIcons.MoreVert, "Menu", tint = Color.White) }
+            Box { IconButton(onClick = onMenu) { Icon(WonderIcons.MoreVert, "Menu", tint = Color.White) }; menuContent() }
         }
         if (tab.loading) LinearProgressIndicator(progress = { tab.progress / 100f }, Modifier.fillMaxWidth().height(2.dp), color = Color.White, trackColor = Color.Transparent)
         else Spacer(Modifier.height(2.dp))
@@ -253,6 +260,8 @@ private fun BrowserMenu(tab: Tab, close: () -> Unit, go: (Screen) -> Unit, site:
     if (tab.url.startsWith("http")) item(if (bookmarked) "Remove bookmark" else "Bookmark this page", if (bookmarked) WonderIcons.Bookmark else WonderIcons.BookmarkBorder) {
         if (bookmarked) Library.bookmarks.remove(tab.url) else Library.bookmarks.add(Entry(tab.url, tab.title.ifBlank { tab.url }, System.currentTimeMillis()), unique = true)
     }()
+    if (tab.url.startsWith("http")) { val pinned = Library.pins.all().any { it.url == tab.url }
+        item(if (pinned) "Unpin from start page" else "Pin to start page", WonderIcons.PushPin) { if (pinned) Library.pins.remove(tab.url) else Library.pins.add(Entry(tab.url, tab.title.ifBlank { tab.url }, System.currentTimeMillis()), unique = true) }() }
     item("Bookmarks", WonderIcons.Star) { go(Screen.Bookmarks) }()
     item("History", WonderIcons.History) { go(Screen.History) }()
     item("Downloads", WonderIcons.Download) { go(Screen.Downloads) }()
@@ -261,6 +270,7 @@ private fun BrowserMenu(tab: Tab, close: () -> Unit, go: (Screen) -> Unit, site:
     item("This site…", WonderIcons.Tune, site)()
     item("Find in page", WonderIcons.Search) { tab.findText = "" }()
     item("uBlock Origin", WonderIcons.Shield) { Gecko.ubo?.let { u -> Browser.open(context, u.metaData.baseUrl + "dashboard.html", veil = false) } ?: Hooks.toast("uBlock Origin is still starting") }()
+    item("Extension buttons", WonderIcons.Widgets) { Hooks.extQuick = true }()
     item("Extensions", WonderIcons.Apps) { go(Screen.Extensions) }()
     item("Add to home screen", WonderIcons.Apps) { addToHome(context, tab) }()
     item("Screenshot", WonderIcons.PhotoCamera) { screenshot(context, tab) }()
@@ -290,32 +300,53 @@ private fun SiteDialog(tab: Tab, onDismiss: () -> Unit) {
     }, confirmButton = { TextButton(onClick = onDismiss) { Text("Done") } })
 }
 
+@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 private fun StartPage(tab: Tab) {
     val context = LocalContext.current
     val p = wonderPalette()
     var q by remember { mutableStateOf("") }
-    val marks = remember { Library.bookmarks.all().take(8) }
-    val recent = remember { Library.history.all().distinctBy { it.url }.take(5) }
+    var rev by remember { mutableStateOf(0) }
+    var customize by remember { mutableStateOf(false) }
+    val cols = remember(rev) { Prefs.homeColumns(context) }
+    val pins = remember(rev) { if (Prefs.homePins(context)) Library.pins.all().take(cols * 3) else emptyList() }
+    val marks = remember(rev) { if (Prefs.homeBookmarks(context)) Library.bookmarks.all().filter { m -> pins.none { it.url == m.url } }.take(cols * 2) else emptyList() }
+    val recent = remember(rev) { if (Prefs.homeRecent(context)) Library.history.all().distinctBy { it.url }.take(5) else emptyList() }
+    var menuFor by remember { mutableStateOf<Pair<Entry, Boolean>?>(null) }
+    @Composable fun ColumnScope.tiles(title: String, list: List<Entry>, isPin: Boolean) {
+        if (list.isEmpty()) return
+        Spacer(Modifier.height(22.dp))
+        Text(title, Modifier.align(Alignment.Start), color = Color.White.copy(alpha = .8f), style = MaterialTheme.typography.labelLarge)
+        list.chunked(cols).forEach { row ->
+            Row(Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                row.forEach { m -> Column(Modifier.weight(1f).clip(RoundedCornerShape(14.dp)).combinedClickable(onClick = { tab.go(m.url) }, onLongClick = { menuFor = m to isPin }).padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Box(Modifier.size(48.dp).clip(CircleShape).background(Color.White.copy(alpha = .2f)), contentAlignment = Alignment.Center) { Text((m.title.firstOrNull() ?: '•').uppercase(), color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold) }
+                    Text(m.title.ifBlank { m.url }, color = Color.White, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp))
+                } }
+                repeat(cols - row.size) { Spacer(Modifier.weight(1f)) }
+            }
+        }
+    }
     Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(p.accent.darken(.45f), p.accent.darken(.2f), p.window)))) {
         Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(Modifier.height(36.dp))
             Image(androidx.compose.ui.res.painterResource(dev.wonderdesk.shared.R.drawable.wonderdesk_polaris_icon), "Polaris", Modifier.size(96.dp))
             Text("Polaris", Modifier.padding(top = 8.dp), style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.SemiBold), color = Color.White)
             Text(if (tab.veil) "Veil tab: nothing from here is remembered" else "Search with ${Prefs.engine(context)}", color = Color.White.copy(alpha = .75f), style = MaterialTheme.typography.bodyMedium)
-            Spacer(Modifier.height(14.dp))
-            // Veil on or off for this tab, and whether new tabs start in Veil.
-            var startVeil by remember { mutableStateOf(Prefs.veilDefault(context)) }
-            Row(Modifier.clip(RoundedCornerShape(22.dp)).background(Color.White.copy(alpha = .16f)).padding(4.dp)) {
-                listOf(false to "Normal", true to "Veil").forEach { (v, label) ->
-                    Text(label, Modifier.clip(RoundedCornerShape(18.dp)).background(if (tab.veil == v) (if (v) Color(0xFF5B4BC4) else Color.White) else Color.Transparent)
-                        .clickable { if (tab.veil != v) { val old = tab; Browser.open(context, veil = v); Browser.tabs.indexOf(old).let { i -> if (i >= 0) Browser.close(i) }; Browser.current = Browser.tabs.lastIndex } }.padding(horizontal = 22.dp, vertical = 8.dp),
-                        color = if (tab.veil == v) (if (v) Color.White else Color(0xFF1E3A8A)) else Color.White, fontWeight = FontWeight.SemiBold)
+            if (Prefs.homeVeilSwitch(context)) {
+                Spacer(Modifier.height(14.dp))
+                var startVeil by remember { mutableStateOf(Prefs.veilDefault(context)) }
+                Row(Modifier.clip(RoundedCornerShape(22.dp)).background(Color.White.copy(alpha = .16f)).padding(4.dp)) {
+                    listOf(false to "Normal", true to "Veil").forEach { (v, label) ->
+                        Text(label, Modifier.clip(RoundedCornerShape(18.dp)).background(if (tab.veil == v) (if (v) Color(0xFF5B4BC4) else Color.White) else Color.Transparent)
+                            .clickable { if (tab.veil != v) { val old = tab; Browser.open(context, veil = v); Browser.tabs.indexOf(old).let { i -> if (i >= 0) Browser.close(i) }; Browser.current = Browser.tabs.lastIndex } }.padding(horizontal = 22.dp, vertical = 8.dp),
+                            color = if (tab.veil == v) (if (v) Color.White else Color(0xFF1E3A8A)) else Color.White, fontWeight = FontWeight.SemiBold)
+                    }
                 }
-            }
-            Row(Modifier.padding(top = 8.dp).clickable { startVeil = !startVeil; Prefs.p(context).edit().putBoolean("veilDefault", startVeil).apply() }, verticalAlignment = Alignment.CenterVertically) {
-                Switch(startVeil, { startVeil = it; Prefs.p(context).edit().putBoolean("veilDefault", it).apply() }, Modifier.scale(.8f))
-                Text("Start new tabs in Veil", color = Color.White.copy(alpha = .85f), style = MaterialTheme.typography.bodySmall)
+                Row(Modifier.padding(top = 8.dp).clickable { startVeil = !startVeil; Prefs.p(context).edit().putBoolean("veilDefault", startVeil).apply() }, verticalAlignment = Alignment.CenterVertically) {
+                    Switch(startVeil, { startVeil = it; Prefs.p(context).edit().putBoolean("veilDefault", it).apply() }, Modifier.scale(.8f))
+                    Text("Start new tabs in Veil", color = Color.White.copy(alpha = .85f), style = MaterialTheme.typography.bodySmall)
+                }
             }
             Spacer(Modifier.height(14.dp))
             Row(Modifier.fillMaxWidth().height(50.dp).clip(RoundedCornerShape(25.dp)).background(Color.White.copy(alpha = .95f)).padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -324,26 +355,42 @@ private fun StartPage(tab: Tab) {
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search), keyboardActions = KeyboardActions(onSearch = { if (q.isNotBlank()) tab.go(q) }),
                     decorationBox = { inner -> if (q.isEmpty()) Text("Search or type a web address", color = Color(0xFF888888), fontSize = 17.sp); inner() })
             }
-            if (marks.isNotEmpty()) {
-                Spacer(Modifier.height(26.dp))
-                Text("Bookmarks", Modifier.align(Alignment.Start), color = Color.White.copy(alpha = .8f), style = MaterialTheme.typography.labelLarge)
-                marks.chunked(4).forEach { row ->
-                    Row(Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        row.forEach { m -> Column(Modifier.weight(1f).clip(RoundedCornerShape(14.dp)).clickable { tab.go(m.url) }.padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                            Box(Modifier.size(48.dp).clip(CircleShape).background(Color.White.copy(alpha = .2f)), contentAlignment = Alignment.Center) { Text((m.title.firstOrNull() ?: '•').uppercase(), color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold) }
-                            Text(m.title.ifBlank { m.url }, color = Color.White, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp))
-                        } }
-                        repeat(4 - row.size) { Spacer(Modifier.weight(1f)) }
-                    }
-                }
-            }
+            tiles("Pinned", pins, true)
+            tiles("Bookmarks", marks, false)
             if (recent.isNotEmpty() && !tab.veil) {
                 Spacer(Modifier.height(22.dp))
                 Text("Recently visited", Modifier.align(Alignment.Start), color = Color.White.copy(alpha = .8f), style = MaterialTheme.typography.labelLarge)
                 recent.forEach { e -> Text(e.title.ifBlank { e.url }, Modifier.fillMaxWidth().clickable { tab.go(e.url) }.padding(vertical = 8.dp), color = Color.White, maxLines = 1, overflow = TextOverflow.Ellipsis) }
             }
+            Spacer(Modifier.height(24.dp))
+            Text("Customize this page", Modifier.clip(RoundedCornerShape(18.dp)).clickable { customize = true }.background(Color.White.copy(alpha = .16f)).padding(horizontal = 18.dp, vertical = 9.dp), color = Color.White, fontWeight = FontWeight.SemiBold)
+            Spacer(Modifier.height(20.dp))
         }
     }
+    menuFor?.let { (e, isPin) ->
+        WonderDialog(onDismissRequest = { menuFor = null }, title = { Text(e.title.ifBlank { e.url }, maxLines = 1) }, text = {
+            Panel {
+                ListRow("Open in a new tab", icon = WonderIcons.OpenInNew, onClick = { menuFor = null; Browser.open(context, veil = tab.veil).go(e.url) }); PanelDivider()
+                if (isPin) ListRow("Unpin", icon = WonderIcons.PushPin, onClick = { Library.pins.remove(e.url); menuFor = null; rev++ })
+                else { ListRow("Pin to the top", icon = WonderIcons.PushPin, onClick = { Library.pins.add(e, unique = true); menuFor = null; rev++ }); PanelDivider()
+                    ListRow("Remove bookmark", icon = WonderIcons.Delete, danger = true, onClick = { Library.bookmarks.remove(e.url); menuFor = null; rev++ }) }
+            }
+        }, confirmButton = { TextButton(onClick = { menuFor = null }) { Text("Close") } })
+    }
+    if (customize) WonderDialog(onDismissRequest = { customize = false; rev++ }, title = { Text("Customize the start page") }, text = {
+        Column(Modifier.verticalScroll(rememberScrollState())) {
+            Panel {
+                fun sw(label: String, key: String, def: Boolean, sub: String? = null): @Composable () -> Unit = { var on by remember { mutableStateOf(Prefs.p(context).getBoolean(key, def)) }; SwitchRow(label, on, { on = it; Prefs.p(context).edit().putBoolean(key, it).apply() }, subtitle = sub) }
+                sw("Pinned sites", "homePins", true, "Pin a page from the ⋮ menu")(); PanelDivider()
+                sw("Bookmarks", "homeBookmarks", true)(); PanelDivider()
+                sw("Recently visited", "homeRecent", true, "Never shown in Veil tabs")(); PanelDivider()
+                sw("Normal / Veil switch", "homeVeilSwitch", true)()
+            }
+            Text("Tiles per row", Modifier.padding(top = 12.dp, bottom = 6.dp), style = MaterialTheme.typography.labelLarge)
+            var c by remember { mutableStateOf(Prefs.homeColumns(context)) }
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) { listOf(3, 4, 5, 6).forEach { n -> Chip("$n", c == n, { c = n; Prefs.p(context).edit().putInt("homeColumns", n).apply() }) } }
+        }
+    }, confirmButton = { TextButton(onClick = { customize = false; rev++ }) { Text("Done") } })
 }
 
 @Composable
@@ -609,9 +656,16 @@ private fun AskDialog(a: Ask, close: () -> Unit) {
 
 @Composable
 private fun PopupDialog(session: org.mozilla.geckoview.GeckoSession, close: () -> Unit) {
-    androidx.compose.ui.window.Dialog(onDismissRequest = close) {
-        Box(Modifier.fillMaxWidth().height(520.dp).clip(RoundedCornerShape(16.dp)).background(Color.White)) {
-            AndroidView({ ctx -> org.mozilla.geckoview.GeckoView(ctx).also { gv -> if (!session.isOpen) session.open(Gecko.runtime); gv.setSession(session) } }, Modifier.fillMaxSize())
+    val p = wonderPalette()
+    androidx.compose.ui.window.Dialog(onDismissRequest = close, properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false)) {
+        Column(Modifier.fillMaxWidth(.94f).fillMaxHeight(.78f).clip(RoundedCornerShape(18.dp)).background(p.panel)) {
+            Row(Modifier.fillMaxWidth().padding(start = 16.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text("Extension", Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
+                IconButton(onClick = close) { Icon(WonderIcons.Close, "Close") }
+            }
+            Box(Modifier.weight(1f).fillMaxWidth().background(Color.White)) {
+                AndroidView({ ctx -> org.mozilla.geckoview.GeckoView(ctx).also { gv -> if (!session.isOpen) session.open(Gecko.runtime); gv.setSession(session) } }, Modifier.fillMaxSize())
+            }
         }
     }
 }
