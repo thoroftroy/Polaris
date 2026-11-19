@@ -219,6 +219,7 @@ private fun TopBar(tab: Tab, onMenu: () -> Unit, onHome: () -> Unit, menuOpen: B
     val p = wonderPalette()
     var text by remember(tab.id, tab.url) { mutableStateOf(tab.url) }
     var focused by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) { Hooks.typing = "" }
     Column(Modifier.fillMaxWidth().background(Brush.verticalGradient(listOf(p.accent.lighten(.25f), p.accent, p.accent.darken(.12f)))).statusBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onHome) { Icon(WonderIcons.Home, "Start page", tint = Color.White) }

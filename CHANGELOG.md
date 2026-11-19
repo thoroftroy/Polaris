@@ -1,5 +1,9 @@
 # Polaris changelog
 
+## v0.4.5
+
+- Fixed an old search suggestion sometimes staying on the address bar after you left it
+
 ## v0.4.4
 
 - Typing in the address bar is smooth: suggestions are looked up in the background instead of freezing the screen on every key, and browsing history is saved quietly in the background instead of during page loads
