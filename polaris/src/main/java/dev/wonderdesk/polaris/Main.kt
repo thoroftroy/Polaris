@@ -179,11 +179,11 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
                     if (!Hooks.fullscreen) TopBar(tab, onMenu = { menu = true }, onHome = { tab.session.stop(); tab.url = ""; tab.title = "" }, menuOpen = menu, menuContent = { DropdownMenu(menu, { menu = false }, Modifier.background(p.panel)) { BrowserMenu(tab, { menu = false }, { screen = it }, { siteDialog = true }) } })
                     Box(Modifier.weight(1f).fillMaxWidth()) {
                         if (tab.isStart) StartPage(tab) else key(tab.id) {
-                            AndroidView({ ctx -> org.mozilla.geckoview.GeckoView(ctx).also { gv -> gv.setAutofillEnabled(true); tab.ensureOpen(); gv.setSession(tab.session); tab.view = gv
+                            AndroidView({ ctx -> org.mozilla.geckoview.GeckoView(ctx).also { gv -> gv.setAutofillEnabled(true); gv.importantForAutofill = android.view.View.IMPORTANT_FOR_AUTOFILL_YES; tab.ensureOpen(); gv.setSession(tab.session); tab.view = gv
                                 tab.session.setSelectionActionDelegate(org.mozilla.geckoview.BasicSelectionActionDelegate(act)) } },
                                 Modifier.fillMaxSize(), update = { gv -> if (gv.session !== tab.session) { gv.releaseSession(); tab.ensureOpen(); gv.setSession(tab.session); tab.view = gv } })
                         }
-                        if (Hooks.typing.isNotBlank()) Suggestions(tab)
+                        Suggestions(tab)
                     }
                     tab.findText?.let { FindBar(tab) }
                     BottomBar(tab, onTabs = { screen = Screen.Tabs })
@@ -362,10 +362,9 @@ private fun StartPage(tab: Tab) {
                 Text("Recently visited", Modifier.align(Alignment.Start), color = Color.White.copy(alpha = .8f), style = MaterialTheme.typography.labelLarge)
                 recent.forEach { e -> Text(e.title.ifBlank { e.url }, Modifier.fillMaxWidth().clickable { tab.go(e.url) }.padding(vertical = 8.dp), color = Color.White, maxLines = 1, overflow = TextOverflow.Ellipsis) }
             }
-            Spacer(Modifier.height(24.dp))
-            Text("Customize this page", Modifier.clip(RoundedCornerShape(18.dp)).clickable { customize = true }.background(Color.White.copy(alpha = .16f)).padding(horizontal = 18.dp, vertical = 9.dp), color = Color.White, fontWeight = FontWeight.SemiBold)
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(48.dp))
         }
+        Icon(WonderIcons.Tune, "Customize this page", Modifier.align(Alignment.BottomEnd).padding(12.dp).size(34.dp).clip(CircleShape).clickable { customize = true }.background(Color.White.copy(alpha = .14f)).padding(7.dp), tint = Color.White.copy(alpha = .75f))
     }
     menuFor?.let { (e, isPin) ->
         WonderDialog(onDismissRequest = { menuFor = null }, title = { Text(e.title.ifBlank { e.url }, maxLines = 1) }, text = {
@@ -574,10 +573,14 @@ private fun FindBar(tab: Tab) {
 
 @Composable
 private fun Suggestions(tab: Tab) {
-    val p = wonderPalette()
     val q = Hooks.typing.trim()
-    val hits = remember(q) {
-        (Library.bookmarks.all() + Library.history.all()).filter { it.url.contains(q, true) || it.title.contains(q, true) }.distinctBy { it.url }.take(6)
+    if (q.isBlank()) return
+    val p = wonderPalette()
+    var hits by remember { mutableStateOf<List<Entry>>(emptyList()) }
+    // Looked up off the main thread after a short pause, so typing never waits for the history.
+    LaunchedEffect(q) {
+        kotlinx.coroutines.delay(70)
+        hits = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { (Library.bookmarks.search(q, 3) + Library.history.search(q, 6)).distinctBy { it.url }.take(6) }
     }
     Column(Modifier.fillMaxWidth().background(p.window).border(1.dp, p.panelBorder)) {
         Row(Modifier.fillMaxWidth().clickable { Hooks.typing = ""; tab.go(q) }.padding(14.dp), verticalAlignment = Alignment.CenterVertically) { Icon(WonderIcons.Search, null, tint = p.accent); Spacer(Modifier.width(12.dp)); Text("Search for “$q”", maxLines = 1, overflow = TextOverflow.Ellipsis) }

@@ -1,5 +1,11 @@
 # Polaris changelog
 
+## v0.4.4
+
+- Typing in the address bar is smooth: suggestions are looked up in the background instead of freezing the screen on every key, and browsing history is saved quietly in the background instead of during page loads
+- Saved logins: Polaris now tells Android its pages have login boxes, so Wonderdesk Vault's suggestion appears under the username and password fields (with Vault v0.6.19 or newer)
+- The Customize button on the start page is now a small icon in the bottom corner
+
 ## v0.4.3
 
 - Saved logins: Polaris now lets Android autofill see login boxes, so Wonderdesk Vault can offer your saved passwords and save new ones (turn Vault on as the autofill service in Android settings)

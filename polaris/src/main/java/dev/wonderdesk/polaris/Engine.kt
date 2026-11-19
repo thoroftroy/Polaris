@@ -82,7 +82,24 @@ data class Entry(val url: String, val title: String, val at: Long)
 class EntryStore(private val file: File, private val cap: Int) {
     private var cache: MutableList<Entry>? = null
     @Synchronized fun all(): List<Entry> = cache ?: (runCatching { JSONArray(file.readText()).let { a -> (0 until a.length()).map { a.getJSONObject(it).let { o -> Entry(o.getString("u"), o.optString("t"), o.optLong("a")) } } } }.getOrDefault(emptyList())).toMutableList().also { cache = it }
-    @Synchronized fun save() { val l = cache ?: return; file.writeText(JSONArray(l.map { JSONObject().put("u", it.url).put("t", it.title).put("a", it.at) }).toString()) }
+    /** Writing the whole file takes a moment, so it happens in the background a little after the last change, never while you are browsing. */
+    private var pendingSave: java.util.concurrent.ScheduledFuture<*>? = null
+    @Synchronized fun save() {
+        pendingSave?.cancel(false)
+        pendingSave = writer.schedule({ flushNow() }, 1500, java.util.concurrent.TimeUnit.MILLISECONDS)
+    }
+    private fun flushNow() {
+        val snapshot = synchronized(this) { cache?.toList() } ?: return
+        runCatching { file.writeText(JSONArray(snapshot.map { JSONObject().put("u", it.url).put("t", it.title).put("a", it.at) }).toString()) }
+    }
+    /** First few entries whose address or title contains [q], newest first. Stops as soon as it has enough. */
+    fun search(q: String, max: Int): List<Entry> {
+        val snapshot = synchronized(this) { all().toList() }
+        val out = ArrayList<Entry>(max)
+        for (e in snapshot) { if (e.url.contains(q, true) || e.title.contains(q, true)) { if (out.none { it.url == e.url }) out.add(e); if (out.size >= max) break } }
+        return out
+    }
+    companion object { private val writer = java.util.concurrent.Executors.newSingleThreadScheduledExecutor { r -> Thread(r, "polaris-store").apply { isDaemon = true } } }
     @Synchronized fun add(e: Entry, unique: Boolean) { all(); val l = cache!!; if (unique) l.removeAll { it.url == e.url }; l.add(0, e); while (l.size > cap) l.removeAt(l.lastIndex); save() }
     @Synchronized fun remove(url: String) { all(); cache!!.removeAll { it.url == url }; save() }
     @Synchronized fun clear() { all(); cache!!.clear(); save() }
