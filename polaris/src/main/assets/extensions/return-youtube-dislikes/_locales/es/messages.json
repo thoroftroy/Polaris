@@ -1,0 +1,1022 @@
+{
+  "colorTheme": {
+    "message": "Combinación de colores:"
+  },
+  "colorizeRatio": {
+    "message": "Colorear barra de relación"
+  },
+  "colorizeRatioHover": {
+    "message": "Usar colores personalizados para la barra de proporción."
+  },
+  "colorizeThumbs": {
+    "message": "Colorear los botones likes y dislike"
+  },
+  "colorizeThumbsHover": {
+    "message": "Usar colores personalizados para los íconos de los botones."
+  },
+  "considerDonating": {
+    "message": "Lo único que mantiene la extensión en funcionamiento son sus donaciones, considere apoyar el proyecto."
+  },
+  "customColors": {
+    "message": "Colores personalizados para la barra y los botones que no me gustan"
+  },
+  "customNumberFormats": {
+    "message": "Formatos de números personalizados"
+  },
+  "disableLoggingHover": {
+    "message": "Desactiva el registro de respuestas de la API en la consola."
+  },
+  "developerSettings": {
+    "message": "Opciones para desarrolladores"
+  },
+  "disableLoggingLabel": {
+    "message": "Desactivar registro en la consola"
+  },
+  "extensionDesc": {
+    "message": "Recupera la característica de los «dislikes» («No me gusta»)"
+  },
+  "extensionName": {
+    "message": "Return YouTube Dislike"
+  },
+  "extensionNameBeta": {
+    "message": "Return YouTube Dislike Beta"
+  },
+  "legendSettings": {
+    "message": "Ajustes"
+  },
+  "linkChangelog": {
+    "message": "Historial de cambios"
+  },
+  "linkDiscord": {
+    "message": "Discord"
+  },
+  "linkDonate": {
+    "message": "Donar"
+  },
+  "linkFAQ": {
+    "message": "P+F"
+  },
+  "linkGithub": {
+    "message": "GitHub"
+  },
+  "linkHelp": {
+    "message": "Ayuda"
+  },
+  "linkWebsite": {
+    "message": "Página web"
+  },
+  "numberFormat": {
+    "message": "Formato de número:"
+  },
+  "patreonLoggedOutMessage": {
+    "message": "Funciones premium disponibles para patrocinadores en Patreon"
+  },
+  "patreonLogin": {
+    "message": "Iniciar sesión con Patreon"
+  },
+  "patreonPrivacyNote": {
+    "message": "La información de tu membresía de Patreon se usa para verificar el acceso premium. No recibimos los datos de tu tarjeta ni de tu cuenta bancaria."
+  },
+  "paidFeaturesWhy": {
+    "message": "El número de «No me gusta» sigue siendo gratis para todos. Los extras de pago ayudan a pagar los servidores que lo hacen posible: más de 15 TB de datos y unos 20 millones de usuarios al día, con un presupuesto de unos pocos cientos de dólares al mes."
+  },
+  "githubLoggedOutMessage": {
+    "message": "Funciones premium disponibles para colaboradores en GitHub"
+  },
+  "githubLogin": {
+    "message": "Iniciar sesión con GitHub (colaboradores)"
+  },
+  "githubLoginStartFailed": {
+    "message": "No se pudo comenzar el inicio de sesión con GitHub. Inténtalo de nuevo."
+  },
+  "githubLoginCompleteFailed": {
+    "message": "No se pudo completar el inicio de sesión con GitHub. Inténtalo de nuevo."
+  },
+  "patreonLoginCompleteFailed": {
+    "message": "No se pudo completar el inicio de sesión. Inténtalo de nuevo."
+  },
+  "patreonLoginStartFailed": {
+    "message": "No se pudo iniciar el inicio de sesión de Patreon. Inténtalo de nuevo."
+  },
+  "patreonLogout": {
+    "message": "Cerrar sesión"
+  },
+  "patreonPermissionRequired": {
+    "message": "El inicio de sesión requiere el permiso «identity». Permítelo para continuar."
+  },
+  "patreonTierBasic": {
+    "message": "Nivel básico"
+  },
+  "patreonTierChecking": {
+    "message": "Comprobando membresía…"
+  },
+  "patreonTierNone": {
+    "message": "Sin membresía activa"
+  },
+  "patreonTierPremium": {
+    "message": "Patrocinador Premium"
+  },
+  "patreonTierSupporter": {
+    "message": "Patrocinador"
+  },
+  "patreonUserFallback": {
+    "message": "Usuario de Patreon"
+  },
+  "reformatLikes": {
+    "message": "Reformatear como números"
+  },
+  "reformatLikesHover": {
+    "message": "Haz que el formato de like y dislike sea consistente."
+  },
+  "hidePremiumTeaser": {
+    "message": "Ocultar conteos sin procesar"
+  },
+  "hidePremiumTeaserHover": {
+    "message": "No mostrar el panel de conteos sin procesar en las páginas de reproducción de YouTube."
+  },
+  "hideRydComments": {
+    "message": "Ocultar comentarios de RYD"
+  },
+  "hideRydCommentsHover": {
+    "message": "No mostrar comentarios de RYD en videos con los comentarios de YouTube desactivados."
+  },
+  "hidePremiumAnalytics": {
+    "message": "Ocultar la información premium del video"
+  },
+  "hidePremiumAnalyticsHover": {
+    "message": "Ocultar el panel de información premium del video en las páginas de reproducción de YouTube."
+  },
+  "shortsSupport": {
+    "message": "Soporte de YouTube Shorts"
+  },
+  "showTooltipPercentage": {
+    "message": "Porcentaje en el tooltip de la barra de like/dislike"
+  },
+  "showTooltipPercentageHover": {
+    "message": "Mostrar porcentaje en el tooltip de la barra de like/dislike."
+  },
+  "textColorTheme1": {
+    "message": "Clásico"
+  },
+  "textColorTheme2": {
+    "message": "Accesible"
+  },
+  "textColorTheme3": {
+    "message": "Neón"
+  },
+  "textColorThemeHibiscus": {
+    "message": "Hibiscus"
+  },
+  "textColorThemeCustom": {
+    "message": "Personalizado"
+  },
+  "colorThemeLight": {
+    "message": "Tema claro de YouTube"
+  },
+  "colorThemeDark": {
+    "message": "Tema oscuro de YouTube"
+  },
+  "colorThemeLike": {
+    "message": "Me gusta"
+  },
+  "colorThemeDislike": {
+    "message": "No me gusta"
+  },
+  "textDeveloper": {
+    "message": "por Dmitry Selivanov y la comunidad"
+  },
+  "textLikesDisabled": {
+    "message": "desactivado por el propietario"
+  },
+  "textSettings": {
+    "message": "Desactivar envío de votos"
+  },
+  "textSettingsHover": {
+    "message": "Tus Me gusta y No me gusta no contarán ni aparecerán en los recuentos de No me gusta."
+  },
+  "textTempUnavailable": {
+    "message": "no disponible temporalmente"
+  },
+  "tooltipPercentageMode": {
+    "message": "Modo de porcentaje:"
+  },
+  "tooltipPercentageModeHover": {
+    "message": "Usar visualización de porcentaje personalizada al pasar el puntero."
+  },
+  "version30installed": {
+    "message": "Versión 4.1.7 instalada"
+  },
+  "whatsnew": {
+    "message": "Novedades"
+  },
+  "premiumAnalytics_title": {
+    "message": "Información premium del video"
+  },
+  "premiumAnalytics_activityTitle": {
+    "message": "Interacción a lo largo del tiempo"
+  },
+  "premiumAnalytics_listsTitle": {
+    "message": "Países principales"
+  },
+  "premiumAnalytics_listLikesTitle": {
+    "message": "Países con más Me gusta"
+  },
+  "premiumAnalytics_listDislikesTitle": {
+    "message": "Países con más No me gusta"
+  },
+  "premiumAnalytics_mapTitle": {
+    "message": "Geografía"
+  },
+  "premiumAnalytics_expand": {
+    "message": "Expandir"
+  },
+  "premiumAnalytics_collapse": {
+    "message": "Contraer"
+  },
+  "premiumAnalytics_mapMetricLabel": {
+    "message": "Métrica del mapa"
+  },
+  "premiumAnalytics_mapReset": {
+    "message": "Volver al mapa mundial"
+  },
+  "premiumAnalytics_modeLikes": {
+    "message": "Me gusta"
+  },
+  "premiumAnalytics_modeDislikes": {
+    "message": "No me gusta"
+  },
+  "premiumAnalytics_modeRatio": {
+    "message": "Proporción"
+  },
+  "premiumAnalytics_windowGroupLabel": {
+    "message": "Ventana de datos"
+  },
+  "premiumAnalytics_windowLatest": {
+    "message": "Últimos días"
+  },
+  "premiumAnalytics_windowFirst": {
+    "message": "Primeros días"
+  },
+  "premiumAnalytics_windowLatestTitle": {
+    "message": "Mostrar los días más recientes dentro de la ventana seleccionada"
+  },
+  "premiumAnalytics_windowFirstTitle": {
+    "message": "Mostrar los primeros días dentro de la ventana seleccionada"
+  },
+  "premiumAnalytics_windowSummaryCustom": {
+    "message": "Selección personalizada"
+  },
+  "premiumAnalytics_windowSummaryAllTime": {
+    "message": "Todo el tiempo"
+  },
+  "premiumAnalytics_windowSummaryLast": {
+    "message": "Últimos $1"
+  },
+  "premiumAnalytics_windowSummaryFirst": {
+    "message": "Primeros $1"
+  },
+  "premiumAnalytics_daysSingular": {
+    "message": "$1 día"
+  },
+  "premiumAnalytics_daysPlural": {
+    "message": "$1 días"
+  },
+  "premiumAnalytics_rangeLabelAllTime": {
+    "message": "Todo el tiempo"
+  },
+  "premiumAnalytics_rangeLabelDays": {
+    "message": "$1d"
+  },
+  "premiumAnalytics_selectedPeriod": {
+    "message": "Periodo seleccionado: $1"
+  },
+  "premiumAnalytics_totalsHeading": {
+    "message": "Usuarios de la extensión"
+  },
+  "premiumAnalytics_totalsLikes": {
+    "message": "$1 me gusta"
+  },
+  "premiumAnalytics_totalsDislikes": {
+    "message": "$1 no me gusta"
+  },
+  "premiumAnalytics_summaryMeta": {
+    "message": "Se capturaron $1 interacciones de $2 países ($3 IP únicas)"
+  },
+  "premiumAnalytics_bucketHour": {
+    "message": "Votos por hora"
+  },
+  "premiumAnalytics_bucketDay": {
+    "message": "Votos por día"
+  },
+  "premiumAnalytics_bucketWeek": {
+    "message": "Votos por semana"
+  },
+  "premiumAnalytics_bucketHours": {
+    "message": "Votos cada $1 horas"
+  },
+  "premiumAnalytics_bucketDays": {
+    "message": "Votos cada $1 días"
+  },
+  "premiumAnalytics_bucketMinutes": {
+    "message": "Votos cada $1 minutos"
+  },
+  "premiumAnalytics_bucketMinute": {
+    "message": "Votos por minuto"
+  },
+  "premiumAnalytics_bucketSeconds": {
+    "message": "Votos cada $1 segundos"
+  },
+  "premiumAnalytics_bucketSecond": {
+    "message": "Votos por segundo"
+  },
+  "premiumAnalytics_noData": {
+    "message": "Aún no hay datos"
+  },
+  "premiumAnalytics_unknownRegion": {
+    "message": "Desconocido"
+  },
+  "premiumAnalytics_loading": {
+    "message": "Cargando información…"
+  },
+  "premiumAnalytics_errorReauth": {
+    "message": "Vuelve a autorizar Patreon para desbloquear las analíticas."
+  },
+  "premiumAnalytics_errorInactive": {
+    "message": "Las analíticas premium están disponibles para los patrocinadores activos de Patreon."
+  },
+  "premiumAnalytics_errorSession": {
+    "message": "La sesión expiró. Inicia sesión con Patreon nuevamente."
+  },
+  "premiumAnalytics_errorBackend": {
+    "message": "El servicio de analíticas no está disponible en este momento."
+  },
+  "premiumAnalytics_errorNetwork": {
+    "message": "No se puede conectar con el servicio de analíticas."
+  },
+  "premiumAnalytics_errorGeneric": {
+    "message": "No se pueden cargar las analíticas premium."
+  },
+  "premiumAnalytics_mapSeriesLabel": {
+    "message": "Actividad"
+  },
+  "premiumAnalytics_likeRatio": {
+    "message": "Proporción de me gusta"
+  },
+  "premiumAnalytics_visualHighRatio": {
+    "message": "Mayor proporción de me gusta"
+  },
+  "premiumAnalytics_visualLowRatio": {
+    "message": "Menor proporción de me gusta"
+  },
+  "premiumAnalytics_visualHighLikes": {
+    "message": "Más Me gusta"
+  },
+  "premiumAnalytics_visualLowLikes": {
+    "message": "Menos Me gusta"
+  },
+  "premiumAnalytics_visualHighDislikes": {
+    "message": "Más No me gusta"
+  },
+  "premiumAnalytics_visualLowDislikes": {
+    "message": "Menos No me gusta"
+  },
+  "premiumAnalytics_visualHighGeneric": {
+    "message": "Más $1"
+  },
+  "premiumAnalytics_visualLowGeneric": {
+    "message": "Menos $1"
+  },
+  "premiumAnalytics_tooltipLikes": {
+    "message": "Me gusta: $1"
+  },
+  "premiumAnalytics_tooltipDislikes": {
+    "message": "No me gusta: $1"
+  },
+  "premiumAnalytics_tooltipRatio": {
+    "message": "Proporción de me gusta: $1"
+  },
+  "premiumTeaser_title": {
+    "message": "Analíticas de video"
+  },
+  "premiumTeaser_subtitle": {
+    "message": "Los dislikes sin procesar son reportes directos de usuarios de la extensión que ven este video."
+  },
+  "premiumTeaser_cta": {
+    "message": "Desbloquear Premium"
+  },
+  "premiumTeaser_learn": {
+    "message": "Ver una vista previa de las analíticas completas"
+  },
+  "premiumTeaser_statRaw": {
+    "message": "Conteo de dislikes sin procesar"
+  },
+  "premiumTeaser_statLikes": {
+    "message": "Recuento bruto de Me gusta"
+  },
+  "premiumTeaser_statusLoading": {
+    "message": "Obteniendo los últimos totales de dislikes…"
+  },
+  "premiumTeaser_statusError": {
+    "message": "No pudimos cargar los datos de dislikes en este momento. Intenta recargar la página."
+  },
+  "premiumTierNotice_message": {
+    "message": "Tu membresía de Patreon no incluye el nivel Premium. Mejora tu aporte para desbloquear análisis avanzados de videos."
+  },
+  "changelog_cta_primary": {
+    "message": "Actualízate en Patreon"
+  },
+  "changelog_cta_secondary": {
+    "message": "Leer la guía de configuración"
+  },
+  "changelog_section_highlights": {
+    "message": "Novedades"
+  },
+  "changelog_feature_timeline_title": {
+    "message": "Cronograma de actividad en vivo"
+  },
+  "changelog_feature_map_title": {
+    "message": "Mundo interactivo y mapa de calor de EE. UU."
+  },
+  "changelog_feature_quality_title": {
+    "message": "Clasificación de los mejores países"
+  },
+  "changelog_screenshot_label_timeline": {
+    "message": "Marcador: vista general de la cronología"
+  },
+  "changelog_screenshot_label_map": {
+    "message": "Marcador: mapa de actividad global"
+  },
+  "changelog_screenshot_label_teaser": {
+    "message": "Marcador de posición: clasificación de países"
+  },
+  "changelog_upgrade_step1": {
+    "message": "Abre el popup de Return YouTube Dislike e inicia sesión con Patreon."
+  },
+  "changelog_support_heading": {
+    "message": "¿Necesitas ayuda?"
+  },
+  "changelog_support_description": {
+    "message": "Estamos aquí si surge algún problema: lleva tus dudas a la documentación o a la comunidad."
+  },
+  "changelog_support_contact": {
+    "message": "Pregunta a la comunidad"
+  },
+  "hideClutterButtons": {
+    "message": "Ocultar botones innecesarios"
+  },
+  "hideClutterButtonsHelpLabel": {
+    "message": "Mostrar ejemplos de antes y después"
+  },
+  "hideClutterButtonsDescription": {
+    "message": "Mantener visibles solo «Me gusta» y «No me gusta». «Compartir», «Guardar», «Gracias» y otras acciones opcionales siguen disponibles en «Más acciones», el menú de tres puntos de YouTube."
+  },
+  "hideClutterButtonsBefore": {
+    "message": "Antes: todos los botones de acción están visibles"
+  },
+  "hideClutterButtonsAfter": {
+    "message": "Después: solo «Me gusta» y «No me gusta» siguen visibles"
+  },
+  "changelog_brand_logo_alt": {
+    "message": "Logotipo de Return YouTube Dislike"
+  },
+  "githubLoginUnavailable": {
+    "message": "El inicio de sesión de colaboradores con GitHub no está disponible en este momento. El servicio necesita una actualización o un cambio de configuración."
+  },
+  "githubLoginNotContributor": {
+    "message": "Esta cuenta de GitHub no figura como colaboradora de Return YouTube Dislike. Inicia sesión con una cuenta que haya contribuido al proyecto. Las contribuciones recientes pueden tardar unas horas en aparecer."
+  },
+  "githubLoginBrowserUnavailable": {
+    "message": "El inicio de sesión con GitHub no está configurado para la dirección de retorno de este navegador. Contacta con el servicio de asistencia."
+  },
+  "githubLoginExpired": {
+    "message": "Este intento de inicio de sesión con GitHub ha caducado o no se ha podido verificar. Inicia sesión de nuevo."
+  },
+  "githubLoginUpdateRequired": {
+    "message": "Actualiza la extensión para iniciar sesión como colaborador con GitHub."
+  },
+  "githubLoginRateLimited": {
+    "message": "Demasiados intentos de inicio de sesión. Espera un minuto antes de volver a intentarlo."
+  },
+  "githubLoginDenied": {
+    "message": "Se ha rechazado la autorización de GitHub. Para iniciar sesión como colaborador es necesario autorizar el acceso."
+  },
+  "discussion_title": {
+    "message": "Comentarios de RYD"
+  },
+  "discussion_subtitle": {
+    "message": "Una conversación de la comunidad alojada en Return YouTube Dislike."
+  },
+  "discussion_independent": {
+    "message": "Estos comentarios son independientes de YouTube."
+  },
+  "discussion_open": {
+    "message": "Abrir los comentarios de RYD"
+  },
+  "discussion_close": {
+    "message": "Cerrar"
+  },
+  "discussion_new": {
+    "message": "Más recientes"
+  },
+  "discussion_top": {
+    "message": "Destacados"
+  },
+  "discussion_sort": {
+    "message": "Ordenar comentarios"
+  },
+  "discussion_refresh": {
+    "message": "Actualizar"
+  },
+  "discussion_loading": {
+    "message": "Cargando comentarios…"
+  },
+  "discussion_empty": {
+    "message": "Aún no hay comentarios. Inicia la conversación."
+  },
+  "discussion_comment": {
+    "message": "Comentario"
+  },
+  "discussion_post": {
+    "message": "Publicar comentario"
+  },
+  "discussion_reply": {
+    "message": "Responder"
+  },
+  "discussion_postReply": {
+    "message": "Publicar respuesta"
+  },
+  "discussion_cancel": {
+    "message": "Cancelar"
+  },
+  "discussion_save": {
+    "message": "Guardar"
+  },
+  "discussion_edit": {
+    "message": "Editar"
+  },
+  "discussion_delete": {
+    "message": "Eliminar"
+  },
+  "discussion_deleteConfirm": {
+    "message": "¿Eliminar este comentario?"
+  },
+  "discussion_deleted": {
+    "message": "Comentario eliminado"
+  },
+  "discussion_edited": {
+    "message": "editado"
+  },
+  "discussion_replies": {
+    "message": "Respuestas ($1)"
+  },
+  "discussion_more": {
+    "message": "Cargar más"
+  },
+  "discussion_like": {
+    "message": "Me gusta"
+  },
+  "discussion_dislike": {
+    "message": "No me gusta"
+  },
+  "discussion_signInRequired": {
+    "message": "Inicia sesión desde la ventana emergente de la extensión para continuar."
+  },
+  "discussion_tierRequired": {
+    "message": "Los miembros activos del nivel Commenter o superior pueden publicar."
+  },
+  "discussion_join": {
+    "message": "Únete al nivel Commenter"
+  },
+  "discussion_gate": {
+    "message": "Todo el mundo puede leer y reaccionar. Los miembros activos del nivel Commenter o superior pueden publicar."
+  },
+  "discussion_nicknameRequired": {
+    "message": "Elige tu apodo público de RYD antes de publicar."
+  },
+  "discussion_nicknameLabel": {
+    "message": "Apodo público de RYD"
+  },
+  "discussion_nicknameHint": {
+    "message": "Entre 3 y 32 letras, números, espacios, puntos, guiones o guiones bajos. Este nombre aparecerá junto a tus comentarios."
+  },
+  "discussion_nicknameSave": {
+    "message": "Guardar apodo"
+  },
+  "discussion_nicknameTaken": {
+    "message": "Este apodo ya está en uso. Elige otro."
+  },
+  "discussion_nicknameInvalid": {
+    "message": "Usa entre 3 y 32 letras, números, espacios, puntos, guiones o guiones bajos."
+  },
+  "discussion_nicknameChange": {
+    "message": "Cambiar apodo"
+  },
+  "discussion_as": {
+    "message": "Comentando como $1"
+  },
+  "discussion_placeholder": {
+    "message": "Participa en la conversación…"
+  },
+  "discussion_characters": {
+    "message": "$1 / $2"
+  },
+  "discussion_report": {
+    "message": "Denunciar"
+  },
+  "discussion_reportTitle": {
+    "message": "Denunciar comentario"
+  },
+  "discussion_reportReason": {
+    "message": "Motivo"
+  },
+  "discussion_reportSpam": {
+    "message": "Spam"
+  },
+  "discussion_reportAbuse": {
+    "message": "Acoso u odio"
+  },
+  "discussion_reportOther": {
+    "message": "Otro"
+  },
+  "discussion_reportDetails": {
+    "message": "Detalles adicionales (opcional)"
+  },
+  "discussion_reportSend": {
+    "message": "Enviar denuncia"
+  },
+  "discussion_reportDone": {
+    "message": "Denuncia recibida. Gracias."
+  },
+  "discussion_moderation": {
+    "message": "Moderación"
+  },
+  "discussion_queueEmpty": {
+    "message": "No hay denuncias que revisar."
+  },
+  "discussion_hide": {
+    "message": "Ocultar comentario"
+  },
+  "discussion_restore": {
+    "message": "Restaurar comentario"
+  },
+  "discussion_dismiss": {
+    "message": "Descartar denuncias"
+  },
+  "discussion_ban": {
+    "message": "Bloquear al autor"
+  },
+  "discussion_unban": {
+    "message": "Desbloquear al autor"
+  },
+  "discussion_moderationReason": {
+    "message": "Motivo de moderación"
+  },
+  "discussion_unavailable": {
+    "message": "Los comentarios de RYD no están disponibles para este vídeo."
+  },
+  "discussion_commentUnavailable": {
+    "message": "Este comentario ya no está disponible."
+  },
+  "discussion_error": {
+    "message": "No se ha podido conectar. Inténtalo de nuevo."
+  },
+  "discussion_rateLimited": {
+    "message": "Espera un momento antes de volver a intentarlo."
+  },
+  "discussion_conflict": {
+    "message": "Este comentario ha cambiado. Actualiza y vuelve a intentarlo."
+  },
+  "discussion_forbidden": {
+    "message": "Esta acción no está disponible para tu cuenta."
+  },
+  "discussion_retry": {
+    "message": "Volver a intentar"
+  },
+  "discussion_notifications": {
+    "message": "Notificaciones"
+  },
+  "discussion_notificationEmpty": {
+    "message": "Estás al día."
+  },
+  "discussion_notificationReply": {
+    "message": "$1 ha respondido a tu comentario"
+  },
+  "discussion_notificationLike": {
+    "message": "A alguien le ha gustado tu comentario"
+  },
+  "discussion_notificationLikes": {
+    "message": "Tu comentario ha recibido $1 me gusta"
+  },
+  "discussion_someone": {
+    "message": "Alguien"
+  },
+  "discussion_markRead": {
+    "message": "Marcar como leído"
+  },
+  "discussion_markAllRead": {
+    "message": "Marcar todo como leído"
+  },
+  "discussion_view": {
+    "message": "Ver conversación"
+  },
+  "discussion_signedOutInbox": {
+    "message": "Inicia sesión para ver las respuestas y los Me gusta de tus comentarios."
+  },
+  "discussion_discussionTab": {
+    "message": "Conversación"
+  },
+  "discussion_nickname": {
+    "message": "Apodo"
+  },
+  "discussion_reportStatus": {
+    "message": "Estado de la denuncia"
+  },
+  "discussion_openReports": {
+    "message": "Denuncias pendientes"
+  },
+  "discussion_resolvedReports": {
+    "message": "Denuncias descartadas"
+  },
+  "discussion_author": {
+    "message": "Autor"
+  },
+  "discussion_saving": {
+    "message": "Guardando…"
+  },
+  "discussion_loadReplies": {
+    "message": "Mostrar respuestas ($1)"
+  },
+  "patreonTierCommenter": {
+    "message": "Commenter"
+  },
+  "changelog_page_title": {
+    "message": "Bienvenido a Return YouTube Dislike"
+  },
+  "changelog_hero_eyebrow": {
+    "message": "Todo está listo"
+  },
+  "changelog_hero_title": {
+    "message": "Vuelven los «No me gusta»."
+  },
+  "changelog_hero_body": {
+    "message": "Abre cualquier vídeo de YouTube y verás el número de «No me gusta» justo al lado de los «Me gusta», donde corresponde. La versión 4.1 también presenta los comentarios de RYD, un espacio para hablar sobre vídeos fuera de la sección de comentarios de YouTube."
+  },
+  "changelog_hero_eyebrow_counts_off": {
+    "message": "Un paso más"
+  },
+  "changelog_hero_body_counts_off": {
+    "message": "Activa abajo los recuentos de No me gusta para verlos junto a los Me gusta en YouTube. La versión 4.1 también presenta los comentarios de RYD, un espacio para hablar sobre vídeos fuera de la sección de comentarios de YouTube."
+  },
+  "changelog_new_badge": {
+    "message": "Nuevo en la versión 4.1"
+  },
+  "changelog_premium_badge": {
+    "message": "Premium"
+  },
+  "changelog_comments_title": {
+    "message": "Descubre los comentarios de RYD"
+  },
+  "changelog_comments_body": {
+    "message": "Un espacio de debate bajo los vídeos y Shorts con los comentarios de YouTube desactivados, alojado por Return YouTube Dislike. Todos pueden leer y reaccionar. Los miembros Commenter y Premium pueden publicar y responder."
+  },
+  "changelog_comments_point_replies": {
+    "message": "Respuestas en hilos con «Me gusta» y «No me gusta»"
+  },
+  "changelog_comments_point_nickname": {
+    "message": "Publica con el apodo público que elijas"
+  },
+  "changelog_comments_point_notifications": {
+    "message": "Notificaciones cuando alguien responde a tu comentario o le da Me gusta"
+  },
+  "changelog_comments_point_moderation": {
+    "message": "Denuncias y moderación para mantener el respeto"
+  },
+  "changelog_comments_shot_alt": {
+    "message": "Panel de comentarios de RYD con un hilo de debate bajo un vídeo"
+  },
+  "changelog_notifications_shot_alt": {
+    "message": "Notificaciones de RYD con respuestas y «Me gusta» en tus comentarios"
+  },
+  "changelog_sample_note": {
+    "message": "Las capturas muestran datos de ejemplo."
+  },
+  "changelog_analytics_title": {
+    "message": "Estadísticas Premium"
+  },
+  "changelog_analytics_body": {
+    "message": "Descubre cómo se recibe un vídeo con el tiempo y en todo el mundo. Elige 7, 30 o 90 días o todo el periodo y compara los «Me gusta», los «No me gusta» y su proporción."
+  },
+  "changelog_analytics_timeline_title": {
+    "message": "Cronología de actividad"
+  },
+  "changelog_analytics_timeline_body": {
+    "message": "Los «Me gusta» y «No me gusta» a lo largo del tiempo, hora a hora."
+  },
+  "changelog_analytics_countries_title": {
+    "message": "Principales países"
+  },
+  "changelog_analytics_countries_body": {
+    "message": "Consulta qué países dan más «Me gusta» y «No me gusta» a un vídeo."
+  },
+  "changelog_analytics_world_title": {
+    "message": "Mapa del mundo"
+  },
+  "changelog_analytics_world_body": {
+    "message": "Compara la participación entre países."
+  },
+  "changelog_analytics_us_title": {
+    "message": "Estados de EE. UU."
+  },
+  "changelog_analytics_us_body": {
+    "message": "Explora la participación por estado en detalle."
+  },
+  "changelog_appeal_title": {
+    "message": "Una pequeña petición, un poco incómoda"
+  },
+  "changelog_appeal_intro": {
+    "message": "Hola. Esta es la parte en la que hablamos de dinero, y la verdad es que no se nos da muy bien."
+  },
+  "changelog_appeal_costs": {
+    "message": "Return YouTube Dislike es un pequeño proyecto de código abierto creado por Dmitry Selivanov y la comunidad. Cada día responde a unos 20 millones de personas y cuida más de 15 TB de datos. Todo eso funciona con unos pocos cientos de dólares al mes, que no es mucho para recuperar algo que una empresa de miles de millones decidió quitar."
+  },
+  "changelog_appeal_free": {
+    "message": "El número de «No me gusta» es gratis y seguirá siéndolo. De eso se trata. Pero los servidores no lo son y, sinceramente, los costes de mantenerlos no nos dejaron mucha opción: para seguir funcionando, tuvimos que introducir funciones Premium —los comentarios de RYD y las estadísticas Premium—. Cada suscripción ayuda a cubrir esos costes."
+  },
+  "changelog_appeal_ask": {
+    "message": "Si RYD alguna vez te ha librado de un video clickbait o de un tutorial que no funcionaba, considera unirte en Patreon. Y si ahora no es buen momento, no pasa nada. Gracias por usarlo y por votar: cada voto hace que los números sean un poco más precisos."
+  },
+  "changelog_appeal_cta": {
+    "message": "Suscríbete en Patreon"
+  },
+  "changelog_appeal_signature": {
+    "message": "— Dmitry y la comunidad de RYD"
+  },
+  "changelog_join_title": {
+    "message": "Obtén las funciones Premium"
+  },
+  "changelog_join_step1": {
+    "message": "Suscríbete en Patreon. Commenter te permite publicar comentarios; Premium también añade estadísticas."
+  },
+  "changelog_join_step3": {
+    "message": "Recarga cualquier vídeo de YouTube. Tus nuevas funciones aparecerán automáticamente."
+  },
+  "changelog_also_title": {
+    "message": "También en esta versión"
+  },
+  "changelog_also_counts": {
+    "message": "Los recuentos de «Me gusta» y «No me gusta» se muestran con más fiabilidad, en la extensión y el script de usuario."
+  },
+  "changelog_also_consent": {
+    "message": "Mejorado el proceso de consentimiento para el uso de datos en Firefox."
+  },
+  "changelog_also_translations": {
+    "message": "Traducciones nuevas y mejoradas."
+  },
+  "reviewPromptTitle": {
+    "message": "¿Te gusta RYD?"
+  },
+  "reviewPromptBody": {
+    "message": "Google cambió las reglas de las valoraciones en Chrome Web Store. Pese a tener 16.000+ reseñas de cinco estrellas, unas pocas reseñas negativas recientes hicieron bajar la valoración de RYD de 4,6 a 2,5.\n\nSi RYD te ayuda, deja una reseña sincera, por favor."
+  },
+  "reviewPromptAction": {
+    "message": "Dejar una reseña"
+  },
+  "consent_page_title": {
+    "message": "Permisos de las funciones de RYD"
+  },
+  "consent_vote_title": {
+    "message": "Haz que tus votos cuenten"
+  },
+  "consent_vote_body": {
+    "message": "Firefox ahora exige a todas las extensiones que te pregunten antes de compartir cualquier dato. Permítelo para que RYD pueda contar tus Me gusta, No me gusta y reacciones a comentarios. Este permiso solo cubre YouTube, no otros sitios web."
+  },
+  "consent_account_title": {
+    "message": "Elegir permisos de la cuenta"
+  },
+  "consent_account_body": {
+    "message": "Inicia sesión para usar las funciones de la cuenta, como tu perfil, las notificaciones y las estadísticas Premium."
+  },
+  "consent_next_step": {
+    "message": "Selecciona Permitir en Firefox para revisar los permisos. Puedes rechazarlos."
+  },
+  "consent_allow": {
+    "message": "Permitir en Firefox"
+  },
+  "consent_not_now": {
+    "message": "Ahora no"
+  },
+  "consent_prompt_status": {
+    "message": "Elige si quieres conceder estos permisos en Firefox."
+  },
+  "consent_granted_status": {
+    "message": "Los permisos están activados. Puedes volver a YouTube."
+  },
+  "consent_declined_status": {
+    "message": "Estas funciones opcionales siguen desactivadas. Puedes cambiar los permisos más tarde."
+  },
+  "consent_error_status": {
+    "message": "No se pudieron actualizar los permisos. Inténtalo de nuevo."
+  },
+  "consent_details_summary": {
+    "message": "¿Qué significan las categorías de permisos de Firefox?"
+  },
+  "consent_details_intro": {
+    "message": "Firefox agrupa los datos en categorías amplias. Esto significa cada una para RYD:"
+  },
+  "consent_browsing_label": {
+    "message": "Actividad de navegación"
+  },
+  "consent_browsing_body": {
+    "message": "Solo el ID del vídeo de YouTube que abres, para cargar sus No me gusta y comentarios de RYD. Nunca tu historial de navegación ni otros sitios web."
+  },
+  "consent_content_label": {
+    "message": "Contenido de sitios web"
+  },
+  "consent_content_body": {
+    "message": "El número de Me gusta mostrado en el vídeo de YouTube, para mejorar las estimaciones de No me gusta."
+  },
+  "consent_activity_label": {
+    "message": "Actividad en sitios web"
+  },
+  "consent_activity_body": {
+    "message": "Tus Me gusta, No me gusta y reacciones a comentarios de RYD en YouTube, para que cuenten. Se envían con un ID aleatorio que no está vinculado a tu cuenta de Google o YouTube."
+  },
+  "consent_identity_label": {
+    "message": "Información de identificación personal"
+  },
+  "consent_identity_body": {
+    "message": "La información de tu perfil, como tu nombre visible y correo electrónico, solo si decides iniciar sesión."
+  },
+  "consent_auth_label": {
+    "message": "Información de autenticación"
+  },
+  "consent_auth_body": {
+    "message": "Los datos de autorización y de sesión necesarios para iniciar sesión y usar las funciones de la cuenta."
+  },
+  "consent_scope": {
+    "message": "RYD no recopila nada fuera de youtube.com ni accede a tu cuenta de YouTube. No recibe tu nombre ni tu correo si no inicias sesión."
+  },
+  "consent_settings": {
+    "message": "Puedes cambiar estos permisos en cualquier momento en los ajustes de complementos de Firefox (about:addons)."
+  },
+  "consent_private_counts": {
+    "message": "Las ventanas privadas solo muestran recuentos, con el permiso activado en una ventana normal. Los votos, el inicio de sesión, las estadísticas Premium y las conversaciones no están disponibles allí."
+  },
+  "consent_voter_timing": {
+    "message": "Tu ID de votación solo se envía cuando votas o reaccionas. Tus propias reacciones a comentarios se recuerdan en este dispositivo."
+  },
+  "popup_signin_next_click": {
+    "message": "Hace falta otro clic: selecciona abajo tu botón de inicio de sesión para revisar los permisos de cuenta de Firefox y continuar."
+  },
+  "changelog_firefox_intro_title": {
+    "message": "Las nuevas reglas de privacidad de Firefox"
+  },
+  "changelog_firefox_intro_body": {
+    "message": "En Firefox, RYD necesita tu permiso para poder mostrar los «No me gusta». Esto es exactamente lo que cubre ese permiso y lo que no."
+  },
+  "changelog_firefox_vote_granted": {
+    "message": "Gracias. Tus votos ya cuentan."
+  },
+  "vote_consent_hint": {
+    "message": "Tu voto aún no se cuenta. Firefox ahora exige tu permiso antes de que RYD pueda enviarlo. Este permiso solo cubre YouTube, no otros sitios web."
+  },
+  "vote_not_counted": {
+    "message": "Tus Me gusta y No me gusta no se cuentan y no aparecen en los recuentos de No me gusta."
+  },
+  "vote_count_mine": {
+    "message": "Contar mis votos"
+  },
+  "vote_consent_dismiss": {
+    "message": "No volver a preguntar"
+  },
+  "discussion_reactionConsentRequired": {
+    "message": "Activa el uso compartido de votos para reaccionar a comentarios. Tu reacción se enviará cuando esté activado."
+  },
+  "discussion_consentContinue": {
+    "message": "Continuar"
+  },
+  "counts_consent_toolbar": {
+    "message": "Abre Return YouTube Dislike desde el menú de extensiones de Firefox para continuar."
+  },
+  "counts_consent_declined": {
+    "message": "Los recuentos siguen desactivados. Puedes activarlos aquí más tarde."
+  },
+  "counts_consent_enabled": {
+    "message": "Los recuentos de No me gusta están activados."
+  },
+  "counts_consent_private": {
+    "message": "Primero activa los recuentos de No me gusta en una ventana normal. Las ventanas privadas solo muestran recuentos."
+  },
+  "data_consent_reason": {
+    "message": "Firefox ahora exige a todas las extensiones que te pregunten antes de compartir cualquier dato. Permite que RYD muestre los No me gusta y cuente tus votos. Este permiso solo cubre YouTube, no otros sitios web."
+  },
+  "data_consent_title": {
+    "message": "Muestra los No me gusta y haz que tus votos cuenten"
+  },
+  "data_consent_body": {
+    "message": "Firefox ahora exige a todas las extensiones que te pregunten antes de compartir cualquier dato. Usa las mismas etiquetas generales para todas las extensiones, así que esto es lo que significa cada etiqueta para RYD:"
+  },
+  "data_consent_scope": {
+    "message": "RYD solo funciona en YouTube. Permitirlo no le da acceso a ningún otro sitio web."
+  }
+}

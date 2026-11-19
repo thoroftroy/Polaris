@@ -1,0 +1,11 @@
+{
+  "appDesc": {
+    "message": "Download Videos from the Web."
+  },
+  "appLongDesc": {
+    "message": "Baixeu vídeos del web. Fàcil, intel·ligent i sense rastreig.\n\nEl millor descarregador de vídeos des de fa més de 10 anys!\n\nVideo Download Helper és compatible amb més de 1000 llocs web (Dash, HLS, MPD, …), emissions en directe, alta definició i conversió als vostres formats preferits (MP4, MKV, WebM, …). Video Download Helper també permet baixar l'àudio (extreure l'àudio dels vídeos en fitxers MP3).\n"
+  },
+  "appLongDescGoogleAddendum": {
+    "message": "Tingueu en compte que aquesta extensió no és compatible amb YouTube.\n"
+  }
+}

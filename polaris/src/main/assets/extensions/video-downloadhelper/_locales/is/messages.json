@@ -1,0 +1,11 @@
+{
+  "appDesc": {
+    "message": "Download Videos from the Web."
+  },
+  "appLongDesc": {
+    "message": "Sæktu myndskeið af vefnum. Einfalt, snjallt, engin rakning.\n\nBesta forritið til að sækja myndskeið í meira en 10 ár!\n\nVideo Download Helper styður meira en 1000 vefsvæði (Dash, HLS, MPD, …), beinar útsendingar, háskerpu og umbreytingu í þau snið sem þú kýst (MP4, MKV, WebM, …). Video Download Helper getur líka sótt hljóð (dregið hljóðið úr myndskeiðum í MP3-skrár).\n"
+  },
+  "appLongDescGoogleAddendum": {
+    "message": "Athugaðu að þessi viðbót styður ekki YouTube.\n"
+  }
+}

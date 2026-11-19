@@ -1,0 +1,11 @@
+{
+  "appDesc": {
+    "message": "Download Videos from the Web."
+  },
+  "appLongDesc": {
+    "message": "Download video's van het web. Eenvoudig, slim en zonder tracking.\n\nAl meer dan 10 jaar de beste videodownloader!\n\nVideo Download Helper ondersteunt meer dan 1000 websites (Dash, HLS, MPD, …), livestreams, HD-kwaliteit en conversie naar je favoriete formaten (MP4, MKV, WebM, …). Video Download Helper ondersteunt ook het downloaden van audio (audio uit video's extraheren naar MP3).\n"
+  },
+  "appLongDescGoogleAddendum": {
+    "message": "Let op: deze extensie ondersteunt YouTube niet.\n"
+  }
+}

@@ -23,5 +23,17 @@ afterEvaluate {
 }
 
 dependencies {
+    implementation("org.mozilla.geckoview:geckoview-omni:140.0.20250707120347")
     testImplementation("junit:junit:4.13.2")
 }
+
+// GeckoView asks for newer AndroidX than the suite's build tools accept; these older ones work with it.
+configurations.all { resolutionStrategy { force("androidx.core:core:1.15.0", "androidx.core:core-ktx:1.15.0")
+    eachDependency { if (requested.group == "org.jetbrains.kotlin" && requested.name.startsWith("kotlin-stdlib")) useVersion("1.9.24") } }
+}
+
+
+android { defaultConfig { ndk { abiFilters += listOf("arm64-v8a", "x86_64") } } }
+
+// Extensions keep their translations in a folder called _locales, which Android would otherwise leave out of the app.
+android { androidResources { ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~" } }

@@ -1,0 +1,1022 @@
+{
+  "colorTheme": {
+    "message": "Motyw kolorystyczny:"
+  },
+  "colorizeRatio": {
+    "message": "Koloruj pasek ocen"
+  },
+  "colorizeRatioHover": {
+    "message": "Zmienia kolor paska ocen na wybrany przez Ciebie."
+  },
+  "colorizeThumbs": {
+    "message": "Koloruj łapki"
+  },
+  "colorizeThumbsHover": {
+    "message": "Zmienia kolor łapek na wybrany przez Ciebie."
+  },
+  "considerDonating": {
+    "message": "Jedyne co napędza ten projekt to wasze dotacje, prosimy o rozważenie wsparcia tego projektu."
+  },
+  "customColors": {
+    "message": "Własne kolory przycisków oraz paska łapek"
+  },
+  "customNumberFormats": {
+    "message": "Własne formaty liczbowe"
+  },
+  "disableLoggingHover": {
+    "message": "Wyłącza logowanie odpowiedzi API w konsoli."
+  },
+  "developerSettings": {
+    "message": "Opcje programisty"
+  },
+  "disableLoggingLabel": {
+    "message": "Wyłącz logowanie do konsoli"
+  },
+  "extensionDesc": {
+    "message": "Przywraca licznik łapek w dół"
+  },
+  "extensionName": {
+    "message": "Return YouTube Dislike"
+  },
+  "extensionNameBeta": {
+    "message": "Return YouTube Dislike Beta"
+  },
+  "legendSettings": {
+    "message": "Ustawienia"
+  },
+  "linkChangelog": {
+    "message": "Zmiany"
+  },
+  "linkDiscord": {
+    "message": "Discord"
+  },
+  "linkDonate": {
+    "message": "Wesprzyj"
+  },
+  "linkFAQ": {
+    "message": "FAQ"
+  },
+  "linkGithub": {
+    "message": "GitHub"
+  },
+  "linkHelp": {
+    "message": "Pomoc"
+  },
+  "linkWebsite": {
+    "message": "Strona"
+  },
+  "numberFormat": {
+    "message": "Format liczbowy:"
+  },
+  "patreonLoggedOutMessage": {
+    "message": "Funkcje premium są dostępne dla wspierających na Patreon"
+  },
+  "patreonLogin": {
+    "message": "Zaloguj się przez Patreon"
+  },
+  "patreonPrivacyNote": {
+    "message": "Informacje o członkostwie w Patreon służą do weryfikacji dostępu do funkcji premium. Nie otrzymujemy danych Twojej karty ani konta bankowego."
+  },
+  "paidFeaturesWhy": {
+    "message": "Liczba łapek w dół pozostaje bezpłatna dla wszystkich. Płatne dodatki pomagają opłacić serwery, które za nią stoją: ponad 15 TB danych i około 20 milionów użytkowników dziennie przy budżecie kilkuset dolarów miesięcznie."
+  },
+  "githubLoggedOutMessage": {
+    "message": "Funkcje premium są dostępne dla kontrybutorów projektu na GitHub."
+  },
+  "githubLogin": {
+    "message": "Zaloguj się przez GitHub (kontrybutor)"
+  },
+  "githubLoginStartFailed": {
+    "message": "Nie udało się rozpocząć logowania przez GitHub. Spróbuj ponownie."
+  },
+  "githubLoginCompleteFailed": {
+    "message": "Nie udało się dokończyć logowania przez GitHub. Spróbuj ponownie."
+  },
+  "githubLoginUnavailable": {
+    "message": "Logowanie się kontrybutora GitHub jest w tej chwili niedostępne. Serwis potrzebuje aktualizacji lub zmiany konfiguracji."
+  },
+  "githubLoginNotContributor": {
+    "message": "To konto GitHub nie jest kontrybutorem Return YouTube Dislike. Zaloguj się kontem kontrybutora. Uwzględnienie nowych kontrybucji może potrwać kilka godzin."
+  },
+  "githubLoginBrowserUnavailable": {
+    "message": "Logowanie się GitHub nie jest skonfigurowane na adres zwrotny (callback) tej przeglądarki. Skontaktuj się z deweloperem."
+  },
+  "githubLoginExpired": {
+    "message": "Ta próba zalogowania się wygasła lub nie mogła zostać zweryfikowana. Spróbuj ponownie."
+  },
+  "githubLoginUpdateRequired": {
+    "message": "Zaktualizuj rozszerzenie, aby użyć logowania się kontrybutora GitHub."
+  },
+  "githubLoginRateLimited": {
+    "message": "Za dużo prób logowania się. Poczekaj chwilę przed ponownymi próbami."
+  },
+  "githubLoginDenied": {
+    "message": "Autoryzacja GitHub została odrzucona. Logowanie się kontrybutora wymaga autoryzacji."
+  },
+  "patreonLoginCompleteFailed": {
+    "message": "Nie udało się dokończyć logowania. Spróbuj ponownie."
+  },
+  "patreonLoginStartFailed": {
+    "message": "Nie udało się rozpocząć logowania przez Patreon. Spróbuj ponownie."
+  },
+  "patreonLogout": {
+    "message": "Wyloguj się"
+  },
+  "patreonPermissionRequired": {
+    "message": "Logowanie wymaga uprawnienia „identity”. Zezwól, aby kontynuować."
+  },
+  "patreonTierBasic": {
+    "message": "Poziom podstawowy"
+  },
+  "patreonTierChecking": {
+    "message": "Sprawdzanie członkostwa…"
+  },
+  "patreonTierNone": {
+    "message": "Brak aktywnego członkostwa"
+  },
+  "patreonTierPremium": {
+    "message": "Wspierający Premium"
+  },
+  "patreonTierSupporter": {
+    "message": "Wspierający"
+  },
+  "patreonUserFallback": {
+    "message": "Użytkownik Patreona"
+  },
+  "reformatLikes": {
+    "message": "Zmień formatowanie liczby łapek w górę"
+  },
+  "reformatLikesHover": {
+    "message": "Ujednolica format liczbowy łapek, aby był on taki sam zarówno dla łapek w górę, jak i w dół."
+  },
+  "hidePremiumTeaser": {
+    "message": "Ukryj surowe liczby"
+  },
+  "hidePremiumTeaserHover": {
+    "message": "Nie pokazuj panelu z surowymi liczbami na stronach odtwarzania YouTube."
+  },
+  "hideRydComments": {
+    "message": "Ukryj komentarze RYD"
+  },
+  "hideRydCommentsHover": {
+    "message": "Nie pokazuj komentarzy RYD pod filmami, w których komentarze YouTube są wyłączone."
+  },
+  "hidePremiumAnalytics": {
+    "message": "Ukryj premiumowe statystyki wideo"
+  },
+  "hidePremiumAnalyticsHover": {
+    "message": "Ukryj panel premiumowych statystyk wideo na stronach odtwarzania YouTube."
+  },
+  "shortsSupport": {
+    "message": "Wsparcie dla YouTube Shorts"
+  },
+  "showTooltipPercentage": {
+    "message": "Procent w podpowiedzi paska polubień/łapek w dół"
+  },
+  "showTooltipPercentageHover": {
+    "message": "Wyświetla wartości procentowe po najechaniu na pasek wyświetlany pod łapkami."
+  },
+  "textColorTheme1": {
+    "message": "Klasyczny"
+  },
+  "textColorTheme2": {
+    "message": "Dostępny"
+  },
+  "textColorTheme3": {
+    "message": "Neonowy"
+  },
+  "textColorThemeHibiscus": {
+    "message": "Hibiscus"
+  },
+  "textColorThemeCustom": {
+    "message": "Niestandardowy"
+  },
+  "colorThemeLight": {
+    "message": "Jasny motyw YouTube"
+  },
+  "colorThemeDark": {
+    "message": "Ciemny motyw YouTube"
+  },
+  "colorThemeLike": {
+    "message": "Lubię to"
+  },
+  "colorThemeDislike": {
+    "message": "Nie podoba mi się"
+  },
+  "textDeveloper": {
+    "message": "Autorzy: Dmitrij Sieliwanow i społeczność"
+  },
+  "textLikesDisabled": {
+    "message": "Wyłączone przez twórcę"
+  },
+  "textSettings": {
+    "message": "Wyłącz przesyłanie łapek"
+  },
+  "textSettingsHover": {
+    "message": "Twoje polubienia i oceny negatywne nie będą liczone ani nie pojawią się w licznikach ocen negatywnych."
+  },
+  "textTempUnavailable": {
+    "message": "Tymczasowo niedostępny"
+  },
+  "tooltipPercentageMode": {
+    "message": "Rodzaj wyświetlania procentów:"
+  },
+  "tooltipPercentageModeHover": {
+    "message": "Zmienia rodzaj wyświetlania statystyki procentowej po najechaniu na pasek pod łapkami."
+  },
+  "version30installed": {
+    "message": "Zainstalowana wersja 4.1.7"
+  },
+  "whatsnew": {
+    "message": "Co nowego"
+  },
+  "premiumAnalytics_title": {
+    "message": "Premiumowe statystyki wideo"
+  },
+  "premiumAnalytics_activityTitle": {
+    "message": "Zaangażowanie w czasie"
+  },
+  "premiumAnalytics_listsTitle": {
+    "message": "Najlepsze kraje"
+  },
+  "premiumAnalytics_listLikesTitle": {
+    "message": "Kraje z największą liczbą polubień"
+  },
+  "premiumAnalytics_listDislikesTitle": {
+    "message": "Kraje z największą liczbą łapek w dół"
+  },
+  "premiumAnalytics_mapTitle": {
+    "message": "Geografia"
+  },
+  "premiumAnalytics_expand": {
+    "message": "Rozwiń"
+  },
+  "premiumAnalytics_collapse": {
+    "message": "Zwiń"
+  },
+  "premiumAnalytics_mapMetricLabel": {
+    "message": "Metryka mapy"
+  },
+  "premiumAnalytics_mapReset": {
+    "message": "Powrót do mapy świata"
+  },
+  "premiumAnalytics_modeLikes": {
+    "message": "Polubienia"
+  },
+  "premiumAnalytics_modeDislikes": {
+    "message": "Łapki w dół"
+  },
+  "premiumAnalytics_modeRatio": {
+    "message": "Współczynnik"
+  },
+  "premiumAnalytics_windowGroupLabel": {
+    "message": "Zakres danych"
+  },
+  "premiumAnalytics_windowLatest": {
+    "message": "Ostatnie dni"
+  },
+  "premiumAnalytics_windowFirst": {
+    "message": "Pierwsze dni"
+  },
+  "premiumAnalytics_windowLatestTitle": {
+    "message": "Pokaż najnowsze dni w wybranym zakresie"
+  },
+  "premiumAnalytics_windowFirstTitle": {
+    "message": "Pokaż najwcześniejsze dni w wybranym zakresie"
+  },
+  "premiumAnalytics_windowSummaryCustom": {
+    "message": "Własny wybór"
+  },
+  "premiumAnalytics_windowSummaryAllTime": {
+    "message": "Cały okres"
+  },
+  "premiumAnalytics_windowSummaryLast": {
+    "message": "Ostatnie $1"
+  },
+  "premiumAnalytics_windowSummaryFirst": {
+    "message": "Pierwsze $1"
+  },
+  "premiumAnalytics_daysSingular": {
+    "message": "$1 dzień"
+  },
+  "premiumAnalytics_daysPlural": {
+    "message": "$1 dni"
+  },
+  "premiumAnalytics_rangeLabelAllTime": {
+    "message": "Cały okres"
+  },
+  "premiumAnalytics_rangeLabelDays": {
+    "message": "$1d"
+  },
+  "premiumAnalytics_selectedPeriod": {
+    "message": "Wybrany okres: $1"
+  },
+  "premiumAnalytics_totalsHeading": {
+    "message": "Użytkownicy rozszerzenia"
+  },
+  "premiumAnalytics_totalsLikes": {
+    "message": "$1 polubień"
+  },
+  "premiumAnalytics_totalsDislikes": {
+    "message": "$1 niepolubień"
+  },
+  "premiumAnalytics_summaryMeta": {
+    "message": "Zarejestrowano $1 interakcji z $2 krajów ($3 unikalnych adresów IP)"
+  },
+  "premiumAnalytics_bucketHour": {
+    "message": "Głosy na godzinę"
+  },
+  "premiumAnalytics_bucketDay": {
+    "message": "Głosy na dzień"
+  },
+  "premiumAnalytics_bucketWeek": {
+    "message": "Głosy na tydzień"
+  },
+  "premiumAnalytics_bucketHours": {
+    "message": "Głosy co $1 godzin"
+  },
+  "premiumAnalytics_bucketDays": {
+    "message": "Głosy co $1 dni"
+  },
+  "premiumAnalytics_bucketMinutes": {
+    "message": "Głosy co $1 minut"
+  },
+  "premiumAnalytics_bucketMinute": {
+    "message": "Głosy na minutę"
+  },
+  "premiumAnalytics_bucketSeconds": {
+    "message": "Głosy co $1 sekund"
+  },
+  "premiumAnalytics_bucketSecond": {
+    "message": "Głosy na sekundę"
+  },
+  "premiumAnalytics_noData": {
+    "message": "Brak danych"
+  },
+  "premiumAnalytics_unknownRegion": {
+    "message": "Nieznane"
+  },
+  "premiumAnalytics_loading": {
+    "message": "Ładowanie statystyk…"
+  },
+  "premiumAnalytics_errorReauth": {
+    "message": "Autoryzuj ponownie Patreon, aby odblokować statystyki."
+  },
+  "premiumAnalytics_errorInactive": {
+    "message": "Statystyki premium są dostępne dla aktywnych wspierających na Patreonie."
+  },
+  "premiumAnalytics_errorSession": {
+    "message": "Sesja wygasła. Zaloguj się ponownie przez Patreon."
+  },
+  "premiumAnalytics_errorBackend": {
+    "message": "Usługa statystyk jest teraz niedostępna."
+  },
+  "premiumAnalytics_errorNetwork": {
+    "message": "Nie można połączyć się z usługą statystyk."
+  },
+  "premiumAnalytics_errorGeneric": {
+    "message": "Nie można wczytać statystyk premium."
+  },
+  "premiumAnalytics_mapSeriesLabel": {
+    "message": "Aktywność"
+  },
+  "premiumAnalytics_likeRatio": {
+    "message": "Współczynnik polubień"
+  },
+  "premiumAnalytics_visualHighRatio": {
+    "message": "Wyższy współczynnik polubień"
+  },
+  "premiumAnalytics_visualLowRatio": {
+    "message": "Niższy współczynnik polubień"
+  },
+  "premiumAnalytics_visualHighLikes": {
+    "message": "Więcej polubień"
+  },
+  "premiumAnalytics_visualLowLikes": {
+    "message": "Mniej polubień"
+  },
+  "premiumAnalytics_visualHighDislikes": {
+    "message": "Więcej łapek w dół"
+  },
+  "premiumAnalytics_visualLowDislikes": {
+    "message": "Mniej łapek w dół"
+  },
+  "premiumAnalytics_visualHighGeneric": {
+    "message": "Więcej $1"
+  },
+  "premiumAnalytics_visualLowGeneric": {
+    "message": "Mniej $1"
+  },
+  "premiumAnalytics_tooltipLikes": {
+    "message": "Polubienia: $1"
+  },
+  "premiumAnalytics_tooltipDislikes": {
+    "message": "Łapki w dół: $1"
+  },
+  "premiumAnalytics_tooltipRatio": {
+    "message": "Współczynnik polubień: $1"
+  },
+  "premiumTeaser_title": {
+    "message": "Analityka wideo"
+  },
+  "premiumTeaser_subtitle": {
+    "message": "Surowe łapki w dół to bezpośrednie zgłoszenia użytkowników rozszerzenia oglądających ten film."
+  },
+  "premiumTeaser_cta": {
+    "message": "Odblokuj Premium"
+  },
+  "premiumTeaser_learn": {
+    "message": "Podgląd pełnych statystyk"
+  },
+  "premiumTeaser_statRaw": {
+    "message": "Liczba surowych łapek w dół"
+  },
+  "premiumTeaser_statLikes": {
+    "message": "Surowa liczba polubień"
+  },
+  "premiumTeaser_statusLoading": {
+    "message": "Pobieranie najnowszych sum łapek w dół…"
+  },
+  "premiumTeaser_statusError": {
+    "message": "Nie udało się wczytać danych o łapkach w dół. Spróbuj odświeżyć stronę."
+  },
+  "premiumTierNotice_message": {
+    "message": "Twoje członkostwo w Patreonie nie obejmuje poziomu Premium. Zwiększ wsparcie, aby odblokować zaawansowane analizy wideo."
+  },
+  "changelog_cta_primary": {
+    "message": "Uaktualnij na Patreonie"
+  },
+  "changelog_cta_secondary": {
+    "message": "Przeczytaj przewodnik konfiguracji"
+  },
+  "changelog_section_highlights": {
+    "message": "Co nowego"
+  },
+  "changelog_feature_timeline_title": {
+    "message": "Oś czasu aktywności na żywo"
+  },
+  "changelog_feature_map_title": {
+    "message": "Interaktywna mapa cieplna świata i USA"
+  },
+  "changelog_feature_quality_title": {
+    "message": "Ranking najlepszych krajów"
+  },
+  "changelog_screenshot_label_timeline": {
+    "message": "Symbol zastępczy: przegląd osi czasu"
+  },
+  "changelog_screenshot_label_map": {
+    "message": "Symbol zastępczy: globalna mapa aktywności"
+  },
+  "changelog_screenshot_label_teaser": {
+    "message": "Symbol zastępczy: ranking krajów"
+  },
+  "changelog_upgrade_step1": {
+    "message": "Otwórz okienko Return YouTube Dislike i zaloguj się przez Patreon."
+  },
+  "changelog_support_heading": {
+    "message": "Potrzebujesz pomocy?"
+  },
+  "changelog_support_description": {
+    "message": "Jesteśmy tu, jeśli napotkasz przeszkodę - zadaj swoje pytania pomocy technicznej lub społeczności."
+  },
+  "changelog_support_contact": {
+    "message": "Zapytaj społeczność"
+  },
+  "hideClutterButtons": {
+    "message": "Ukryj niepotrzebne przyciski"
+  },
+  "hideClutterButtonsHelpLabel": {
+    "message": "Pokaż przykłady przed i po"
+  },
+  "hideClutterButtonsDescription": {
+    "message": "Zostawia tylko przycisk polubienia i łapki w dół. Udostępnij, Zapisz, Podziękuj, i inne opcjonalne opcje pozostaną dostępne w menu 3 kropek YouTube'a."
+  },
+  "hideClutterButtonsBefore": {
+    "message": "Przed: wszystkie przyciski akcji są widoczne"
+  },
+  "hideClutterButtonsAfter": {
+    "message": "Po: widoczne są tylko łapki w górę i w dół"
+  },
+  "changelog_brand_logo_alt": {
+    "message": "Logo Return YouTube Dislike"
+  },
+  "discussion_title": {
+    "message": "Komentarze RYD"
+  },
+  "discussion_subtitle": {
+    "message": "Dyskusja społeczności prowadzona przez Return YouTube Dislike."
+  },
+  "discussion_independent": {
+    "message": "Te komentarze są niezależne od YouTube."
+  },
+  "discussion_open": {
+    "message": "Otwórz komentarze RYD"
+  },
+  "discussion_close": {
+    "message": "Zamknij"
+  },
+  "discussion_new": {
+    "message": "Najnowsze"
+  },
+  "discussion_top": {
+    "message": "Najlepsze"
+  },
+  "discussion_sort": {
+    "message": "Sortuj komentarze"
+  },
+  "discussion_refresh": {
+    "message": "Odśwież"
+  },
+  "discussion_loading": {
+    "message": "Wczytywanie komentarzy…"
+  },
+  "discussion_empty": {
+    "message": "Nie ma jeszcze komentarzy. Rozpocznij rozmowę."
+  },
+  "discussion_comment": {
+    "message": "Komentarz"
+  },
+  "discussion_post": {
+    "message": "Opublikuj komentarz"
+  },
+  "discussion_reply": {
+    "message": "Odpowiedz"
+  },
+  "discussion_postReply": {
+    "message": "Opublikuj odpowiedź"
+  },
+  "discussion_cancel": {
+    "message": "Anuluj"
+  },
+  "discussion_save": {
+    "message": "Zapisz"
+  },
+  "discussion_edit": {
+    "message": "Edytuj"
+  },
+  "discussion_delete": {
+    "message": "Usuń"
+  },
+  "discussion_deleteConfirm": {
+    "message": "Usunąć ten komentarz?"
+  },
+  "discussion_deleted": {
+    "message": "Komentarz usunięty"
+  },
+  "discussion_edited": {
+    "message": "edytowano"
+  },
+  "discussion_replies": {
+    "message": "Odpowiedzi ($1)"
+  },
+  "discussion_more": {
+    "message": "Wczytaj więcej"
+  },
+  "discussion_like": {
+    "message": "Lubię to"
+  },
+  "discussion_dislike": {
+    "message": "Nie podoba mi się"
+  },
+  "discussion_signInRequired": {
+    "message": "Aby kontynuować, zaloguj się w oknie rozszerzenia."
+  },
+  "discussion_tierRequired": {
+    "message": "Publikowanie jest dostępne dla osób z aktywnym członkostwem na poziomie Commenter lub wyższym."
+  },
+  "discussion_join": {
+    "message": "Zostań członkiem na poziomie Commenter"
+  },
+  "discussion_gate": {
+    "message": "Każdy może czytać i reagować. Osoby z aktywnym członkostwem na poziomie Commenter lub wyższym mogą publikować komentarze."
+  },
+  "discussion_nicknameRequired": {
+    "message": "Przed opublikowaniem komentarza wybierz swój publiczny pseudonim RYD."
+  },
+  "discussion_nicknameLabel": {
+    "message": "Publiczny pseudonim RYD"
+  },
+  "discussion_nicknameHint": {
+    "message": "3–32 litery, cyfry, spacje, kropki, łączniki lub podkreślenia. Ta nazwa będzie widoczna przy Twoich komentarzach."
+  },
+  "discussion_nicknameSave": {
+    "message": "Zapisz pseudonim"
+  },
+  "discussion_nicknameTaken": {
+    "message": "Ten pseudonim jest już zajęty. Wybierz inny."
+  },
+  "discussion_nicknameInvalid": {
+    "message": "Użyj 3–32 liter, cyfr, spacji, kropek, łączników lub podkreśleń."
+  },
+  "discussion_nicknameChange": {
+    "message": "Zmień pseudonim"
+  },
+  "discussion_as": {
+    "message": "Komentujesz jako $1"
+  },
+  "discussion_placeholder": {
+    "message": "Dołącz do dyskusji…"
+  },
+  "discussion_characters": {
+    "message": "$1 / $2"
+  },
+  "discussion_report": {
+    "message": "Zgłoś"
+  },
+  "discussion_reportTitle": {
+    "message": "Zgłoś komentarz"
+  },
+  "discussion_reportReason": {
+    "message": "Powód"
+  },
+  "discussion_reportSpam": {
+    "message": "Spam"
+  },
+  "discussion_reportAbuse": {
+    "message": "Nękanie lub nienawiść"
+  },
+  "discussion_reportOther": {
+    "message": "Inny"
+  },
+  "discussion_reportDetails": {
+    "message": "Dodatkowe informacje (opcjonalnie)"
+  },
+  "discussion_reportSend": {
+    "message": "Wyślij zgłoszenie"
+  },
+  "discussion_reportDone": {
+    "message": "Zgłoszenie otrzymane. Dziękujemy."
+  },
+  "discussion_moderation": {
+    "message": "Moderacja"
+  },
+  "discussion_queueEmpty": {
+    "message": "Brak zgłoszeń do rozpatrzenia."
+  },
+  "discussion_hide": {
+    "message": "Ukryj komentarz"
+  },
+  "discussion_restore": {
+    "message": "Przywróć komentarz"
+  },
+  "discussion_dismiss": {
+    "message": "Odrzuć zgłoszenia"
+  },
+  "discussion_ban": {
+    "message": "Zablokuj autora"
+  },
+  "discussion_unban": {
+    "message": "Odblokuj autora"
+  },
+  "discussion_moderationReason": {
+    "message": "Powód moderacji"
+  },
+  "discussion_unavailable": {
+    "message": "Komentarze RYD są niedostępne dla tego filmu."
+  },
+  "discussion_commentUnavailable": {
+    "message": "Ten komentarz nie jest już dostępny."
+  },
+  "discussion_error": {
+    "message": "Nie udało się połączyć. Spróbuj ponownie."
+  },
+  "discussion_rateLimited": {
+    "message": "Poczekaj chwilę przed ponowną próbą."
+  },
+  "discussion_conflict": {
+    "message": "Ten komentarz został zmieniony. Odśwież i spróbuj ponownie."
+  },
+  "discussion_forbidden": {
+    "message": "To działanie jest niedostępne dla Twojego konta."
+  },
+  "discussion_retry": {
+    "message": "Spróbuj ponownie"
+  },
+  "discussion_notifications": {
+    "message": "Powiadomienia"
+  },
+  "discussion_notificationEmpty": {
+    "message": "Wszystkie powiadomienia przeczytane."
+  },
+  "discussion_notificationReply": {
+    "message": "$1 odpowiada na Twój komentarz"
+  },
+  "discussion_notificationLike": {
+    "message": "Ktoś polubił Twój komentarz"
+  },
+  "discussion_notificationLikes": {
+    "message": "Liczba polubień Twojego komentarza: $1"
+  },
+  "discussion_someone": {
+    "message": "Ktoś"
+  },
+  "discussion_markRead": {
+    "message": "Oznacz jako przeczytane"
+  },
+  "discussion_markAllRead": {
+    "message": "Oznacz wszystkie jako przeczytane"
+  },
+  "discussion_view": {
+    "message": "Zobacz dyskusję"
+  },
+  "discussion_signedOutInbox": {
+    "message": "Zaloguj się, aby zobaczyć odpowiedzi i polubienia Twoich komentarzy."
+  },
+  "discussion_discussionTab": {
+    "message": "Dyskusja"
+  },
+  "discussion_nickname": {
+    "message": "Pseudonim"
+  },
+  "discussion_reportStatus": {
+    "message": "Status zgłoszenia"
+  },
+  "discussion_openReports": {
+    "message": "Otwarte zgłoszenia"
+  },
+  "discussion_resolvedReports": {
+    "message": "Odrzucone zgłoszenia"
+  },
+  "discussion_author": {
+    "message": "Autor"
+  },
+  "discussion_saving": {
+    "message": "Zapisywanie…"
+  },
+  "discussion_loadReplies": {
+    "message": "Pokaż odpowiedzi ($1)"
+  },
+  "patreonTierCommenter": {
+    "message": "Commenter"
+  },
+  "changelog_page_title": {
+    "message": "Witaj w Return YouTube Dislike"
+  },
+  "changelog_hero_eyebrow": {
+    "message": "Wszystko gotowe"
+  },
+  "changelog_hero_title": {
+    "message": "Łapki w dół wróciły."
+  },
+  "changelog_hero_body": {
+    "message": "Otwórz dowolny film na YouTube, a zobaczysz liczbę łapek w dół tuż obok łapek w górę, tam, gdzie jej miejsce. Wersja 4.1 wprowadza też komentarze RYD — miejsce do rozmów o filmach poza sekcją komentarzy YouTube."
+  },
+  "changelog_hero_eyebrow_counts_off": {
+    "message": "Jeszcze jeden krok"
+  },
+  "changelog_hero_body_counts_off": {
+    "message": "Włącz poniżej liczniki ocen negatywnych, aby widzieć je na YouTube tuż obok polubień. Wersja 4.1 wprowadza też komentarze RYD — miejsce do rozmów o filmach poza sekcją komentarzy YouTube."
+  },
+  "changelog_new_badge": {
+    "message": "Nowość w wersji 4.1"
+  },
+  "changelog_premium_badge": {
+    "message": "Premium"
+  },
+  "changelog_comments_title": {
+    "message": "Poznaj komentarze RYD"
+  },
+  "changelog_comments_body": {
+    "message": "Dyskusje społeczności pod filmami i Shorts z wyłączonymi komentarzami YouTube, prowadzone przez Return YouTube Dislike. Każdy może czytać i reagować. Osoby z członkostwem Commenter lub Premium mogą pisać komentarze i odpowiadać."
+  },
+  "changelog_comments_point_replies": {
+    "message": "Odpowiedzi w wątkach z łapkami w górę i w dół"
+  },
+  "changelog_comments_point_nickname": {
+    "message": "Pisz pod wybranym przez siebie publicznym pseudonimem"
+  },
+  "changelog_comments_point_notifications": {
+    "message": "Powiadomienia, gdy ktoś odpowie na Twój komentarz lub go polubi"
+  },
+  "changelog_comments_point_moderation": {
+    "message": "Zgłoszenia i moderacja pomagające zachować kulturę dyskusji"
+  },
+  "changelog_comments_shot_alt": {
+    "message": "Panel komentarzy RYD z dyskusją w wątku pod filmem"
+  },
+  "changelog_notifications_shot_alt": {
+    "message": "Powiadomienia RYD z odpowiedziami i łapkami w górę pod Twoimi komentarzami"
+  },
+  "changelog_sample_note": {
+    "message": "Zrzuty ekranu pokazują przykładowe dane."
+  },
+  "changelog_analytics_title": {
+    "message": "Analityka Premium"
+  },
+  "changelog_analytics_body": {
+    "message": "Zobacz, jak film jest odbierany z upływem czasu i na całym świecie. Wybierz 7, 30 lub 90 dni albo cały okres i porównuj łapki w górę, łapki w dół oraz ich stosunek."
+  },
+  "changelog_analytics_timeline_title": {
+    "message": "Oś czasu aktywności"
+  },
+  "changelog_analytics_timeline_body": {
+    "message": "Łapki w górę i w dół w czasie, z dokładnością do godziny."
+  },
+  "changelog_analytics_countries_title": {
+    "message": "Ranking krajów"
+  },
+  "changelog_analytics_countries_body": {
+    "message": "Zobacz, w których krajach film dostaje najwięcej łapek w górę i w dół."
+  },
+  "changelog_analytics_world_title": {
+    "message": "Mapa świata"
+  },
+  "changelog_analytics_world_body": {
+    "message": "Porównuj aktywność w poszczególnych krajach."
+  },
+  "changelog_analytics_us_title": {
+    "message": "Stany USA"
+  },
+  "changelog_analytics_us_body": {
+    "message": "Przyjrzyj się aktywności w poszczególnych stanach."
+  },
+  "changelog_appeal_title": {
+    "message": "Mała, trochę niezręczna prośba"
+  },
+  "changelog_appeal_intro": {
+    "message": "Cześć. To ten moment, w którym mówimy o pieniądzach, i szczerze mówiąc, nie najlepiej nam to wychodzi."
+  },
+  "changelog_appeal_costs": {
+    "message": "Return YouTube Dislike to mały projekt open source tworzony przez Dmitrija Sieliwanowa i społeczność. Każdego dnia obsługuje około 20 milionów osób i przechowuje ponad 15 TB danych. Wszystko to działa za kilkaset dolarów miesięcznie, co nie jest dużo, by przywrócić coś, co firma warta miliardy dolarów postanowiła zabrać."
+  },
+  "changelog_appeal_free": {
+    "message": "Liczba łapek w dół jest bezpłatna i taka pozostanie. O to właśnie chodzi. Ale serwery nie są darmowe i, szczerze mówiąc, koszty ich utrzymania nie zostawiły nam wielkiego wyboru: żeby projekt mógł działać dalej, musieliśmy wprowadzić funkcje Premium — komentarze RYD i analitykę Premium. Każde członkostwo pomaga pokryć te koszty."
+  },
+  "changelog_appeal_ask": {
+    "message": "Jeśli RYD choć raz uchronił cię przed clickbaitowym filmem albo poradnikiem, który nie działał, rozważ dołączenie na Patreonie. A jeśli to nie jest dobry moment, nic się nie stało. Dziękujemy, że z niego korzystasz i głosujesz: każdy głos sprawia, że liczby są trochę dokładniejsze."
+  },
+  "changelog_appeal_cta": {
+    "message": "Dołącz na Patreonie"
+  },
+  "changelog_appeal_signature": {
+    "message": "— Dmitrij i społeczność RYD"
+  },
+  "changelog_join_title": {
+    "message": "Uzyskaj funkcje Premium"
+  },
+  "changelog_join_step1": {
+    "message": "Dołącz na Patreonie. Commenter pozwala pisać komentarze, a Premium dodaje też analitykę."
+  },
+  "changelog_join_step3": {
+    "message": "Odśwież dowolny film na YouTube. Nowe funkcje pojawią się automatycznie."
+  },
+  "changelog_also_title": {
+    "message": "Także w tym wydaniu"
+  },
+  "changelog_also_counts": {
+    "message": "Liczby łapek w górę i w dół wyświetlają się bardziej niezawodnie w rozszerzeniu i skrypcie użytkownika."
+  },
+  "changelog_also_consent": {
+    "message": "Ulepszony proces wyrażania zgody na wykorzystanie danych w Firefoksie."
+  },
+  "changelog_also_translations": {
+    "message": "Nowe i ulepszone tłumaczenia."
+  },
+  "reviewPromptTitle": {
+    "message": "Podoba Ci się RYD?"
+  },
+  "reviewPromptBody": {
+    "message": "Google zmieniło zasady ocen w Chrome Web Store. Mimo 16 000+ opinii z pięcioma gwiazdkami kilka ostatnich negatywnych opinii obniżyło ocenę RYD z 4,6 do 2,5.\n\nJeśli RYD Ci pomaga, zostaw proszę szczerą opinię."
+  },
+  "reviewPromptAction": {
+    "message": "Napisz opinię"
+  },
+  "consent_page_title": {
+    "message": "Uprawnienia funkcji RYD"
+  },
+  "consent_vote_title": {
+    "message": "Niech Twoje oceny się liczą"
+  },
+  "consent_vote_body": {
+    "message": "Firefox wymaga teraz, aby każde rozszerzenie pytało Cię o zgodę przed udostępnieniem jakichkolwiek danych. Zezwól na to, aby RYD mógł liczyć Twoje polubienia, oceny negatywne i reakcje na komentarze. Ta zgoda obejmuje tylko YouTube, a nie inne witryny."
+  },
+  "consent_account_title": {
+    "message": "Wybierz uprawnienia konta"
+  },
+  "consent_account_body": {
+    "message": "Zaloguj się, aby korzystać z funkcji konta, w tym profilu, powiadomień i analiz Premium."
+  },
+  "consent_next_step": {
+    "message": "Wybierz Zezwól w Firefoksie, aby przejrzeć uprawnienia. Możesz odmówić."
+  },
+  "consent_allow": {
+    "message": "Zezwól w Firefoksie"
+  },
+  "consent_not_now": {
+    "message": "Nie teraz"
+  },
+  "consent_prompt_status": {
+    "message": "Zdecyduj, czy chcesz przyznać te uprawnienia w Firefoksie."
+  },
+  "consent_granted_status": {
+    "message": "Uprawnienia są włączone. Możesz wrócić do YouTube."
+  },
+  "consent_declined_status": {
+    "message": "Te opcjonalne funkcje pozostają wyłączone. Możesz zmienić uprawnienia później."
+  },
+  "consent_error_status": {
+    "message": "Nie udało się zmienić uprawnień. Spróbuj ponownie."
+  },
+  "consent_details_summary": {
+    "message": "Co oznaczają kategorie uprawnień Firefoksa?"
+  },
+  "consent_details_intro": {
+    "message": "Firefox grupuje dane w szerokie kategorie. Oto znaczenie każdej z nich dla RYD:"
+  },
+  "consent_browsing_label": {
+    "message": "Aktywność przeglądania"
+  },
+  "consent_browsing_body": {
+    "message": "Tylko identyfikator filmu YouTube, który otwierasz, aby wczytać jego oceny negatywne i komentarze RYD. Nigdy Twoja historia przeglądania ani inne witryny."
+  },
+  "consent_content_label": {
+    "message": "Treść witryn"
+  },
+  "consent_content_body": {
+    "message": "Liczba polubień wyświetlana przy filmie YouTube, służąca do poprawiania szacunków liczby ocen negatywnych."
+  },
+  "consent_activity_label": {
+    "message": "Aktywność w witrynach"
+  },
+  "consent_activity_body": {
+    "message": "Twoje polubienia, oceny negatywne i reakcje na komentarze RYD na YouTube, aby były liczone. Wysyłane z losowym identyfikatorem, który nie jest powiązany z Twoim kontem Google ani YouTube."
+  },
+  "consent_identity_label": {
+    "message": "Dane umożliwiające identyfikację osoby"
+  },
+  "consent_identity_body": {
+    "message": "Dane profilu, takie jak wyświetlana nazwa i e-mail, tylko gdy zdecydujesz się zalogować."
+  },
+  "consent_auth_label": {
+    "message": "Dane uwierzytelniania"
+  },
+  "consent_auth_body": {
+    "message": "Dane autoryzacji i sesji niezbędne do logowania i korzystania z funkcji konta."
+  },
+  "consent_scope": {
+    "message": "RYD nie zbiera niczego poza youtube.com i nie uzyskuje dostępu do Twojego konta YouTube. Nie otrzymuje nazwy ani e-maila, dopóki się nie zalogujesz."
+  },
+  "consent_settings": {
+    "message": "Te uprawnienia możesz w każdej chwili zmienić w ustawieniach dodatków przeglądarki Firefox (about:addons)."
+  },
+  "consent_private_counts": {
+    "message": "Okna prywatne wyświetlają tylko liczniki, korzystając z uprawnienia włączonego w zwykłym oknie. Głosowanie, logowanie, analizy Premium i dyskusje są w nich niedostępne."
+  },
+  "consent_voter_timing": {
+    "message": "Identyfikator głosowania jest wysyłany tylko przy głosowaniu lub reagowaniu. Twoje reakcje na komentarze są zapamiętywane na tym urządzeniu."
+  },
+  "popup_signin_next_click": {
+    "message": "Potrzebne jest jeszcze jedno kliknięcie: wybierz poniżej przycisk logowania, aby sprawdzić uprawnienia konta w Firefoksie i kontynuować."
+  },
+  "changelog_firefox_intro_title": {
+    "message": "Nowe zasady prywatności w Firefoksie"
+  },
+  "changelog_firefox_intro_body": {
+    "message": "W Firefoksie RYD potrzebuje twojej zgody, zanim pokaże łapki w dół. Oto dokładnie, co obejmuje ta zgoda — a czego nie."
+  },
+  "changelog_firefox_vote_granted": {
+    "message": "Dziękujemy. Twoje oceny są teraz liczone."
+  },
+  "vote_consent_hint": {
+    "message": "Twoja ocena nie jest jeszcze liczona. Firefox wymaga teraz Twojej zgody, zanim RYD będzie mógł ją wysłać. Ta zgoda obejmuje tylko YouTube, a nie inne witryny."
+  },
+  "vote_not_counted": {
+    "message": "Twoje polubienia i oceny negatywne nie są liczone i nie pojawią się w licznikach ocen negatywnych."
+  },
+  "vote_count_mine": {
+    "message": "Licz moje oceny"
+  },
+  "vote_consent_dismiss": {
+    "message": "Nie pytaj ponownie"
+  },
+  "discussion_reactionConsentRequired": {
+    "message": "Włącz udostępnianie ocen, aby reagować na komentarze. Twoja reakcja zostanie wysłana po jego włączeniu."
+  },
+  "discussion_consentContinue": {
+    "message": "Kontynuuj"
+  },
+  "counts_consent_toolbar": {
+    "message": "Otwórz Return YouTube Dislike z menu rozszerzeń Firefoksa, aby kontynuować."
+  },
+  "counts_consent_declined": {
+    "message": "Liczniki pozostają wyłączone. Możesz je włączyć tutaj później."
+  },
+  "counts_consent_enabled": {
+    "message": "Liczniki ocen negatywnych są włączone."
+  },
+  "counts_consent_private": {
+    "message": "Najpierw włącz liczniki ocen negatywnych w zwykłym oknie. Okna prywatne wyświetlają tylko liczniki."
+  },
+  "data_consent_reason": {
+    "message": "Firefox wymaga teraz, aby każde rozszerzenie pytało Cię o zgodę przed udostępnieniem jakichkolwiek danych. Zezwól RYD na wyświetlanie ocen negatywnych i liczenie Twoich ocen. Ta zgoda obejmuje tylko YouTube, a nie inne witryny."
+  },
+  "data_consent_title": {
+    "message": "Pokazuj oceny negatywne i niech Twoje oceny się liczą"
+  },
+  "data_consent_body": {
+    "message": "Firefox wymaga teraz, aby każde rozszerzenie pytało Cię o zgodę przed udostępnieniem jakichkolwiek danych. Stosuje te same ogólne etykiety do wszystkich rozszerzeń, więc oto, co każda z nich oznacza dla RYD:"
+  },
+  "data_consent_scope": {
+    "message": "RYD działa tylko na YouTube. Zezwolenie na to nie daje mu dostępu do żadnej innej witryny."
+  }
+}

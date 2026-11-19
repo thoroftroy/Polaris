@@ -1,0 +1,431 @@
+{
+  "appDesc": {
+    "message": "वेब से वीडियो डाउनलोड करें।"
+  },
+  "appLongDesc": {
+    "message": "वेब से वीडियो डाउनलोड करें। आसान, स्मार्ट, कोई ट्रैकिंग नहीं।\n\n10 से ज़्यादा सालों से सबसे बेहतरीन वीडियो डाउनलोडर!\n\nVideo Download Helper 1000+ वेबसाइटों (Dash, HLS, MPD, …), लाइव स्ट्रीमिंग, हाई-डेफ़िनिशन और आपके पसंदीदा फ़ॉर्मेट (MP4, MKV, WebM, …) में कन्वर्ज़न को सपोर्ट करता है। Video Download Helper ऑडियो डाउनलोड को भी सपोर्ट करता है (वीडियो से ऑडियो निकालकर MP3 में)।\n"
+  },
+  "appLongDescGoogleAddendum": {
+    "message": "कृपया ध्यान दें कि यह एक्सटेंशन YouTube को सपोर्ट नहीं करता।\n"
+  },
+  "restore_purchase_button": {
+    "message": "खरीदारी रीस्टोर करें"
+  },
+  "get_premium_button": {
+    "message": "प्रीमियम पाएं"
+  },
+  "get_premium_description": {
+    "message": "बिना किसी प्रतिबंध के असीमित डाउनलोड और सर्वोत्तम उपलब्ध क्वालिटी का आनंद लें।"
+  },
+  "back": {
+    "message": "वापस"
+  },
+  "rm_notifications_all": {
+    "message": "सभी सूचनाएं हटाएं"
+  },
+  "waiting_for_media": {
+    "message": "मीडिया की प्रतीक्षा की जा रही है…"
+  },
+  "nomedia_title": {
+    "message": "आप जो मीडिया ढूंढ रहे हैं, वह नहीं दिख रहा?"
+  },
+  "nomedia_description": {
+    "message": "मीडिया का पता लगाने में मदद के लिए वीडियो चलाएं (और अगर विज्ञापन हों तो उन्हें स्किप करें)। या छूटे हुए मीडिया की रिपोर्ट करें।"
+  },
+  "nomedia_reload_button": {
+    "message": "दोबारा पता लगाएं"
+  },
+  "nomedia_reload_button_tooltip": {
+    "message": "पेज को ज़बरदस्ती रीलोड करें (कुकीज़ साफ़ करें)"
+  },
+  "show_nomedia_button": {
+    "message": "वीडियो नहीं मिला?"
+  },
+  "show_nomedia_button_tooltip": {
+    "message": "अगर आपको अपना वीडियो नहीं मिल रहा है तो यहां क्लिक करें"
+  },
+  "setting_button_tooltip": {
+    "message": "सेटिंग्स"
+  },
+  "history_button_tooltip": {
+    "message": "डाउनलोड इतिहास दिखाएं"
+  },
+  "show_all_history_button": {
+    "message": "सभी दिखाएं"
+  },
+  "complete_title": {
+    "message": "पूरे हुए"
+  },
+  "hide_complete_button": {
+    "message": "छिपाएं"
+  },
+  "translate_button_tooltip": {
+    "message": "VDH का अनुवाद करने में मदद करें"
+  },
+  "help_button_tooltip": {
+    "message": "सहायता"
+  },
+  "next_download": {
+    "message": "अगला डाउनलोड:"
+  },
+  "open_source_tab_button_tooltip": {
+    "message": "स्रोत टैब खोलें"
+  },
+  "retry_download_button_tooltip": {
+    "message": "डाउनलोड फिर से आज़माएं"
+  },
+  "delete_file_button_tooltip": {
+    "message": "फ़ाइल हटाएं"
+  },
+  "download_directory_button_tooltip": {
+    "message": "डाउनलोड फ़ोल्डर दिखाएं"
+  },
+  "clear_downloaded_tooltip": {
+    "message": "पूरे हुए डाउनलोड साफ़ करें"
+  },
+  "show_in_popup_button_tooltip": {
+    "message": "पॉपअप में दिखाएं"
+  },
+  "show_in_sidebar_button_tooltip": {
+    "message": "साइडबार में दिखाएं"
+  },
+  "video_not_playing_button_tooltip": {
+    "message": "वीडियो नहीं चल रहा?"
+  },
+  "play": {
+    "message": "चलाएं"
+  },
+  "warn_drm_tooltip": {
+    "message": "DRM का पता चला"
+  },
+  "version_title": {
+    "message": "संस्करण"
+  },
+  "account_title": {
+    "message": "खाता"
+  },
+  "one_hundred_downloads_title": {
+    "message": "आपने 100 वीडियो डाउनलोड कर लिए हैं!"
+  },
+  "tos_title": {
+    "message": "सेवा की शर्तें स्वीकार करें"
+  },
+  "tos_description": {
+    "message": "Video Download Helper केवल कानूनी उपयोग के लिए है। आप जो सामग्री डाउनलोड करते हैं और उसका जिस तरह उपयोग करते हैं, उसकी ज़िम्मेदारी आपकी है। \"स्वीकार करें\" पर क्लिक करके, आप हमारी सेवा की शर्तों से सहमत होते हैं"
+  },
+  "tos_details": {
+    "message": "सेवा की शर्तें"
+  },
+  "tos_accept": {
+    "message": "स्वीकार करें"
+  },
+  "leave_review_description": {
+    "message": "हमें उम्मीद है कि आपको Video Download Helper पसंद आ रहा है :) क्या आप ऐड-ऑन वेबसाइट पर एक अच्छी समीक्षा लिखेंगे?"
+  },
+  "leave_review_button": {
+    "message": "समीक्षा लिखें"
+  },
+  "account_status": {
+    "message": "स्थिति"
+  },
+  "account_status_premium": {
+    "message": "प्रीमियम ($1)"
+  },
+  "free_account": {
+    "message": "मुफ़्त प्लान"
+  },
+  "copy_to_clipboard": {
+    "message": "जानकारी क्लिपबोर्ड पर कॉपी करें"
+  },
+  "my_account_button": {
+    "message": "मेरा खाता"
+  },
+  "download_title": {
+    "message": "डाउनलोड"
+  },
+  "show_notification": {
+    "message": "डाउनलोड पूरा होने पर सूचना दिखाएं"
+  },
+  "max_parallel_downloads": {
+    "message": "एक साथ अधिकतम डाउनलोड"
+  },
+  "saveas_detected_warning": {
+    "message": "हमने पाया है कि डाउनलोड पूरा होने पर आपका ब्राउज़र 'इस रूप में सहेजें' डायलॉग दिखाता है। हमारी सलाह है कि आप अपनी ब्राउज़र सेटिंग्स में यह विकल्प बंद कर दें"
+  },
+  "change_saveas_setting": {
+    "message": "सेटिंग बदलें"
+  },
+  "download_directory_title": {
+    "message": "डाउनलोड फ़ोल्डर"
+  },
+  "download_directory_description": {
+    "message": "वीडियो ब्राउज़र के डिफ़ॉल्ट डाउनलोड फ़ोल्डर में डाउनलोड होते हैं। आप एक सब-फ़ोल्डर भी बता सकते हैं। हर वेबसाइट के लिए अलग डाउनलोड फ़ोल्डर smartnaming टूल से सेट किए जा सकते हैं।"
+  },
+  "change_browser_download_directory": {
+    "message": "ब्राउज़र का डाउनलोड फ़ोल्डर बदलें"
+  },
+  "bad_download_subdirectory_warning": {
+    "message": "आपने जो सब-फ़ोल्डर बताया है, वह मान्य नहीं है।"
+  },
+  "download_subdirectory": {
+    "message": "डाउनलोड सब-फ़ोल्डर"
+  },
+  "private_browsing_title": {
+    "message": "निजी ब्राउज़िंग"
+  },
+  "private_browsing_warning": {
+    "message": "Video Download Helper निजी/इनकॉग्निटो विंडो में चालू नहीं है। आपको यह विकल्प खुद चालू करना होगा (यह ज़रूरी नहीं है)।"
+  },
+  "private_browsing_notifications": {
+    "message": "निजी डाउनलोड के लिए सूचना दिखाएं"
+  },
+  "private_browsing_button": {
+    "message": "निजी ब्राउज़िंग सेटिंग बदलें"
+  },
+  "throttle_youtube": {
+    "message": "YouTube की स्पीड सीमित करें (डाउनलोड धीमे होंगे, लेकिन ब्लॉक होने की संभावना कम होगी)"
+  },
+  "prefer_original_audio": {
+    "message": "मूल ऑडियो को प्राथमिकता दें"
+  },
+  "settings_history_title": {
+    "message": "इतिहास"
+  },
+  "transient_history_description": {
+    "message": "पैनल में पूरे हुए डाउनलोड दिखाएं"
+  },
+  "history_limit": {
+    "message": "X दिनों के बाद डाउनलोड इतिहास भूल जाएं"
+  },
+  "appearance_title": {
+    "message": "दिखावट"
+  },
+  "theme_title": {
+    "message": "थीम"
+  },
+  "theme_light": {
+    "message": "लाइट"
+  },
+  "theme_dark": {
+    "message": "डार्क"
+  },
+  "theme_system": {
+    "message": "सिस्टम"
+  },
+  "popup_size_title": {
+    "message": "विंडो का आकार"
+  },
+  "popup_size_small": {
+    "message": "छोटा"
+  },
+  "popup_size_medium": {
+    "message": "मध्यम"
+  },
+  "popup_size_big": {
+    "message": "बड़ा"
+  },
+  "font_size_title": {
+    "message": "टेक्स्ट का आकार"
+  },
+  "font_size_default": {
+    "message": "डिफ़ॉल्ट"
+  },
+  "font_size_large": {
+    "message": "बड़ा"
+  },
+  "font_size_verylarge": {
+    "message": "बहुत बड़ा"
+  },
+  "panel_position_title": {
+    "message": "पैनल का स्थान"
+  },
+  "use_popup": {
+    "message": "पॉपअप में दिखाएं"
+  },
+  "use_sidebar": {
+    "message": "साइडबार में दिखाएं"
+  },
+  "behavior_title": {
+    "message": "व्यवहार"
+  },
+  "controls_title": {
+    "message": "नियंत्रण"
+  },
+  "show_in_context_menu": {
+    "message": "पेज में राइट-क्लिक से कमांड इस्तेमाल करें"
+  },
+  "restart_addon": {
+    "message": "ऐड-ऑन फिर से लोड करें"
+  },
+  "reset_settings": {
+    "message": "सेटिंग्स रीसेट करें"
+  },
+  "preferred_quality": {
+    "message": "पसंदीदा वीडियो क्वालिटी"
+  },
+  "preferred_quality_highest": {
+    "message": "सर्वोच्च (धीमा डाउनलोड, उच्च रिज़ॉल्यूशन)"
+  },
+  "preferred_quality_1080p": {
+    "message": "1080p (अच्छा डिफ़ॉल्ट)"
+  },
+  "preferred_quality_720p": {
+    "message": "720p (तेज़ डाउनलोड, कम रिज़ॉल्यूशन)"
+  },
+  "preferred_quality_480p": {
+    "message": "480p (और तेज़ डाउनलोड, और कम रिज़ॉल्यूशन)"
+  },
+  "prefer_mkv": {
+    "message": "जब संभव हो, MKV के रूप में डाउनलोड करें"
+  },
+  "preview_mode_title": {
+    "message": "मीडिया पूर्वावलोकन"
+  },
+  "preview_mode_none": {
+    "message": "बंद"
+  },
+  "preview_mode_video": {
+    "message": "छोटा वीडियो पूर्वावलोकन"
+  },
+  "preview_mode_image": {
+    "message": "छवि"
+  },
+  "media_discovered_ordering_title": {
+    "message": "मीडिया को क्रमबद्ध करने का तरीका"
+  },
+  "order_media_smart": {
+    "message": "स्मार्ट (अनुशंसित)"
+  },
+  "order_media_by_newest": {
+    "message": "सबसे नया पहले"
+  },
+  "order_media_by_oldest": {
+    "message": "सबसे पुराना पहले"
+  },
+  "languages_title": {
+    "message": "भाषाएं"
+  },
+  "settings_subtitles_title": {
+    "message": "पसंदीदा सबटाइटल भाषाएं"
+  },
+  "settings_audio_tracks_title": {
+    "message": "पसंदीदा ऑडियो ट्रैक"
+  },
+  "history_title": {
+    "message": "डाउनलोड इतिहास"
+  },
+  "history_warning": {
+    "message": "हम आपका डाउनलोड इतिहास रिकॉर्ड नहीं करते। क्या आप चाहते हैं कि Video Download Helper आपका डाउनलोड इतिहास याद रखे?"
+  },
+  "history_warning_2": {
+    "message": "चिंता न करें, सब कुछ आपके ही डिवाइस पर रहता है। हम आपकी गोपनीयता का सम्मान करते हैं।"
+  },
+  "enable_history": {
+    "message": "इतिहास चालू करें"
+  },
+  "clear_history": {
+    "message": "इतिहास साफ़ करें"
+  },
+  "disable_history": {
+    "message": "मेरा इतिहास याद न रखें"
+  },
+  "no_downloads_yet": {
+    "message": "अभी तक कोई प्रविष्टि नहीं।"
+  },
+  "download_failed": {
+    "message": "डाउनलोड विफल रहा"
+  },
+  "download_failed_description": {
+    "message": "माफ़ कीजिए, हम यह मीडिया डाउनलोड नहीं कर पाए। हम ज़्यादा से ज़्यादा वेबसाइटों को सपोर्ट करने की कोशिश करते हैं, इसलिए अगर आप इस त्रुटि की रिपोर्ट करें तो बहुत मदद मिलेगी (यह गुमनाम है!)।"
+  },
+  "download_interrupted": {
+    "message": "डाउनलोड बाधित हुआ"
+  },
+  "download_interrupted_description": {
+    "message": "हमने आपकी फ़ाइल डाउनलोड कर ली, लेकिन नेटवर्क में समस्या आई, इसलिए फ़ाइल उम्मीद से छोटी हो सकती है। हम ज़्यादा से ज़्यादा वेबसाइटों को सपोर्ट करने की कोशिश करते हैं, इसलिए अगर आप इस समस्या की रिपोर्ट करें तो बहुत मदद मिलेगी (यह गुमनाम है!)।"
+  },
+  "download_with_drm_failed_description": {
+    "message": "कुछ गड़बड़ हो गई। हमें लगता है कि इस वीडियो में DRM है। हम DRM वाले वीडियो को सपोर्ट नहीं करते।"
+  },
+  "no_youtube": {
+    "message": "YouTube से डाउनलोड करने की अनुमति नहीं है"
+  },
+  "no_youtube_description": {
+    "message": "दुर्भाग्य से, Chrome Web Store, YouTube वीडियो डाउनलोड करने वाले एक्सटेंशन की अनुमति नहीं देता, इसलिए हम यह सुविधा एक्सटेंशन के Chrome संस्करण में शामिल नहीं कर सके।"
+  },
+  "no_youtube_description_2": {
+    "message": "कृपया Firefox या Microsoft Edge का उपयोग करें"
+  },
+  "premium_required": {
+    "message": "प्रीमियम स्थिति आवश्यक है"
+  },
+  "premium_yt_required_description": {
+    "message": "प्रीमियम स्थिति के बिना, YouTube से अगला डाउनलोड पिछले डाउनलोड के 2 घंटे बाद ही किया जा सकता है।"
+  },
+  "youtube_too_many_downloads": {
+    "message": "ओह, लगता है YouTube ब्लॉक हो गया है"
+  },
+  "youtube_too_many_downloads_description": {
+    "message": "YouTube कभी-कभी सीमित कर देता है कि कितने वीडियो मांगे जा सकते हैं। दुर्भाग्य से हम इसमें कुछ नहीं कर सकते। बाद में फिर से कोशिश करें।"
+  },
+  "stop": {
+    "message": "रोकें"
+  },
+  "cancel": {
+    "message": "रद्द करें"
+  },
+  "copy_url": {
+    "message": "URL कॉपी करें"
+  },
+  "always_copy_url": {
+    "message": "हमेशा URL कॉपी करें"
+  },
+  "download_button": {
+    "message": "डाउनलोड"
+  },
+  "download_as_button_and_menu": {
+    "message": "इस रूप में डाउनलोड करें…"
+  },
+  "rename_short": {
+    "message": "नाम बदलें"
+  },
+  "always_download_as_menu": {
+    "message": "हमेशा इस रूप में डाउनलोड करें…"
+  },
+  "download_audio_button": {
+    "message": "ऑडियो"
+  },
+  "download_audio_and_video_menu": {
+    "message": "ऑडियो और वीडियो डाउनलोड करें"
+  },
+  "download_audio_only_menu": {
+    "message": "ऑडियो डाउनलोड करें"
+  },
+  "audio_only_for_this_website": {
+    "message": "इस वेबसाइट के लिए हमेशा केवल ऑडियो"
+  },
+  "details": {
+    "message": "विवरण"
+  },
+  "report": {
+    "message": "रिपोर्ट करें"
+  },
+  "reporting": {
+    "message": "रिपोर्ट की जा रही है…"
+  },
+  "reported_thankyou": {
+    "message": "धन्यवाद!"
+  },
+  "move_lang_up": {
+    "message": "ऊपर ले जाएं"
+  },
+  "move_lang_down": {
+    "message": "नीचे ले जाएं"
+  },
+  "remove_lang": {
+    "message": "भाषा हटाएं"
+  },
+  "add_lang": {
+    "message": "भाषा जोड़ें"
+  }
+}

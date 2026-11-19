@@ -1,0 +1,367 @@
+Manifest-Version: 1.0
+
+Name: options.html
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: qkc1ekk3LST5qcE5YToHf7RqtvE=
+SHA256-Digest: PHxqK6lnOl58/n/uprEW/PwuEoB4CTbdFbdvh3mV5P0=
+
+Name: manifest.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: ohwtU22Ju2tkYP/pVxJs/MqILSk=
+SHA256-Digest: 9hxBZI1mtPYpswAzk+VrPzeW1It3Fxl4/e/MYn0/sd8=
+
+Name: player.html
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: xEQCOtinC65nhGL18n9JhQlnCPQ=
+SHA256-Digest: ZXVWbdnE72iSgfks1d1sUDoDvYGeHYBik3njSeRyWcQ=
+
+Name: popup.html
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: RIzJUmS0o+9LNyzev9RPbd4+WBQ=
+SHA256-Digest: mxBi7vzN52vsG2444YQkqRXGWVUEhnVynSfYmmJrMjA=
+
+Name: onboard.html
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 0eU+yj6JImYiA1cC9L5UygGMO1s=
+SHA256-Digest: m8rta02XBZT4WapB30VbDTXhwJTdL5+zrD5mqDNIHGI=
+
+Name: dist/player.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: SUzyNEyNtSFyqpO6FGD//Lwpyhc=
+SHA256-Digest: cK0M3zunFfbDuIoAmOSWxpKPoTM0NYgYTvlPajjq66M=
+
+Name: dist/content.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: GNpvC90p33qzPD1fNwxeguL4dsM=
+SHA256-Digest: c6M/ntRnA6KEf+xfB3f68v/yTWtwyKggzSZKgfQGlXY=
+
+Name: dist/options.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: BgONFQY8VehoY+J41y5p1ykOef0=
+SHA256-Digest: IGgW89+j0SA9qUtaAWHV6Ond88DGUxYlGPTo1fqIeWw=
+
+Name: dist/onboard.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: kLSeTDKS6Tfj83SEL/CYgepmQP0=
+SHA256-Digest: FMehXEevYySe+fIw7q5q13sGLA6vRO/YKb/2ov++rAs=
+
+Name: dist/pluginPolyfill.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: vcS9DNlO/kdnR7aG9s/c+lSEahI=
+SHA256-Digest: Gj+YQZfya31PZVn/piCJ0RUFkT2DuLhryocmDjSwOA8=
+
+Name: dist/pluginPolyfillIgnoreOptout.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 8g8Wy/2wi2ob7pvPbhKTRDUa8mg=
+SHA256-Digest: /nu4OJscybgSTf7YPcaMoGrUB7FWPCoswL7gpOl5nzs=
+
+Name: dist/993.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: gwmI2ZVVZZQuw13NGv8tE4mYp1s=
+SHA256-Digest: 9w6Khvwq+/yzEN+kkEqgJqXUQn9muM+jsExuZL3NZCA=
+
+Name: dist/siteContentScript4399.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 8DfcbYZiYWdoGA2M3aGY5+Cb4jg=
+SHA256-Digest: QvJR+PwvAdtNC1QdkEk9LVgLnkAE8nxWoSxN8Uugk1A=
+
+Name: dist/popup.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: rG3OVtr+sn/tu/NZukt7jSkz2x0=
+SHA256-Digest: 6ZUFTAfq+9ZZav7kKHBjH2zQvqFZnRgE+3gjL22CA98=
+
+Name: dist/ruffle.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: eU36IwYMOz2IT5CI+fowCE6RHZ0=
+SHA256-Digest: +kZdxsLT8AW2QobF+DG1MjxI/4OHw9C5z5a7jMJAdLw=
+
+Name: dist/README.md
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: YgwOqJG/03j67BqjiGD+DEDjo+0=
+SHA256-Digest: McKigK+G6CGiwBMEBWMk8R3bq7qqQxqSnt6gPIA36sc=
+
+Name: dist/110.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: GxFaHmMBu8xEJYCI2WE5sPWUlCQ=
+SHA256-Digest: TzVHQ+c9y67QFZlqPkmAI4QZKObCOigVaDG3WQ81+Ls=
+
+Name: dist/background.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: lGHEXmxS2EqWUzfD2kR2klqG1yc=
+SHA256-Digest: QeI7iXlDzTptVcyPxQpi2nhpauYcOySpUsJjDXZFRas=
+
+Name: dist/LICENSE_APACHE
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: blxHEbyuBJZ9f1teAc9WrgO+vno=
+SHA256-Digest: Yseh419WQGiW16p8pS0MwNJyrAIrXSeW59aQXbijY2o=
+
+Name: dist/LICENSE_MIT
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: h7+Q22UdBYB2mrJ42HbiFMUx0uY=
+SHA256-Digest: g2oVaT0jXA4jLT97WDcTVzOy6KenFKO3W4h99pDLzdE=
+
+Name: dist/4399_rules.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: nexfnd2DYOGPopln/EovgIc3zqE=
+SHA256-Digest: D6qyTOHZAkZl+OWXPVSq0ZAnImyT3kZWqgMbgELEwu4=
+
+Name: dist/assets/ruffle_web-wasm_mvp_bg.wasm
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 8WYbm26O1w6HigWVJ/M2U8M8fDA=
+SHA256-Digest: 6G3M/8+8hrsvxWVAD1btVQja24ri4FoZDt9my4Lu5Q8=
+
+Name: dist/assets/ruffle_web_bg.wasm
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: EfvXlf57da6KJ/R/3413c+gXBR4=
+SHA256-Digest: lTdh2p6HpRdkis7JZGE34DkpPfb1+32/wd8SIj/ON6I=
+
+Name: _locales/nl/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: MmeqvVpOxQDAZAkUktNfaGs7dfw=
+SHA256-Digest: o8RQrDpuFdR62g38ovfZyoANC8qpP/CnNsxjYd2T1PU=
+
+Name: _locales/id/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: OGgldkAbhFNjMhufGeZb0igukBo=
+SHA256-Digest: eGRs9GM5qkA/f5TbVta+KMc8VTCRqOJ0WU/b1eZJBQc=
+
+Name: _locales/sl/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: NHmugrbIgDPscljPg3RgOH8r3Y4=
+SHA256-Digest: 8kPEai0RSvZw8RNux6UXlj7QCgGRmwkV9BeWiByT93w=
+
+Name: _locales/tt/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: wskZ8zpEn0mSEgh+VUId6atuQrA=
+SHA256-Digest: 30tSt7TiwDzKZnRqscT6B974sdSj90NYsPijDacjqAI=
+
+Name: _locales/pt_PT/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: //NwrdoX+XJ6kvxjOBnbYzAladU=
+SHA256-Digest: I0s5UkT17EpFHVw6+Bpv2qSB/xgy2xDJ3k4IWKRV1Gs=
+
+Name: _locales/ar/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: U3zHCi8flCx34ITMxEDgbLRjTMw=
+SHA256-Digest: eE5d98ZhDfQm47dQsZCo38EN2JEMOkVZ/k6EjeWNcBQ=
+
+Name: _locales/zh_CN/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 4WVZWSio4BrMmgoHSLQSoAWb9WU=
+SHA256-Digest: bDLsxktQvKJlvYzoBqPc7ePtEYfg2Ue6momFtRb8F74=
+
+Name: _locales/gl/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: Xzay6ikGRe402UMiChS1TuXqW+U=
+SHA256-Digest: yj0WO6sFU4GCciYUBWjzvvfqrBh869doeOC2Pp5EI1Y=
+
+Name: _locales/it/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: GoL0be10M2859xU1gYwwr7rWS8w=
+SHA256-Digest: /Kx2HgfXoC9cLFZOFgn+5Nd6OCcFf/eMHXKdQ8F3Snk=
+
+Name: _locales/eo/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: Xzay6ikGRe402UMiChS1TuXqW+U=
+SHA256-Digest: yj0WO6sFU4GCciYUBWjzvvfqrBh869doeOC2Pp5EI1Y=
+
+Name: _locales/ru/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: faN4b57DuhJDT3sygRPOw3e6G7Y=
+SHA256-Digest: e5xg1Cql33yxVVdsDfX/gPXoAQen0IrjS6R71drEQAk=
+
+Name: _locales/cs/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: uPu8M/zk6itfWiWxYVB1zXRh0Hk=
+SHA256-Digest: HAz9mwh7PgllmDwB1HqHasP7MTShlWOBGr+AHUUd2aM=
+
+Name: _locales/ro/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: ppY53ljxoDH6trYY7xNiDX4miDs=
+SHA256-Digest: bGYcXHXuFQ0Fs7I3cAotqaTngKQ0Ywwueqiekr9Xho4=
+
+Name: _locales/fi/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: BVjQwcy0ZgE/seeSr0tL7yaCIV8=
+SHA256-Digest: WrzbDyZZEApcRblDodyzb6CuP036Y5u5giDv0HjQR1E=
+
+Name: _locales/bs/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: icvja8BESCL/DwonGw/2iPENWvU=
+SHA256-Digest: LvqvhnH6oQP2v6QVzN65hwbbzD1TRURfHNEaQB2EmPo=
+
+Name: _locales/pl/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: t6xuKJboE6ufGJHUn0C7sM+m/qo=
+SHA256-Digest: ImMADmXxnXhyIxFjcHAdK76V38n7hfd1tC2pqlpnlW8=
+
+Name: _locales/uk/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: ax9VOZ+RvN+zaGmvVJV1sCioWhI=
+SHA256-Digest: 21PCn9cC8fBK9IYcfFdKwMshYHQDLHsczkOcGfJiAw8=
+
+Name: _locales/nb/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: Xzay6ikGRe402UMiChS1TuXqW+U=
+SHA256-Digest: yj0WO6sFU4GCciYUBWjzvvfqrBh869doeOC2Pp5EI1Y=
+
+Name: _locales/ca/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: Vyt8Gu3HDNYxByK8KKz4B60+NJY=
+SHA256-Digest: IbOwc3RaesMtoL2ey/L5jUkniAFVXa5BeYfAJiQvNZc=
+
+Name: _locales/sr/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: x3qdlTNR599rsn3Jq897S+XagM0=
+SHA256-Digest: T9H3i6JmJU97IWT+K/4lnr/y6Sp4bJJu2FKUtkJR/oQ=
+
+Name: _locales/ko/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: vT5hqzrjlz9mZKuPSRl1TrTepAU=
+SHA256-Digest: u3a94zoRSwBDTzPb7DC4DPLt3GL+J8KnC+RavvLqiYA=
+
+Name: _locales/he/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: DElrRyK+qHLF/qqaH3Dfn2xPhOM=
+SHA256-Digest: VcGOxV5DnL2yJVizUHrDioqYLpCR33WH0UYi+7u6GtY=
+
+Name: _locales/fr/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: Gb6Wc2ttuuNwJagQuUg+eeCaKAM=
+SHA256-Digest: 0DAtU4tnkeHlwuhyX/8KDn2hg9L0ovHidGZC7JC9NAc=
+
+Name: _locales/sv/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 78QV3haMFWwZMFOjJZqSFHvpJRs=
+SHA256-Digest: E0cQuQmTpI5yz8aCIiMLIJ//GXN7IsnRRNv6j4PdbaM=
+
+Name: _locales/de/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 1KsuPtnDVmGVjBoDoLomlSyf0dU=
+SHA256-Digest: P4OBYOjK/PrbQZrBBcGAciMCRIvUbtya/fNt4EAkEdo=
+
+Name: _locales/pt_BR/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 3Q3HALeefXNy8KCP8mWBRJsbP9A=
+SHA256-Digest: sLggzlVIY7wSDx67kU8pVIsk6iZ0xccXDt9XSRzY4OY=
+
+Name: _locales/hr/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: ZU8kHhRIY9RzFZcE0CCfbtBVthg=
+SHA256-Digest: 6EP+rvgaAnxktyHdBYdncKzzfIVKCCAKOuaOUwBhLqE=
+
+Name: _locales/vi/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 1D68Rsp97AdQSaxVoxAEqJeuiww=
+SHA256-Digest: +xKuxXg0VDBrViouNnwxf1Zmf2a1IOWdg3GBeoSFP2I=
+
+Name: _locales/th/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: qu4oeoMNwJJ41I75gM1H38eNjIM=
+SHA256-Digest: vFzA6oe24ambGpKft7TicpKR09ynAaiudc4J/9kWwjE=
+
+Name: _locales/tr/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: fMnw0Ipity31vvUhPDPInlwyjLc=
+SHA256-Digest: rYC6L3xvD4dHk9yF19Aorov0q8m0GIcWAa/w3YCcdbI=
+
+Name: _locales/en/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: YgDVhX6fSdr8nc9AcXX3H8vsGC0=
+SHA256-Digest: DU2sR5D/qDFrtRjdqAEoAJNc+bMUkfiKdbIwlJTk+Ig=
+
+Name: _locales/zh_TW/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: awHH6M/LE/tTp94+IIbW0UjCGYw=
+SHA256-Digest: OrtxCbKfjFk03Ynih+yGzTwRG0SJPGZmQ7pQvr4aUSA=
+
+Name: _locales/sk/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: v3qbVxvXe3QDOLnwRs4q0+yXynI=
+SHA256-Digest: rfI7+rJPRZC9E+oFdALF5+Ay+XspsKG4lYOGVdbVfbk=
+
+Name: _locales/es/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: mUnOdmpba7hmD0dZ6zceFHMuNK4=
+SHA256-Digest: xAFrxpt+xGSbO9jaO1If9xiIUyCgfTpF/o4dJnZp0nI=
+
+Name: _locales/hu/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: ffJSEH6p9Tv0xVYtI8hRc/aSUp0=
+SHA256-Digest: DDYnMD+9Vlr2NG0hWD5MP0sXjmooH2PAfl6amrNoKGU=
+
+Name: _locales/ja/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: Zx4JYj5JiSVncJbcn0zFDK4rtWc=
+SHA256-Digest: D8xdXzJiTYwf808vlQUjMwP+hn9sjqOwK9Hz/T15LVw=
+
+Name: css/player.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: CuRh7/TJWJjDMzMBNd548i+1mBU=
+SHA256-Digest: 0aFmFYqRbkcFF2s4qkZu94CEqY9ZnJvKioZv9EeeKtw=
+
+Name: css/onboard.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: aDTED8pGphNhevFW+8OwG05EWeA=
+SHA256-Digest: piAo9t2Vfi6EcT7K8YntHUP2rNRr3fIplfzR5tJQGaU=
+
+Name: css/popup.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: rFK3yJaRVwjPM8Vub/7jt35lczE=
+SHA256-Digest: GQBIrV3Bpvmh1iYunEGz1/sQq32+hg78Y8Q60hToKNY=
+
+Name: css/options.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: wo5IKRqRx5Ut/mCTNKYVkK8j2ew=
+SHA256-Digest: CDFRZTyxg5OkKbO7VV8J5jIm0BT0zTuaoaQkShD0Wxk=
+
+Name: css/common.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: ta5dbvqei8J7Gr4+H4wf6khc3yA=
+SHA256-Digest: YHKVpEPEyWvT2fTsizRh40Mgw8gEhoQMr1UFKFa7wuk=
+
+Name: css/lato.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: unmEYLysfDQiBwjk836uWkn6RQc=
+SHA256-Digest: TF176zsQ3l/dEmcZh1+QHsN6UTaZ1TtRz67abp2oopA=
+
+Name: images/icon32.png
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: Wb2a4D5h+5mCJLkXVUuLtzUpjQg=
+SHA256-Digest: BrmoOWtbmIsBNdytpCZFLcBzHGfb5X2VnIy/Xsdj8bo=
+
+Name: images/icon16.png
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: WTKwNPhVrMPaOQME6wDBhG/vB4w=
+SHA256-Digest: sZykt9rf5wfUkpYgdDTqoYF+d+7X4X/CiccYE1mot3Y=
+
+Name: images/icon180.png
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 77JBjRluVRgYTzkSH1/M3YOmQUA=
+SHA256-Digest: H/M3pwidoPQSR0wNwIMtI5yvtFzOJTp4mPy0mlfwRBM=
+
+Name: images/logo.svg
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: r2nBNlXyqTTxU+HPCf7/2Ql7jaE=
+SHA256-Digest: VQObViXlVOmxkHyrj4oTI/UW7E3n+MpPls9AjirMKDI=
+
+Name: images/icon48.png
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: N0UcCBWADaSFco4fNUsbw8L4AW4=
+SHA256-Digest: DSTqiDDpm7BfAapHGCoGOAv96fBKAvv9qxP3pZkHIKk=
+
+Name: images/icon128.png
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: RRz5RdLEwdYRjdppLYUsdVdcC/c=
+SHA256-Digest: tXsCs+kjIQekptJAMaorMBMSZ91d07Fhequ/VjZgug4=
+
+Name: fonts/S6uyw4BMUTPHjx4wXg.woff2
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: /NQTYIXyoDSB2ZWMxnk6XtmOcUw=
+SHA256-Digest: kYt9w+Li0BXBbOCLV7y2TSJTuvwXB2WPNh5yhlSY5Tc=
+
+Name: fonts/S6uyw4BMUTPHjxAwXjeu.woff2
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 7VPp+JZxQupKov0RP2lnmTGdkbI=
+SHA256-Digest: HC/CZbquuk8/W4xyhbkzQ66tJVkPCL5z0wVnGLN2xdc=
+

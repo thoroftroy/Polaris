@@ -1,0 +1,1022 @@
+{
+  "colorTheme": {
+    "message": "Barvna tema:"
+  },
+  "colorizeRatio": {
+    "message": "Obarvaj vrstico razmerja"
+  },
+  "colorizeRatioHover": {
+    "message": "Uporabi lastne barve za vrstico razmerja."
+  },
+  "colorizeThumbs": {
+    "message": "Obarvaj palca"
+  },
+  "colorizeThumbsHover": {
+    "message": "Uporabi lastne barve za ikoni palcev."
+  },
+  "considerDonating": {
+    "message": "Razširitev deluje izključno zaradi vaših donacij, zato razmislite o podpori projektu."
+  },
+  "customColors": {
+    "message": "Lastne barve za vrstico nevšečkov in gumbe"
+  },
+  "customNumberFormats": {
+    "message": "Lastne oblike zapisa števil"
+  },
+  "disableLoggingHover": {
+    "message": "Onemogoči beleženje odgovorov API-ja v konzolo."
+  },
+  "developerSettings": {
+    "message": "Možnosti za razvijalce"
+  },
+  "disableLoggingLabel": {
+    "message": "Onemogoči beleženje v konzolo"
+  },
+  "extensionDesc": {
+    "message": "Vrne možnost ogleda nevšečkov"
+  },
+  "extensionName": {
+    "message": "Return YouTube Dislike"
+  },
+  "extensionNameBeta": {
+    "message": "Return YouTube Dislike Beta"
+  },
+  "legendSettings": {
+    "message": "Nastavitve"
+  },
+  "linkChangelog": {
+    "message": "Dnevnik sprememb"
+  },
+  "linkDiscord": {
+    "message": "Discord"
+  },
+  "linkDonate": {
+    "message": "Doniraj"
+  },
+  "linkFAQ": {
+    "message": "Pogosta vprašanja"
+  },
+  "linkGithub": {
+    "message": "GitHub"
+  },
+  "linkHelp": {
+    "message": "Pomoč"
+  },
+  "linkWebsite": {
+    "message": "Spletna stran"
+  },
+  "numberFormat": {
+    "message": "Oblika zapisa števil:"
+  },
+  "patreonLoggedOutMessage": {
+    "message": "Premium funkcije so na voljo podpornikom na Patreonu"
+  },
+  "patreonLogin": {
+    "message": "Prijava s Patreonom"
+  },
+  "patreonPrivacyNote": {
+    "message": "Podatke o članstvu na Patreonu uporabljamo za preverjanje dostopa do premium vsebin. Podatkov o vaši kartici ali banki ne prejmemo."
+  },
+  "paidFeaturesWhy": {
+    "message": "Število nevšečkov ostaja brezplačno za vse. Plačljivi dodatki pomagajo plačevati strežnike, ki ga omogočajo: več kot 15 TB podatkov in približno 20 milijonov uporabnikov na dan ob proračunu nekaj sto dolarjev na mesec."
+  },
+  "githubLoggedOutMessage": {
+    "message": "Premium funkcije so na voljo sodelavcem na GitHubu"
+  },
+  "githubLogin": {
+    "message": "Prijava z GitHubom (sodelavec)"
+  },
+  "githubLoginStartFailed": {
+    "message": "Prijave z GitHubom ni bilo mogoče začeti. Poskusite znova."
+  },
+  "githubLoginCompleteFailed": {
+    "message": "Prijave z GitHubom ni bilo mogoče dokončati. Poskusite znova."
+  },
+  "githubLoginUnavailable": {
+    "message": "Prijava za sodelavce GitHuba trenutno ni na voljo. Storitev potrebuje posodobitev ali spremembo nastavitev."
+  },
+  "githubLoginNotContributor": {
+    "message": "Ta račun GitHub ni naveden med sodelavci projekta Return YouTube Dislike. Prijavite se z računom, ki je prispeval k projektu. Nedavni prispevki se lahko prikažejo šele čez nekaj ur."
+  },
+  "githubLoginBrowserUnavailable": {
+    "message": "Prijava z GitHubom ni nastavljena za povratni naslov tega brskalnika. Obrnite se na podporo."
+  },
+  "githubLoginExpired": {
+    "message": "Ta poskus prijave z GitHubom je potekel ali ga ni bilo mogoče preveriti. Začnite novo prijavo."
+  },
+  "githubLoginUpdateRequired": {
+    "message": "Za prijavo sodelavcev GitHuba posodobite razširitev."
+  },
+  "githubLoginRateLimited": {
+    "message": "Preveč poskusov prijave. Počakajte minuto, preden poskusite znova."
+  },
+  "githubLoginDenied": {
+    "message": "Avtorizacija GitHub je bila zavrnjena. Prijava sodelavcev zahteva avtorizacijo."
+  },
+  "patreonLoginCompleteFailed": {
+    "message": "Prijave ni bilo mogoče dokončati. Poskusite znova."
+  },
+  "patreonLoginStartFailed": {
+    "message": "Prijave s Patreonom ni bilo mogoče začeti. Poskusite znova."
+  },
+  "patreonLogout": {
+    "message": "Odjava"
+  },
+  "patreonPermissionRequired": {
+    "message": "Prijava zahteva dovoljenje »identity«. Dovolite ga za nadaljevanje."
+  },
+  "patreonTierBasic": {
+    "message": "Osnovna stopnja"
+  },
+  "patreonTierChecking": {
+    "message": "Preverjanje članstva ..."
+  },
+  "patreonTierNone": {
+    "message": "Ni aktivnega članstva"
+  },
+  "patreonTierPremium": {
+    "message": "Premium podpornik"
+  },
+  "patreonTierSupporter": {
+    "message": "Podpornik"
+  },
+  "patreonUserFallback": {
+    "message": "Uporabnik Patreona"
+  },
+  "reformatLikes": {
+    "message": "Preoblikuj števila všečkov"
+  },
+  "reformatLikesHover": {
+    "message": "Poenoti obliko zapisa všečkov in nevšečkov."
+  },
+  "hidePremiumTeaser": {
+    "message": "Skrij neobdelana števila"
+  },
+  "hidePremiumTeaserHover": {
+    "message": "Ne prikazuj plošče z neobdelanimi števili na straneh za ogled videov na YouTubu."
+  },
+  "hideRydComments": {
+    "message": "Skrij komentarje RYD"
+  },
+  "hideRydCommentsHover": {
+    "message": "Ne prikazuj komentarjev RYD pri videih, kjer so komentarji na YouTubu izklopljeni."
+  },
+  "hidePremiumAnalytics": {
+    "message": "Skrij premium vpoglede v video"
+  },
+  "hidePremiumAnalyticsHover": {
+    "message": "Skrij ploščo s premium vpogledi v video na straneh za ogled videov na YouTubu."
+  },
+  "shortsSupport": {
+    "message": "Podpora za YouTube Shorts"
+  },
+  "showTooltipPercentage": {
+    "message": "Odstotek v opisu vrstice všečkov/nevšečkov"
+  },
+  "showTooltipPercentageHover": {
+    "message": "Prikaži odstotek v opisu vrstice všečkov/nevšečkov."
+  },
+  "textColorTheme1": {
+    "message": "Klasična"
+  },
+  "textColorTheme2": {
+    "message": "Dostopna"
+  },
+  "textColorTheme3": {
+    "message": "Neonska"
+  },
+  "textColorThemeHibiscus": {
+    "message": "Hibiscus"
+  },
+  "textColorThemeCustom": {
+    "message": "Po meri"
+  },
+  "colorThemeLight": {
+    "message": "Svetla tema YouTube"
+  },
+  "colorThemeDark": {
+    "message": "Temna tema YouTube"
+  },
+  "colorThemeLike": {
+    "message": "Všeč mi je"
+  },
+  "colorThemeDislike": {
+    "message": "Ni mi všeč"
+  },
+  "textDeveloper": {
+    "message": "avtorja Dmitry Selivanov in skupnost"
+  },
+  "textLikesDisabled": {
+    "message": "Onemogočil lastnik"
+  },
+  "textSettings": {
+    "message": "Onemogoči pošiljanje všečkov/nevšečkov"
+  },
+  "textSettingsHover": {
+    "message": "Vaši všečki in nevšečki se ne bodo šteli in se ne bodo poznali v številu nevšečkov."
+  },
+  "textTempUnavailable": {
+    "message": "Začasno nedosegljivo"
+  },
+  "tooltipPercentageMode": {
+    "message": "Način odstotkov:"
+  },
+  "tooltipPercentageModeHover": {
+    "message": "Uporabi lasten prikaz odstotkov ob prehodu z miško."
+  },
+  "version30installed": {
+    "message": "Nameščena je različica 4.1.7"
+  },
+  "whatsnew": {
+    "message": "Kaj je novega"
+  },
+  "premiumAnalytics_title": {
+    "message": "Premium vpogledi v video"
+  },
+  "premiumAnalytics_activityTitle": {
+    "message": "Odzivi skozi čas"
+  },
+  "premiumAnalytics_listsTitle": {
+    "message": "Najodzivnejše države"
+  },
+  "premiumAnalytics_listLikesTitle": {
+    "message": "Države z največ všečki"
+  },
+  "premiumAnalytics_listDislikesTitle": {
+    "message": "Države z največ nevšečki"
+  },
+  "premiumAnalytics_mapTitle": {
+    "message": "Zemljepisna porazdelitev"
+  },
+  "premiumAnalytics_expand": {
+    "message": "Razširi"
+  },
+  "premiumAnalytics_collapse": {
+    "message": "Strni"
+  },
+  "premiumAnalytics_mapMetricLabel": {
+    "message": "Merilo zemljevida"
+  },
+  "premiumAnalytics_mapReset": {
+    "message": "Nazaj na zemljevid sveta"
+  },
+  "premiumAnalytics_modeLikes": {
+    "message": "Všečki"
+  },
+  "premiumAnalytics_modeDislikes": {
+    "message": "Nevšečki"
+  },
+  "premiumAnalytics_modeRatio": {
+    "message": "Razmerje"
+  },
+  "premiumAnalytics_windowGroupLabel": {
+    "message": "Časovno okno podatkov"
+  },
+  "premiumAnalytics_windowLatest": {
+    "message": "Zadnji dnevi"
+  },
+  "premiumAnalytics_windowFirst": {
+    "message": "Prvi dnevi"
+  },
+  "premiumAnalytics_windowLatestTitle": {
+    "message": "Prikaži najnovejše dneve znotraj izbranega okna"
+  },
+  "premiumAnalytics_windowFirstTitle": {
+    "message": "Prikaži najzgodnejše dneve znotraj izbranega okna"
+  },
+  "premiumAnalytics_windowSummaryCustom": {
+    "message": "Lasten izbor"
+  },
+  "premiumAnalytics_windowSummaryAllTime": {
+    "message": "Ves čas"
+  },
+  "premiumAnalytics_windowSummaryLast": {
+    "message": "Zadnjih $1"
+  },
+  "premiumAnalytics_windowSummaryFirst": {
+    "message": "Prvih $1"
+  },
+  "premiumAnalytics_daysSingular": {
+    "message": "$1 dan"
+  },
+  "premiumAnalytics_daysPlural": {
+    "message": "$1 dni"
+  },
+  "premiumAnalytics_rangeLabelAllTime": {
+    "message": "Ves čas"
+  },
+  "premiumAnalytics_rangeLabelDays": {
+    "message": "$1 d"
+  },
+  "premiumAnalytics_selectedPeriod": {
+    "message": "Izbrano obdobje: $1"
+  },
+  "premiumAnalytics_totalsHeading": {
+    "message": "Uporabniki razširitve"
+  },
+  "premiumAnalytics_totalsLikes": {
+    "message": "$1 všečkov"
+  },
+  "premiumAnalytics_totalsDislikes": {
+    "message": "$1 nevšečkov"
+  },
+  "premiumAnalytics_summaryMeta": {
+    "message": "Zajetih $1 odzivov iz $2 držav ($3 enoličnih naslovov IP)"
+  },
+  "premiumAnalytics_bucketHour": {
+    "message": "Glasov na uro"
+  },
+  "premiumAnalytics_bucketDay": {
+    "message": "Glasov na dan"
+  },
+  "premiumAnalytics_bucketWeek": {
+    "message": "Glasov na teden"
+  },
+  "premiumAnalytics_bucketHours": {
+    "message": "Glasov na $1 ur"
+  },
+  "premiumAnalytics_bucketDays": {
+    "message": "Glasov na $1 dni"
+  },
+  "premiumAnalytics_bucketMinutes": {
+    "message": "Glasov na $1 minut"
+  },
+  "premiumAnalytics_bucketMinute": {
+    "message": "Glasov na minuto"
+  },
+  "premiumAnalytics_bucketSeconds": {
+    "message": "Glasov na $1 sekund"
+  },
+  "premiumAnalytics_bucketSecond": {
+    "message": "Glasov na sekundo"
+  },
+  "premiumAnalytics_noData": {
+    "message": "Podatkov še ni"
+  },
+  "premiumAnalytics_unknownRegion": {
+    "message": "Neznano"
+  },
+  "premiumAnalytics_loading": {
+    "message": "Nalaganje vpogledov ..."
+  },
+  "premiumAnalytics_errorReauth": {
+    "message": "Za odklep analitike znova avtorizirajte Patreon."
+  },
+  "premiumAnalytics_errorInactive": {
+    "message": "Premium analitika je na voljo aktivnim podpornikom na Patreonu."
+  },
+  "premiumAnalytics_errorSession": {
+    "message": "Seja je potekla. Znova se prijavite s Patreonom."
+  },
+  "premiumAnalytics_errorBackend": {
+    "message": "Zaledje analitike trenutno ni dosegljivo."
+  },
+  "premiumAnalytics_errorNetwork": {
+    "message": "Do storitve analitike ni mogoče dostopati."
+  },
+  "premiumAnalytics_errorGeneric": {
+    "message": "Premium analitike ni mogoče naložiti."
+  },
+  "premiumAnalytics_mapSeriesLabel": {
+    "message": "Odzivnost"
+  },
+  "premiumAnalytics_likeRatio": {
+    "message": "Razmerje všečkov"
+  },
+  "premiumAnalytics_visualHighRatio": {
+    "message": "Višje razmerje všečkov"
+  },
+  "premiumAnalytics_visualLowRatio": {
+    "message": "Nižje razmerje všečkov"
+  },
+  "premiumAnalytics_visualHighLikes": {
+    "message": "Več všečkov"
+  },
+  "premiumAnalytics_visualLowLikes": {
+    "message": "Manj všečkov"
+  },
+  "premiumAnalytics_visualHighDislikes": {
+    "message": "Več nevšečkov"
+  },
+  "premiumAnalytics_visualLowDislikes": {
+    "message": "Manj nevšečkov"
+  },
+  "premiumAnalytics_visualHighGeneric": {
+    "message": "Več: $1"
+  },
+  "premiumAnalytics_visualLowGeneric": {
+    "message": "Manj: $1"
+  },
+  "premiumAnalytics_tooltipLikes": {
+    "message": "Všečki: $1"
+  },
+  "premiumAnalytics_tooltipDislikes": {
+    "message": "Nevšečki: $1"
+  },
+  "premiumAnalytics_tooltipRatio": {
+    "message": "Razmerje všečkov: $1"
+  },
+  "premiumTeaser_title": {
+    "message": "Analitika videa"
+  },
+  "premiumTeaser_subtitle": {
+    "message": "Neobdelani nevšečki so neposredna poročila uporabnikov razširitve, ki gledajo ta video."
+  },
+  "premiumTeaser_cta": {
+    "message": "Odkleni premium"
+  },
+  "premiumTeaser_learn": {
+    "message": "Predogled celotne analitike"
+  },
+  "premiumTeaser_statRaw": {
+    "message": "Neobdelano število nevšečkov"
+  },
+  "premiumTeaser_statLikes": {
+    "message": "Neobdelano število všečkov"
+  },
+  "premiumTeaser_statusLoading": {
+    "message": "Pridobivanje najnovejših seštevkov nevšečkov ..."
+  },
+  "premiumTeaser_statusError": {
+    "message": "Podatkov o nevšečkih zdaj ni bilo mogoče naložiti. Poskusite znova naložiti stran."
+  },
+  "premiumTierNotice_message": {
+    "message": "Vaše članstvo na Patreonu ne vključuje stopnje Premium. Nadgradite svoj prispevek in odklenite napredno analitiko videov."
+  },
+  "changelog_cta_primary": {
+    "message": "Nadgradi na Patreonu"
+  },
+  "changelog_cta_secondary": {
+    "message": "Preberite navodila za nastavitev"
+  },
+  "changelog_section_highlights": {
+    "message": "Kaj je novega"
+  },
+  "changelog_feature_timeline_title": {
+    "message": "Časovnica odzivov v živo"
+  },
+  "changelog_feature_map_title": {
+    "message": "Interaktivni zemljevid sveta in ZDA"
+  },
+  "changelog_feature_quality_title": {
+    "message": "Lestvica vodilnih držav"
+  },
+  "changelog_screenshot_label_timeline": {
+    "message": "Ograda: pregled časovnice"
+  },
+  "changelog_screenshot_label_map": {
+    "message": "Ograda: svetovni zemljevid odzivov"
+  },
+  "changelog_screenshot_label_teaser": {
+    "message": "Ograda: lestvica držav"
+  },
+  "changelog_upgrade_step1": {
+    "message": "Odprite pojavno okno Return YouTube Dislike in se prijavite s Patreonom."
+  },
+  "changelog_support_heading": {
+    "message": "Potrebujete pomoč?"
+  },
+  "changelog_support_description": {
+    "message": "Tu smo, če zataknete – vprašanja naslovite na dokumentacijo podpore ali na skupnost."
+  },
+  "changelog_support_contact": {
+    "message": "Vprašajte skupnost"
+  },
+  "hideClutterButtons": {
+    "message": "Skrij odvečne gumbe"
+  },
+  "hideClutterButtonsHelpLabel": {
+    "message": "Prikaži primera prej in potem"
+  },
+  "hideClutterButtonsDescription": {
+    "message": "Vidna ostaneta samo gumba Všeč mi je in Ni mi všeč. Deli, Shrani, Zahvala in druga izbirna dejanja ostanejo na voljo v YouTubovem meniju s tremi pikami."
+  },
+  "hideClutterButtonsBefore": {
+    "message": "Prej: vidni so vsi gumbi za dejanja"
+  },
+  "hideClutterButtonsAfter": {
+    "message": "Potem: vidna ostaneta samo Všeč mi je in Ni mi všeč"
+  },
+  "changelog_brand_logo_alt": {
+    "message": "Logotip Return YouTube Dislike"
+  },
+  "discussion_title": {
+    "message": "Komentarji RYD"
+  },
+  "discussion_subtitle": {
+    "message": "Razprava skupnosti, ki jo gosti Return YouTube Dislike."
+  },
+  "discussion_independent": {
+    "message": "Ti komentarji so ločeni od YouTuba."
+  },
+  "discussion_open": {
+    "message": "Odpri komentarje RYD"
+  },
+  "discussion_close": {
+    "message": "Zapri"
+  },
+  "discussion_new": {
+    "message": "Najnovejši"
+  },
+  "discussion_top": {
+    "message": "Najboljši"
+  },
+  "discussion_sort": {
+    "message": "Razvrsti komentarje"
+  },
+  "discussion_refresh": {
+    "message": "Osveži"
+  },
+  "discussion_loading": {
+    "message": "Nalaganje komentarjev…"
+  },
+  "discussion_empty": {
+    "message": "Komentarjev še ni. Začnite pogovor."
+  },
+  "discussion_comment": {
+    "message": "Komentar"
+  },
+  "discussion_post": {
+    "message": "Objavi komentar"
+  },
+  "discussion_reply": {
+    "message": "Odgovori"
+  },
+  "discussion_postReply": {
+    "message": "Objavi odgovor"
+  },
+  "discussion_cancel": {
+    "message": "Prekliči"
+  },
+  "discussion_save": {
+    "message": "Shrani"
+  },
+  "discussion_edit": {
+    "message": "Uredi"
+  },
+  "discussion_delete": {
+    "message": "Izbriši"
+  },
+  "discussion_deleteConfirm": {
+    "message": "Želite izbrisati ta komentar?"
+  },
+  "discussion_deleted": {
+    "message": "Komentar je izbrisan"
+  },
+  "discussion_edited": {
+    "message": "urejeno"
+  },
+  "discussion_replies": {
+    "message": "Odgovori ($1)"
+  },
+  "discussion_more": {
+    "message": "Naloži več"
+  },
+  "discussion_like": {
+    "message": "Všeč mi je"
+  },
+  "discussion_dislike": {
+    "message": "Ni mi všeč"
+  },
+  "discussion_signInRequired": {
+    "message": "Za nadaljevanje se prijavite v pojavnem oknu razširitve."
+  },
+  "discussion_tierRequired": {
+    "message": "Objavljanje je na voljo članom z aktivnim članstvom na stopnji Commenter ali višji."
+  },
+  "discussion_join": {
+    "message": "Pridobite članstvo Commenter"
+  },
+  "discussion_gate": {
+    "message": "Vsi lahko berejo in se odzivajo. Člani z aktivnim članstvom na stopnji Commenter ali višji lahko objavljajo."
+  },
+  "discussion_nicknameRequired": {
+    "message": "Pred objavo izberite svoj javni vzdevek RYD."
+  },
+  "discussion_nicknameLabel": {
+    "message": "Javni vzdevek RYD"
+  },
+  "discussion_nicknameHint": {
+    "message": "3–32 črk, številk, presledkov, pik, vezajev ali podčrtajev. To ime bo prikazano ob vaših komentarjih."
+  },
+  "discussion_nicknameSave": {
+    "message": "Shrani vzdevek"
+  },
+  "discussion_nicknameTaken": {
+    "message": "Ta vzdevek je že zaseden. Izberite drugega."
+  },
+  "discussion_nicknameInvalid": {
+    "message": "Uporabite 3–32 črk, številk, presledkov, pik, vezajev ali podčrtajev."
+  },
+  "discussion_nicknameChange": {
+    "message": "Spremeni vzdevek"
+  },
+  "discussion_as": {
+    "message": "Komentirate kot $1"
+  },
+  "discussion_placeholder": {
+    "message": "Pridružite se razpravi…"
+  },
+  "discussion_characters": {
+    "message": "$1 / $2"
+  },
+  "discussion_report": {
+    "message": "Prijavi"
+  },
+  "discussion_reportTitle": {
+    "message": "Prijavi komentar"
+  },
+  "discussion_reportReason": {
+    "message": "Razlog"
+  },
+  "discussion_reportSpam": {
+    "message": "Neželena vsebina"
+  },
+  "discussion_reportAbuse": {
+    "message": "Nadlegovanje ali sovraštvo"
+  },
+  "discussion_reportOther": {
+    "message": "Drugo"
+  },
+  "discussion_reportDetails": {
+    "message": "Dodatne podrobnosti (neobvezno)"
+  },
+  "discussion_reportSend": {
+    "message": "Pošlji prijavo"
+  },
+  "discussion_reportDone": {
+    "message": "Prijava je prejeta. Hvala."
+  },
+  "discussion_moderation": {
+    "message": "Moderiranje"
+  },
+  "discussion_queueEmpty": {
+    "message": "Ni prijav za pregled."
+  },
+  "discussion_hide": {
+    "message": "Skrij komentar"
+  },
+  "discussion_restore": {
+    "message": "Obnovi komentar"
+  },
+  "discussion_dismiss": {
+    "message": "Zavrni prijave"
+  },
+  "discussion_ban": {
+    "message": "Blokiraj avtorja"
+  },
+  "discussion_unban": {
+    "message": "Odblokiraj avtorja"
+  },
+  "discussion_moderationReason": {
+    "message": "Razlog moderiranja"
+  },
+  "discussion_unavailable": {
+    "message": "Komentarji RYD za ta videoposnetek niso na voljo."
+  },
+  "discussion_commentUnavailable": {
+    "message": "Ta komentar ni več na voljo."
+  },
+  "discussion_error": {
+    "message": "Povezave ni bilo mogoče vzpostaviti. Poskusite znova."
+  },
+  "discussion_rateLimited": {
+    "message": "Pred ponovnim poskusom malo počakajte."
+  },
+  "discussion_conflict": {
+    "message": "Ta komentar je bil spremenjen. Osvežite in poskusite znova."
+  },
+  "discussion_forbidden": {
+    "message": "To dejanje za vaš račun ni na voljo."
+  },
+  "discussion_retry": {
+    "message": "Poskusi znova"
+  },
+  "discussion_notifications": {
+    "message": "Obvestila"
+  },
+  "discussion_notificationEmpty": {
+    "message": "Prebrali ste vsa obvestila."
+  },
+  "discussion_notificationReply": {
+    "message": "$1 odgovarja na vaš komentar"
+  },
+  "discussion_notificationLike": {
+    "message": "Nekomu je bil všeč vaš komentar"
+  },
+  "discussion_notificationLikes": {
+    "message": "Vaš komentar ima toliko všečkov: $1"
+  },
+  "discussion_someone": {
+    "message": "Nekdo"
+  },
+  "discussion_markRead": {
+    "message": "Označi kot prebrano"
+  },
+  "discussion_markAllRead": {
+    "message": "Označi vse kot prebrano"
+  },
+  "discussion_view": {
+    "message": "Ogled razprave"
+  },
+  "discussion_signedOutInbox": {
+    "message": "Prijavite se za ogled odgovorov in všečkov na svojih komentarjih."
+  },
+  "discussion_discussionTab": {
+    "message": "Razprava"
+  },
+  "discussion_nickname": {
+    "message": "Vzdevek"
+  },
+  "discussion_reportStatus": {
+    "message": "Stanje prijave"
+  },
+  "discussion_openReports": {
+    "message": "Odprte prijave"
+  },
+  "discussion_resolvedReports": {
+    "message": "Zavrnjene prijave"
+  },
+  "discussion_author": {
+    "message": "Avtor"
+  },
+  "discussion_saving": {
+    "message": "Shranjevanje…"
+  },
+  "discussion_loadReplies": {
+    "message": "Prikaži odgovore ($1)"
+  },
+  "patreonTierCommenter": {
+    "message": "Commenter"
+  },
+  "changelog_page_title": {
+    "message": "Dobrodošli v Return YouTube Dislike"
+  },
+  "changelog_hero_eyebrow": {
+    "message": "Vse je pripravljeno"
+  },
+  "changelog_hero_title": {
+    "message": "Nevšečki so nazaj."
+  },
+  "changelog_hero_body": {
+    "message": "Odprite kateri koli videoposnetek na YouTubu in število nevšečkov boste videli tik ob všečkih, kamor sodi. Različica 4.1 prinaša tudi komentarje RYD, prostor za pogovor o videoposnetkih zunaj YouTubovega razdelka za komentarje."
+  },
+  "changelog_hero_eyebrow_counts_off": {
+    "message": "Še en korak"
+  },
+  "changelog_hero_body_counts_off": {
+    "message": "Spodaj omogočite število nevšečkov, da ga boste na YouTubu videli tik ob všečkih. Različica 4.1 prinaša tudi komentarje RYD, prostor za pogovor o videoposnetkih zunaj YouTubovega razdelka za komentarje."
+  },
+  "changelog_new_badge": {
+    "message": "Novo v različici 4.1"
+  },
+  "changelog_premium_badge": {
+    "message": "Premium"
+  },
+  "changelog_comments_title": {
+    "message": "Spoznajte komentarje RYD"
+  },
+  "changelog_comments_body": {
+    "message": "Razprava skupnosti pod videoposnetki in posnetki Shorts z izklopljenimi YouTubovimi komentarji, ki jo gosti Return YouTube Dislike. Vsi lahko berejo in se odzivajo. Člani stopenj Commenter in Premium lahko objavljajo in odgovarjajo."
+  },
+  "changelog_comments_point_replies": {
+    "message": "Odgovori v nitih z všečki in nevšečki"
+  },
+  "changelog_comments_point_nickname": {
+    "message": "Objavljajte pod javnim vzdevkom, ki ga izberete sami"
+  },
+  "changelog_comments_point_notifications": {
+    "message": "Obvestila, ko kdo odgovori na vaš komentar ali ga všečka"
+  },
+  "changelog_comments_point_moderation": {
+    "message": "Prijave in moderiranje za spoštljivo razpravo"
+  },
+  "changelog_comments_shot_alt": {
+    "message": "Plošča s komentarji RYD, ki prikazuje razpravo v niti pod videoposnetkom"
+  },
+  "changelog_notifications_shot_alt": {
+    "message": "Obvestila RYD z odgovori in všečki na vaše komentarje"
+  },
+  "changelog_sample_note": {
+    "message": "Posnetki zaslona prikazujejo vzorčne podatke."
+  },
+  "changelog_analytics_title": {
+    "message": "Analitika Premium"
+  },
+  "changelog_analytics_body": {
+    "message": "Oglejte si, kako je videoposnetek sprejet skozi čas in po svetu. Izberite 7, 30 ali 90 dni ali celotno obdobje ter primerjajte všečke, nevšečke in njihovo razmerje."
+  },
+  "changelog_analytics_timeline_title": {
+    "message": "Časovnica aktivnosti"
+  },
+  "changelog_analytics_timeline_body": {
+    "message": "Všečki in nevšečki skozi čas, vse do posamezne ure."
+  },
+  "changelog_analytics_countries_title": {
+    "message": "Vodilne države"
+  },
+  "changelog_analytics_countries_body": {
+    "message": "Poglejte, iz katerih držav videoposnetek prejme največ všečkov in nevšečkov."
+  },
+  "changelog_analytics_world_title": {
+    "message": "Zemljevid sveta"
+  },
+  "changelog_analytics_world_body": {
+    "message": "Primerjajte odzive med državami."
+  },
+  "changelog_analytics_us_title": {
+    "message": "Zvezne države ZDA"
+  },
+  "changelog_analytics_us_body": {
+    "message": "Podrobneje si oglejte odzive po zveznih državah."
+  },
+  "changelog_appeal_title": {
+    "message": "Majhna, malce nerodna prošnja"
+  },
+  "changelog_appeal_intro": {
+    "message": "Živjo. To je del, kjer govorimo o denarju, in iskreno, v tem nismo prav dobri."
+  },
+  "changelog_appeal_costs": {
+    "message": "Return YouTube Dislike je majhen odprtokodni projekt, ki ga ustvarjata Dmitry Selivanov in skupnost. Vsak dan odgovori približno 20 milijonom ljudi in skrbi za več kot 15 TB podatkov. Vse to deluje z nekaj sto dolarji na mesec, kar ni veliko za vrnitev nečesa, kar se je podjetje, vredno milijarde dolarjev, odločilo odvzeti."
+  },
+  "changelog_appeal_free": {
+    "message": "Število nevšečkov je brezplačno in bo tudi ostalo. Za to pri vsem skupaj gre. Strežniki pa niso brezplačni in, iskreno, stroški delovanja nam niso pustili veliko izbire: da bi projekt lahko deloval naprej, smo morali uvesti funkcije Premium — komentarje RYD in analitiko Premium. Vsako članstvo pomaga pokriti te stroške."
+  },
+  "changelog_appeal_ask": {
+    "message": "Če vas je RYD kdaj obvaroval pred videom z vabo za klike ali vodičem, ki ni deloval, razmislite o pridružitvi na Patreonu. Če pa zdaj ni pravi trenutek, je povsem v redu. Hvala, da ga uporabljate in glasujete: vsak glas naredi števila malo natančnejša."
+  },
+  "changelog_appeal_cta": {
+    "message": "Pridružite se na Patreonu"
+  },
+  "changelog_appeal_signature": {
+    "message": "— Dmitry in skupnost RYD"
+  },
+  "changelog_join_title": {
+    "message": "Pridobite funkcije Premium"
+  },
+  "changelog_join_step1": {
+    "message": "Pridružite se na Patreonu. Commenter omogoča objavljanje komentarjev, Premium pa doda še analitiko."
+  },
+  "changelog_join_step3": {
+    "message": "Znova naložite kateri koli videoposnetek na YouTubu. Nove funkcije se prikažejo samodejno."
+  },
+  "changelog_also_title": {
+    "message": "Tudi v tej izdaji"
+  },
+  "changelog_also_counts": {
+    "message": "Število všečkov in nevšečkov se zanesljiveje prikazuje v razširitvi in uporabniškem skriptu."
+  },
+  "changelog_also_consent": {
+    "message": "Izboljšan postopek soglasja za uporabo podatkov v Firefoxu."
+  },
+  "changelog_also_translations": {
+    "message": "Novi in izboljšani prevodi."
+  },
+  "reviewPromptTitle": {
+    "message": "Vam je RYD všeč?"
+  },
+  "reviewPromptBody": {
+    "message": "Google je spremenil pravila za ocene v Chrome Web Store. Kljub 16.000+ ocenam s petimi zvezdicami je nekaj nedavnih negativnih ocen znižalo oceno RYD s 4,6 na 2,5.\n\nČe vam RYD pomaga, prosimo, napišite iskreno oceno."
+  },
+  "reviewPromptAction": {
+    "message": "Napišite oceno"
+  },
+  "consent_page_title": {
+    "message": "Dovoljenja za funkcije RYD"
+  },
+  "consent_vote_title": {
+    "message": "Naj se vaši glasovi štejejo"
+  },
+  "consent_vote_body": {
+    "message": "Firefox zdaj zahteva, da vas vsaka razširitev vpraša, preden deli kakršne koli podatke. Dovolite to, da bo RYD lahko štel vaše všečke, nevšečke in odzive na komentarje. To dovoljenje velja samo za YouTube, ne za druga spletna mesta."
+  },
+  "consent_account_title": {
+    "message": "Izberite dovoljenja računa"
+  },
+  "consent_account_body": {
+    "message": "Prijavite se za uporabo funkcij računa, vključno s profilom, obvestili in analitiko Premium."
+  },
+  "consent_next_step": {
+    "message": "V Firefoxu izberite Dovoli, da pregledate dovoljenja. Lahko jih zavrnete."
+  },
+  "consent_allow": {
+    "message": "Dovoli v Firefoxu"
+  },
+  "consent_not_now": {
+    "message": "Ne zdaj"
+  },
+  "consent_prompt_status": {
+    "message": "Izberite, ali želite ta dovoljenja omogočiti v Firefoxu."
+  },
+  "consent_granted_status": {
+    "message": "Dovoljenja so omogočena. Lahko se vrnete na YouTube."
+  },
+  "consent_declined_status": {
+    "message": "Te izbirne funkcije ostanejo izklopljene. Dovoljenja lahko spremenite pozneje."
+  },
+  "consent_error_status": {
+    "message": "Dovoljenj ni bilo mogoče posodobiti. Poskusite znova."
+  },
+  "consent_details_summary": {
+    "message": "Kaj pomenijo kategorije dovoljenj v Firefoxu?"
+  },
+  "consent_details_intro": {
+    "message": "Firefox združuje podatke v široke kategorije. Tako jih uporablja RYD:"
+  },
+  "consent_browsing_label": {
+    "message": "Dejavnost brskanja"
+  },
+  "consent_browsing_body": {
+    "message": "Samo ID videoposnetka YouTube, ki ga odprete, za nalaganje njegovih nevšečkov in komentarjev RYD. Nikoli vaša zgodovina brskanja ali druga spletna mesta."
+  },
+  "consent_content_label": {
+    "message": "Vsebina spletnih mest"
+  },
+  "consent_content_body": {
+    "message": "Število všečkov, prikazano ob videoposnetku YouTube, za izboljšanje ocen števila nevšečkov."
+  },
+  "consent_activity_label": {
+    "message": "Dejavnost na spletnih mestih"
+  },
+  "consent_activity_body": {
+    "message": "Vaši všečki, nevšečki in odzivi na komentarje RYD na YouTubu, da se štejejo. Poslani z naključnim ID-jem, ki ni povezan z vašim računom Google ali YouTube."
+  },
+  "consent_identity_label": {
+    "message": "Osebni identifikacijski podatki"
+  },
+  "consent_identity_body": {
+    "message": "Podatki vašega profila, kot sta prikazno ime in e-pošta, samo če se odločite za prijavo."
+  },
+  "consent_auth_label": {
+    "message": "Podatki za preverjanje pristnosti"
+  },
+  "consent_auth_body": {
+    "message": "Podatki o pooblastitvi in seji, potrebni za prijavo in uporabo funkcij računa."
+  },
+  "consent_scope": {
+    "message": "RYD ne zbira ničesar zunaj youtube.com in ne dostopa do vašega računa YouTube. Brez prijave ne prejme imena ali e-pošte."
+  },
+  "consent_settings": {
+    "message": "Ta dovoljenja lahko kadar koli spremenite v nastavitvah dodatkov v Firefoxu (about:addons)."
+  },
+  "consent_private_counts": {
+    "message": "Zasebna okna prikazujejo samo število z dovoljenjem, omogočenim v običajnem oknu. Glasovanje, prijava, analitika Premium in razprave tam niso na voljo."
+  },
+  "consent_voter_timing": {
+    "message": "ID glasovanja se pošlje samo ob glasovanju ali odzivu. Vaši odzivi na komentarje se shranijo v tej napravi."
+  },
+  "popup_signin_next_click": {
+    "message": "Potreben je še en klik: spodaj izberite gumb za prijavo, da pregledate dovoljenja računa v Firefoxu in nadaljujete."
+  },
+  "changelog_firefox_intro_title": {
+    "message": "Nova pravila zasebnosti v Firefoxu"
+  },
+  "changelog_firefox_intro_body": {
+    "message": "V Firefoxu RYD potrebuje vaše dovoljenje, preden lahko prikaže nevšečke. Tukaj je natanko, kaj to dovoljenje zajema — in česa ne."
+  },
+  "changelog_firefox_vote_granted": {
+    "message": "Hvala. Vaši glasovi se zdaj štejejo."
+  },
+  "vote_consent_hint": {
+    "message": "Vaš glas se še ne šteje. Firefox zdaj zahteva vaše dovoljenje, preden ga RYD lahko pošlje. To dovoljenje velja samo za YouTube, ne za druga spletna mesta."
+  },
+  "vote_not_counted": {
+    "message": "Vaši všečki in nevšečki se ne štejejo in se ne bodo poznali v številu nevšečkov."
+  },
+  "vote_count_mine": {
+    "message": "Štej moje glasove"
+  },
+  "vote_consent_dismiss": {
+    "message": "Ne sprašuj več"
+  },
+  "discussion_reactionConsentRequired": {
+    "message": "Vklopite deljenje glasov, da se boste lahko odzivali na komentarje. Vaš odziv bo poslan, ko bo deljenje vklopljeno."
+  },
+  "discussion_consentContinue": {
+    "message": "Nadaljuj"
+  },
+  "counts_consent_toolbar": {
+    "message": "Za nadaljevanje odprite Return YouTube Dislike v Firefoxovem meniju razširitev."
+  },
+  "counts_consent_declined": {
+    "message": "Prikaz števila ostane izklopljen. Pozneje ga lahko omogočite tukaj."
+  },
+  "counts_consent_enabled": {
+    "message": "Prikaz števila nevšečkov je omogočen."
+  },
+  "counts_consent_private": {
+    "message": "Najprej omogočite število nevšečkov v običajnem oknu. Zasebna okna prikazujejo samo število."
+  },
+  "data_consent_reason": {
+    "message": "Firefox zdaj zahteva, da vas vsaka razširitev vpraša, preden deli kakršne koli podatke. Dovolite, da RYD prikazuje nevšečke in šteje vaše glasove. To dovoljenje velja samo za YouTube, ne za druga spletna mesta."
+  },
+  "data_consent_title": {
+    "message": "Prikažite nevšečke in naj se vaši glasovi štejejo"
+  },
+  "data_consent_body": {
+    "message": "Firefox zdaj zahteva, da vas vsaka razširitev vpraša, preden deli kakršne koli podatke. Za vse razširitve uporablja enake splošne oznake, zato je tukaj razloženo, kaj vsaka oznaka pomeni za RYD:"
+  },
+  "data_consent_scope": {
+    "message": "RYD deluje samo na YouTubu. Če to dovolite, ne dobi dostopa do nobenega drugega spletnega mesta."
+  }
+}

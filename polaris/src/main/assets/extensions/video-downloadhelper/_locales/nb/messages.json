@@ -1,0 +1,11 @@
+{
+  "appDesc": {
+    "message": "Download Videos from the Web."
+  },
+  "appLongDesc": {
+    "message": "Last ned videoer fra nettet. Enkelt, smart og uten sporing.\n\nDen beste videonedlasteren i over 10 år!\n\nVideo Download Helper støtter over 1000 nettsteder (Dash, HLS, MPD, …), direktestrømming, HD-kvalitet og konvertering til formatene du foretrekker (MP4, MKV, WebM, …). Video Download Helper støtter også nedlasting av lyd (trekk ut lyden fra videoer til MP3-filer).\n"
+  },
+  "appLongDescGoogleAddendum": {
+    "message": "Merk at denne utvidelsen ikke støtter YouTube.\n"
+  }
+}

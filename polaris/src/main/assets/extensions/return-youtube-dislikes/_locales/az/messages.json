@@ -1,0 +1,1022 @@
+{
+  "colorTheme": {
+    "message": "Rəng mövzusu:"
+  },
+  "colorizeRatio": {
+    "message": "Bəyənmə nisbəti çubuğunu rəngləndir"
+  },
+  "colorizeRatioHover": {
+    "message": "Bəyənmə nisbəti çubuğu üçün xüsusi rənglər istifadə edin."
+  },
+  "colorizeThumbs": {
+    "message": "Düymələri rəngləndir"
+  },
+  "colorizeThumbsHover": {
+    "message": "Düymə simvolları üçün xüsusi rənglər istifadə edin."
+  },
+  "considerDonating": {
+    "message": "Uzantının mövcud olmasını təmin edən tək şey ianələrinizdir, lütfən layihəni dəstəkləməyi düşünün."
+  },
+  "customColors": {
+    "message": "Dislike çubuğu və düymələr üçün xüsusi rənglər"
+  },
+  "customNumberFormats": {
+    "message": "Xüsusi say formatları"
+  },
+  "disableLoggingHover": {
+    "message": "API cavablarının konsolda qeydə alınmasını deaktiv et."
+  },
+  "developerSettings": {
+    "message": "Tərtibatçı seçimləri"
+  },
+  "disableLoggingLabel": {
+    "message": "Konsola yazmağı söndür"
+  },
+  "extensionDesc": {
+    "message": "Dislike-ları görmə qabiliyyəti verir"
+  },
+  "extensionName": {
+    "message": "YouTube Dislike Sayını Geri Qaytar"
+  },
+  "extensionNameBeta": {
+    "message": "YouTube Dislike Sayını Geri Qaytar Beta"
+  },
+  "legendSettings": {
+    "message": "Parametrlər"
+  },
+  "linkChangelog": {
+    "message": "Dəyişiklik Jurnalı"
+  },
+  "linkDiscord": {
+    "message": "Discord"
+  },
+  "linkDonate": {
+    "message": "Bağış Et"
+  },
+  "linkFAQ": {
+    "message": "Tez-tez verilən suallar"
+  },
+  "linkGithub": {
+    "message": "GitHub"
+  },
+  "linkHelp": {
+    "message": "Kömək"
+  },
+  "linkWebsite": {
+    "message": "Sayt"
+  },
+  "numberFormat": {
+    "message": "Sayı formatı:"
+  },
+  "patreonLoggedOutMessage": {
+    "message": "Premium xüsusiyyətlər Patreon dəstəkçiləri üçün mövcuddur"
+  },
+  "patreonLogin": {
+    "message": "Patreon ilə daxil ol"
+  },
+  "patreonPrivacyNote": {
+    "message": "Patreon üzvlük məlumatları premium funksiyalara giriş hüququnu yoxlamaq üçün istifadə olunur. Kart və ya bank məlumatlarınızı almırıq."
+  },
+  "paidFeaturesWhy": {
+    "message": "Bəyənməmə sayları hər kəs üçün pulsuz qalır. Ödənişli əlavələr onları işlədən serverlərin xərclərini ödəməyə kömək edir: 15 TB-dan çox məlumat və gündə təxminən 20 milyon istifadəçi, ayda bir neçə yüz dollarlıq büdcə ilə."
+  },
+  "githubLoggedOutMessage": {
+    "message": "Premium xüsusiyyətlər GitHub töhfəçiləri üçün mövcuddur"
+  },
+  "githubLogin": {
+    "message": "GitHub ilə daxil ol (töhfəçi)"
+  },
+  "githubLoginStartFailed": {
+    "message": "GitHub girişini başlatmaq alınmadı. Yenidən cəhd edin."
+  },
+  "githubLoginCompleteFailed": {
+    "message": "GitHub girişini tamamlamaq alınmadı. Yenidən cəhd edin."
+  },
+  "patreonLoginCompleteFailed": {
+    "message": "Giriş tamamlanmadı. Yenidən cəhd edin."
+  },
+  "patreonLoginStartFailed": {
+    "message": "Patreon girişini başlatmaq alınmadı. Yenidən cəhd edin."
+  },
+  "patreonLogout": {
+    "message": "Çıxış"
+  },
+  "patreonPermissionRequired": {
+    "message": "Giriş üçün 'identity' icazəsi tələb olunur. Davam etmək üçün icazə verin."
+  },
+  "patreonTierBasic": {
+    "message": "Əsas Səviyyə"
+  },
+  "patreonTierChecking": {
+    "message": "Üzvlük yoxlanılır…"
+  },
+  "patreonTierNone": {
+    "message": "Aktiv üzvlük yoxdur"
+  },
+  "patreonTierPremium": {
+    "message": "Premium Dəstəkçi"
+  },
+  "patreonTierSupporter": {
+    "message": "Dəstəkçi"
+  },
+  "patreonUserFallback": {
+    "message": "Patreon istifadəçisi"
+  },
+  "reformatLikes": {
+    "message": "Like sayılarının formatını yeniləyir"
+  },
+  "reformatLikesHover": {
+    "message": "Like və dislike formatını uyğunlaşdırır."
+  },
+  "hidePremiumTeaser": {
+    "message": "Emal olunmamış sayları gizlət"
+  },
+  "hidePremiumTeaserHover": {
+    "message": "YouTube izləmə səhifələrində emal olunmamış saylar panelini göstərmə."
+  },
+  "hideRydComments": {
+    "message": "RYD şərhlərini gizlət"
+  },
+  "hideRydCommentsHover": {
+    "message": "YouTube şərhləri söndürülmüş videolarda RYD şərhlərini göstərmə."
+  },
+  "hidePremiumAnalytics": {
+    "message": "Premium video analitikasını gizlət"
+  },
+  "hidePremiumAnalyticsHover": {
+    "message": "YouTube izləmə səhifələrində Premium video analitikası panelini gizlət."
+  },
+  "shortsSupport": {
+    "message": "YouTube Shorts Dəstəyi"
+  },
+  "showTooltipPercentage": {
+    "message": "Bəyən/bəyənməmə çubuğu ipucunda faiz"
+  },
+  "showTooltipPercentageHover": {
+    "message": "Bəyən/bəyənməmə çubuğu ipucunda faizi göstər."
+  },
+  "textColorTheme1": {
+    "message": "Klassik"
+  },
+  "textColorTheme2": {
+    "message": "Aydın"
+  },
+  "textColorTheme3": {
+    "message": "Neon"
+  },
+  "textColorThemeHibiscus": {
+    "message": "Hibiscus"
+  },
+  "textColorThemeCustom": {
+    "message": "Fərdi"
+  },
+  "colorThemeLight": {
+    "message": "Açıq YouTube mövzusu"
+  },
+  "colorThemeDark": {
+    "message": "Tünd YouTube mövzusu"
+  },
+  "colorThemeLike": {
+    "message": "Bəyən"
+  },
+  "colorThemeDislike": {
+    "message": "Bəyənmə"
+  },
+  "textDeveloper": {
+    "message": "Dmitry Selivanov və İcma tərəfindən"
+  },
+  "textLikesDisabled": {
+    "message": "Sahibi tərəfindən deaktiv edilib"
+  },
+  "textSettings": {
+    "message": "Like/dislike göndərməsini deaktiv et"
+  },
+  "textSettingsHover": {
+    "message": "Bəyənmə və bəyənməmələriniz sayılmayacaq və bəyənməmə saylarında əks olunmayacaq."
+  },
+  "textTempUnavailable": {
+    "message": "Müvəqqəti olaraq istifadədən kənar"
+  },
+  "tooltipPercentageMode": {
+    "message": "Faiz rejimi:"
+  },
+  "tooltipPercentageModeHover": {
+    "message": "Siçan üzərinə gətirərkən xüsusi faiz görünümünü istifadə et."
+  },
+  "version30installed": {
+    "message": "Versiya 4.1.7 yükləndi"
+  },
+  "whatsnew": {
+    "message": "Yeniliklər"
+  },
+  "premiumAnalytics_title": {
+    "message": "Premium video analitikası"
+  },
+  "premiumAnalytics_activityTitle": {
+    "message": "Zaman üzrə qarşılıqlı əlaqə"
+  },
+  "premiumAnalytics_listsTitle": {
+    "message": "Ən yaxşı ölkələr"
+  },
+  "premiumAnalytics_listLikesTitle": {
+    "message": "Ən çox bəyənən ölkələr"
+  },
+  "premiumAnalytics_listDislikesTitle": {
+    "message": "Ən çox bəyənməyən ölkələr"
+  },
+  "premiumAnalytics_mapTitle": {
+    "message": "Coğrafiya"
+  },
+  "premiumAnalytics_expand": {
+    "message": "Genişləndir"
+  },
+  "premiumAnalytics_collapse": {
+    "message": "Yığ"
+  },
+  "premiumAnalytics_mapMetricLabel": {
+    "message": "Xəritə göstəricisi"
+  },
+  "premiumAnalytics_mapReset": {
+    "message": "Dünya xəritəsinə qayıt"
+  },
+  "premiumAnalytics_modeLikes": {
+    "message": "Bəyənmələr"
+  },
+  "premiumAnalytics_modeDislikes": {
+    "message": "Bəyənməmələr"
+  },
+  "premiumAnalytics_modeRatio": {
+    "message": "Nisbət"
+  },
+  "premiumAnalytics_windowGroupLabel": {
+    "message": "Məlumat intervalı"
+  },
+  "premiumAnalytics_windowLatest": {
+    "message": "Son günlər"
+  },
+  "premiumAnalytics_windowFirst": {
+    "message": "İlk günlər"
+  },
+  "premiumAnalytics_windowLatestTitle": {
+    "message": "Seçilmiş intervalda ən son günləri göstər"
+  },
+  "premiumAnalytics_windowFirstTitle": {
+    "message": "Seçilmiş intervalda ən erkən günləri göstər"
+  },
+  "premiumAnalytics_windowSummaryCustom": {
+    "message": "Fərdi seçim"
+  },
+  "premiumAnalytics_windowSummaryAllTime": {
+    "message": "Bütün dövr"
+  },
+  "premiumAnalytics_windowSummaryLast": {
+    "message": "Son $1"
+  },
+  "premiumAnalytics_windowSummaryFirst": {
+    "message": "İlk $1"
+  },
+  "premiumAnalytics_daysSingular": {
+    "message": "$1 gün"
+  },
+  "premiumAnalytics_daysPlural": {
+    "message": "$1 gün"
+  },
+  "premiumAnalytics_rangeLabelAllTime": {
+    "message": "Bütün dövr"
+  },
+  "premiumAnalytics_rangeLabelDays": {
+    "message": "$1g"
+  },
+  "premiumAnalytics_selectedPeriod": {
+    "message": "Seçilmiş period: $1"
+  },
+  "premiumAnalytics_totalsHeading": {
+    "message": "Uzantı istifadəçiləri"
+  },
+  "premiumAnalytics_totalsLikes": {
+    "message": "$1 bəyənmə"
+  },
+  "premiumAnalytics_totalsDislikes": {
+    "message": "$1 bəyənməmə"
+  },
+  "premiumAnalytics_summaryMeta": {
+    "message": "$2 ölkədən $3 unikal IP ilə $1 qarşılıqlı əlaqə qeydə alındı"
+  },
+  "premiumAnalytics_bucketHour": {
+    "message": "Saatda səslər"
+  },
+  "premiumAnalytics_bucketDay": {
+    "message": "Gündə səslər"
+  },
+  "premiumAnalytics_bucketWeek": {
+    "message": "Həftədə səslər"
+  },
+  "premiumAnalytics_bucketHours": {
+    "message": "Hər $1 saatda səslər"
+  },
+  "premiumAnalytics_bucketDays": {
+    "message": "Hər $1 gündə səslər"
+  },
+  "premiumAnalytics_bucketMinutes": {
+    "message": "Hər $1 dəqiqədə səslər"
+  },
+  "premiumAnalytics_bucketMinute": {
+    "message": "Dəqiqədə səslər"
+  },
+  "premiumAnalytics_bucketSeconds": {
+    "message": "Hər $1 saniyədə səslər"
+  },
+  "premiumAnalytics_bucketSecond": {
+    "message": "Saniyədə səslər"
+  },
+  "premiumAnalytics_noData": {
+    "message": "Hələ məlumat yoxdur"
+  },
+  "premiumAnalytics_unknownRegion": {
+    "message": "Naməlum"
+  },
+  "premiumAnalytics_loading": {
+    "message": "Analitika yüklənir…"
+  },
+  "premiumAnalytics_errorReauth": {
+    "message": "Analitikanı açmaq üçün Patreonu yenidən icazələndirin."
+  },
+  "premiumAnalytics_errorInactive": {
+    "message": "Premium analitika aktiv Patreon dəstəkçiləri üçün əlçatandır."
+  },
+  "premiumAnalytics_errorSession": {
+    "message": "Sessiya bitdi. Yenidən Patreon ilə daxil olun."
+  },
+  "premiumAnalytics_errorBackend": {
+    "message": "Analitika serveri hazırda əlçatan deyil."
+  },
+  "premiumAnalytics_errorNetwork": {
+    "message": "Analitika xidmətinə qoşulmaq mümkün olmadı."
+  },
+  "premiumAnalytics_errorGeneric": {
+    "message": "Premium analitikanı yükləmək mümkün olmadı."
+  },
+  "premiumAnalytics_mapSeriesLabel": {
+    "message": "Fəaliyyət"
+  },
+  "premiumAnalytics_likeRatio": {
+    "message": "Bəyənmə nisbəti"
+  },
+  "premiumAnalytics_visualHighRatio": {
+    "message": "Yüksək bəyənmə nisbəti"
+  },
+  "premiumAnalytics_visualLowRatio": {
+    "message": "Aşağı bəyənmə nisbəti"
+  },
+  "premiumAnalytics_visualHighLikes": {
+    "message": "Daha çox bəyənmə"
+  },
+  "premiumAnalytics_visualLowLikes": {
+    "message": "Daha az bəyənmə"
+  },
+  "premiumAnalytics_visualHighDislikes": {
+    "message": "Daha çox bəyənməmə"
+  },
+  "premiumAnalytics_visualLowDislikes": {
+    "message": "Daha az bəyənməmə"
+  },
+  "premiumAnalytics_visualHighGeneric": {
+    "message": "Daha çox $1"
+  },
+  "premiumAnalytics_visualLowGeneric": {
+    "message": "Daha az $1"
+  },
+  "premiumAnalytics_tooltipLikes": {
+    "message": "Bəyənmələr: $1"
+  },
+  "premiumAnalytics_tooltipDislikes": {
+    "message": "Bəyənməmələr: $1"
+  },
+  "premiumAnalytics_tooltipRatio": {
+    "message": "Bəyənmə nisbəti: $1"
+  },
+  "premiumTeaser_title": {
+    "message": "Video analitikası"
+  },
+  "premiumTeaser_subtitle": {
+    "message": "Emal olunmamış bəyənməmələr bu videoya baxan uzantı istifadəçilərinin birbaşa hesabatlarıdır."
+  },
+  "premiumTeaser_cta": {
+    "message": "Premiumu aç"
+  },
+  "premiumTeaser_learn": {
+    "message": "Tam analitikaya baxış"
+  },
+  "premiumTeaser_statRaw": {
+    "message": "Emal olunmamış bəyənməmə sayı"
+  },
+  "premiumTeaser_statLikes": {
+    "message": "Bəyənmələrin xam sayı"
+  },
+  "premiumTeaser_statusLoading": {
+    "message": "Ən son bəyənməmə cəmləri alınır…"
+  },
+  "premiumTeaser_statusError": {
+    "message": "Hazırda bəyənməmə məlumatı yüklənmədi. Səhifəni yenidən yükləyin."
+  },
+  "premiumTierNotice_message": {
+    "message": "Patreon üzvlüyünüzdə Premium səviyyə yoxdur. Təkmil video analitikasını açmaq üçün dəstəyinizi yüksəldin."
+  },
+  "changelog_cta_primary": {
+    "message": "Patreonda yüksəlt"
+  },
+  "changelog_cta_secondary": {
+    "message": "Quraşdırma bələdçisini oxu"
+  },
+  "changelog_section_highlights": {
+    "message": "Yeniliklər"
+  },
+  "changelog_feature_timeline_title": {
+    "message": "Canlı fəaliyyət qrafiki"
+  },
+  "changelog_feature_map_title": {
+    "message": "İnteraktiv Dünya və ABŞ HeatMap"
+  },
+  "changelog_feature_quality_title": {
+    "message": "Ən yaxşı ölkələrin lider lövhəsi"
+  },
+  "changelog_screenshot_label_timeline": {
+    "message": "Yer tutucu: zaman cədvəli icmalı"
+  },
+  "changelog_screenshot_label_map": {
+    "message": "Yer tutucu: qlobal aktivlik xəritəsi"
+  },
+  "changelog_screenshot_label_teaser": {
+    "message": "Yerli yerləşdirən: Ölkələrin lider taxtası"
+  },
+  "changelog_upgrade_step1": {
+    "message": "Return YouTube Dislike açılır pəncərəsini açın və Patreon ilə daxil olun."
+  },
+  "changelog_support_heading": {
+    "message": "Kömək lazımdır?"
+  },
+  "changelog_support_description": {
+    "message": "Bir problem yaşasanız buradayıq — suallarınızı dəstək sənədlərinə və ya icmaya gətirin."
+  },
+  "changelog_support_contact": {
+    "message": "İcmadan soruş"
+  },
+  "hideClutterButtons": {
+    "message": "Əlavə düymələri gizlət"
+  },
+  "hideClutterButtonsHelpLabel": {
+    "message": "Əvvəl və sonra nümunələrini göstər"
+  },
+  "hideClutterButtonsDescription": {
+    "message": "Yalnız Bəyən və Bəyənmə düymələri görünsün. Paylaşın, Yadda saxlayın, Sağol və başqa istəyə bağlı əməliyyatlar YouTube-un üç nöqtəli Digər menyusunda əlçatan qalır."
+  },
+  "hideClutterButtonsBefore": {
+    "message": "Əvvəl: bütün əməliyyat düymələri görünür"
+  },
+  "hideClutterButtonsAfter": {
+    "message": "Sonra: yalnız Bəyən və Bəyənmə düymələri görünür"
+  },
+  "changelog_brand_logo_alt": {
+    "message": "Return YouTube Dislike loqosu"
+  },
+  "githubLoginUnavailable": {
+    "message": "GitHub töhfəçiləri üçün giriş hazırda əlçatan deyil. Xidmətin yenilənməsi və ya konfiqurasiyasının dəyişdirilməsi lazımdır."
+  },
+  "githubLoginNotContributor": {
+    "message": "Bu GitHub hesabı Return YouTube Dislike layihəsinin töhfəçiləri siyahısında deyil. Töhfə verən hesabla daxil olun. Son töhfələrin görünməsi bir neçə saat çəkə bilər."
+  },
+  "githubLoginBrowserUnavailable": {
+    "message": "GitHub girişi bu brauzerin geri çağırış ünvanı üçün konfiqurasiya edilməyib. Dəstək xidməti ilə əlaqə saxlayın."
+  },
+  "githubLoginExpired": {
+    "message": "Bu GitHub giriş cəhdinin vaxtı bitib və ya onu təsdiqləmək mümkün olmayıb. Yeni giriş cəhdi başladın."
+  },
+  "githubLoginUpdateRequired": {
+    "message": "GitHub töhfəçisi kimi daxil olmaq üçün genişlənməni yeniləyin."
+  },
+  "githubLoginRateLimited": {
+    "message": "Həddindən artıq giriş cəhdi edilib. Yenidən cəhd etməzdən əvvəl bir dəqiqə gözləyin."
+  },
+  "githubLoginDenied": {
+    "message": "GitHub icazəsi rədd edildi. Töhfəçi kimi daxil olmaq üçün icazə vermək lazımdır."
+  },
+  "discussion_title": {
+    "message": "RYD şərhləri"
+  },
+  "discussion_subtitle": {
+    "message": "Return YouTube Dislike tərəfindən təqdim olunan icma müzakirəsi."
+  },
+  "discussion_independent": {
+    "message": "Bu şərhlər YouTube-dan ayrıdır."
+  },
+  "discussion_open": {
+    "message": "RYD şərhlərini aç"
+  },
+  "discussion_close": {
+    "message": "Bağla"
+  },
+  "discussion_new": {
+    "message": "Ən yeni"
+  },
+  "discussion_top": {
+    "message": "Ən populyar"
+  },
+  "discussion_sort": {
+    "message": "Şərhləri sırala"
+  },
+  "discussion_refresh": {
+    "message": "Yenilə"
+  },
+  "discussion_loading": {
+    "message": "Şərhlər yüklənir…"
+  },
+  "discussion_empty": {
+    "message": "Hələ şərh yoxdur. Söhbətə başlayın."
+  },
+  "discussion_comment": {
+    "message": "Şərh"
+  },
+  "discussion_post": {
+    "message": "Şərh paylaş"
+  },
+  "discussion_reply": {
+    "message": "Cavab ver"
+  },
+  "discussion_postReply": {
+    "message": "Cavab paylaş"
+  },
+  "discussion_cancel": {
+    "message": "Ləğv et"
+  },
+  "discussion_save": {
+    "message": "Saxla"
+  },
+  "discussion_edit": {
+    "message": "Redaktə et"
+  },
+  "discussion_delete": {
+    "message": "Sil"
+  },
+  "discussion_deleteConfirm": {
+    "message": "Bu şərh silinsin?"
+  },
+  "discussion_deleted": {
+    "message": "Şərh silindi"
+  },
+  "discussion_edited": {
+    "message": "redaktə edilib"
+  },
+  "discussion_replies": {
+    "message": "Cavablar ($1)"
+  },
+  "discussion_more": {
+    "message": "Daha çox yüklə"
+  },
+  "discussion_like": {
+    "message": "Bəyən"
+  },
+  "discussion_dislike": {
+    "message": "Bəyənmə"
+  },
+  "discussion_signInRequired": {
+    "message": "Davam etmək üçün genişlənmənin açılan pəncərəsindən daxil olun."
+  },
+  "discussion_tierRequired": {
+    "message": "Şərh paylaşmaq aktiv Commenter və daha yüksək səviyyəli üzvlər üçün əlçatandır."
+  },
+  "discussion_join": {
+    "message": "Commenter üzvü ol"
+  },
+  "discussion_gate": {
+    "message": "Hər kəs oxuya və reaksiya verə bilər. Aktiv Commenter və daha yüksək səviyyəli üzvlər şərh paylaşa bilər."
+  },
+  "discussion_nicknameRequired": {
+    "message": "Şərh paylaşmazdan əvvəl hamıya görünən RYD ləqəbinizi seçin."
+  },
+  "discussion_nicknameLabel": {
+    "message": "Hamıya görünən RYD ləqəbi"
+  },
+  "discussion_nicknameHint": {
+    "message": "3–32 hərf, rəqəm, boşluq, nöqtə, defis və ya alt xətt. Bu ad şərhlərinizlə birlikdə görünəcək."
+  },
+  "discussion_nicknameSave": {
+    "message": "Ləqəbi saxla"
+  },
+  "discussion_nicknameTaken": {
+    "message": "Bu ləqəb artıq istifadə olunur. Başqasını seçin."
+  },
+  "discussion_nicknameInvalid": {
+    "message": "3–32 hərf, rəqəm, boşluq, nöqtə, defis və ya alt xətdən istifadə edin."
+  },
+  "discussion_nicknameChange": {
+    "message": "Ləqəbi dəyiş"
+  },
+  "discussion_as": {
+    "message": "$1 kimi şərh yazırsınız"
+  },
+  "discussion_placeholder": {
+    "message": "Müzakirəyə qoşulun…"
+  },
+  "discussion_characters": {
+    "message": "$1 / $2"
+  },
+  "discussion_report": {
+    "message": "Şikayət et"
+  },
+  "discussion_reportTitle": {
+    "message": "Şərhdən şikayət et"
+  },
+  "discussion_reportReason": {
+    "message": "Səbəb"
+  },
+  "discussion_reportSpam": {
+    "message": "Spam"
+  },
+  "discussion_reportAbuse": {
+    "message": "Təqib və ya nifrət"
+  },
+  "discussion_reportOther": {
+    "message": "Digər"
+  },
+  "discussion_reportDetails": {
+    "message": "Əlavə təfərrüatlar (istəyə bağlı)"
+  },
+  "discussion_reportSend": {
+    "message": "Şikayəti göndər"
+  },
+  "discussion_reportDone": {
+    "message": "Şikayət alındı. Təşəkkür edirik."
+  },
+  "discussion_moderation": {
+    "message": "Moderasiya"
+  },
+  "discussion_queueEmpty": {
+    "message": "Baxılacaq şikayət yoxdur."
+  },
+  "discussion_hide": {
+    "message": "Şərhi gizlət"
+  },
+  "discussion_restore": {
+    "message": "Şərhi bərpa et"
+  },
+  "discussion_dismiss": {
+    "message": "Şikayətləri rədd et"
+  },
+  "discussion_ban": {
+    "message": "Müəllifi blokla"
+  },
+  "discussion_unban": {
+    "message": "Müəllifin blokunu aç"
+  },
+  "discussion_moderationReason": {
+    "message": "Moderasiya səbəbi"
+  },
+  "discussion_unavailable": {
+    "message": "Bu video üçün RYD şərhləri əlçatan deyil."
+  },
+  "discussion_commentUnavailable": {
+    "message": "Bu şərh artıq əlçatan deyil."
+  },
+  "discussion_error": {
+    "message": "Bağlanmaq mümkün olmadı. Yenidən cəhd edin."
+  },
+  "discussion_rateLimited": {
+    "message": "Yenidən cəhd etməzdən əvvəl bir az gözləyin."
+  },
+  "discussion_conflict": {
+    "message": "Bu şərh dəyişib. Yeniləyin və yenidən cəhd edin."
+  },
+  "discussion_forbidden": {
+    "message": "Bu əməliyyat hesabınız üçün əlçatan deyil."
+  },
+  "discussion_retry": {
+    "message": "Yenidən cəhd et"
+  },
+  "discussion_notifications": {
+    "message": "Bildirişlər"
+  },
+  "discussion_notificationEmpty": {
+    "message": "Bütün yeniliklərdən xəbərdarsınız."
+  },
+  "discussion_notificationReply": {
+    "message": "$1 şərhinizə cavab verdi"
+  },
+  "discussion_notificationLike": {
+    "message": "Kimsə şərhinizi bəyəndi"
+  },
+  "discussion_notificationLikes": {
+    "message": "Şərhiniz $1 bəyənmə aldı"
+  },
+  "discussion_someone": {
+    "message": "Kimsə"
+  },
+  "discussion_markRead": {
+    "message": "Oxunmuş kimi işarələ"
+  },
+  "discussion_markAllRead": {
+    "message": "Hamısını oxunmuş kimi işarələ"
+  },
+  "discussion_view": {
+    "message": "Müzakirəyə bax"
+  },
+  "discussion_signedOutInbox": {
+    "message": "Şərhlərinizə verilən cavabları və bəyənmələri görmək üçün daxil olun."
+  },
+  "discussion_discussionTab": {
+    "message": "Müzakirə"
+  },
+  "discussion_nickname": {
+    "message": "Ləqəb"
+  },
+  "discussion_reportStatus": {
+    "message": "Şikayət statusu"
+  },
+  "discussion_openReports": {
+    "message": "Açıq şikayətlər"
+  },
+  "discussion_resolvedReports": {
+    "message": "Rədd edilmiş şikayətlər"
+  },
+  "discussion_author": {
+    "message": "Müəllif"
+  },
+  "discussion_saving": {
+    "message": "Saxlanılır…"
+  },
+  "discussion_loadReplies": {
+    "message": "Cavabları göstər ($1)"
+  },
+  "patreonTierCommenter": {
+    "message": "Commenter"
+  },
+  "changelog_page_title": {
+    "message": "Return YouTube Dislike-a xoş gəlmisiniz"
+  },
+  "changelog_hero_eyebrow": {
+    "message": "Hər şey hazırdır"
+  },
+  "changelog_hero_title": {
+    "message": "Bəyənməmə sayları qayıtdı."
+  },
+  "changelog_hero_body": {
+    "message": "İstənilən YouTube videosunu açın: bəyənməmə sayını bəyənmələrin yanında, öz yerində görəcəksiniz. 4.1 versiyası həmçinin YouTube-un şərh bölməsindən kənarda videoları müzakirə etmək üçün RYD şərhlərini təqdim edir."
+  },
+  "changelog_hero_eyebrow_counts_off": {
+    "message": "Daha bir addım"
+  },
+  "changelog_hero_body_counts_off": {
+    "message": "YouTube-da bəyənməmə saylarını bəyənmələrin yanında görmək üçün aşağıda onları aktivləşdirin. 4.1 versiyası həmçinin YouTube-un şərh bölməsindən kənarda videoları müzakirə etmək üçün RYD şərhlərini təqdim edir."
+  },
+  "changelog_new_badge": {
+    "message": "4.1-də yenilik"
+  },
+  "changelog_premium_badge": {
+    "message": "Premium"
+  },
+  "changelog_comments_title": {
+    "message": "RYD şərhləri ilə tanış olun"
+  },
+  "changelog_comments_body": {
+    "message": "YouTube şərhləri söndürülmüş videolar və Shorts altında Return YouTube Dislike-ın təqdim etdiyi icma müzakirəsi. Hər kəs oxuya və reaksiya verə bilər. Commenter və Premium üzvləri şərh və cavab yaza bilər."
+  },
+  "changelog_comments_point_replies": {
+    "message": "Bəyənmə və bəyənməmə ilə şaxələnmiş cavablar"
+  },
+  "changelog_comments_point_nickname": {
+    "message": "Seçdiyiniz, hamıya görünən ləqəblə yazın"
+  },
+  "changelog_comments_point_notifications": {
+    "message": "Kimsə şərhinizə cavab yazanda və ya onu bəyənəndə bildirişlər"
+  },
+  "changelog_comments_point_moderation": {
+    "message": "Nəzakətli ünsiyyət üçün şikayətlər və moderasiya"
+  },
+  "changelog_comments_shot_alt": {
+    "message": "Videonun altında şaxələnmiş müzakirəni göstərən RYD şərhlər paneli"
+  },
+  "changelog_notifications_shot_alt": {
+    "message": "Şərhlərinizə cavabları və bəyənmələri göstərən RYD bildirişləri"
+  },
+  "changelog_sample_note": {
+    "message": "Ekran görüntülərində nümunə məlumatlar göstərilir."
+  },
+  "changelog_analytics_title": {
+    "message": "Premium analitika"
+  },
+  "changelog_analytics_body": {
+    "message": "Videonun zamanla və dünyanın müxtəlif yerlərində necə qarşılandığını görün. 7, 30 və ya 90 günü, yaxud bütün dövrü seçin, bəyənmələri, bəyənməmələri və onların nisbətini müqayisə edin."
+  },
+  "changelog_analytics_timeline_title": {
+    "message": "Fəaliyyət qrafiki"
+  },
+  "changelog_analytics_timeline_body": {
+    "message": "Zamanla bəyənmələr və bəyənməmələr, saat dəqiqliyi ilə."
+  },
+  "changelog_analytics_countries_title": {
+    "message": "Ən fəal ölkələr"
+  },
+  "changelog_analytics_countries_body": {
+    "message": "Videonu ən çox hansı ölkələrin bəyəndiyini və bəyənmədiyini görün."
+  },
+  "changelog_analytics_world_title": {
+    "message": "Dünya xəritəsi"
+  },
+  "changelog_analytics_world_body": {
+    "message": "Ölkələr üzrə aktivliyi müqayisə edin."
+  },
+  "changelog_analytics_us_title": {
+    "message": "ABŞ ştatları"
+  },
+  "changelog_analytics_us_body": {
+    "message": "Hər ştat üzrə aktivliyi daha ətraflı görün."
+  },
+  "changelog_appeal_title": {
+    "message": "Kiçik, bir az yöndəmsiz bir xahiş"
+  },
+  "changelog_appeal_intro": {
+    "message": "Salam. Bu, pul haqqında danışdığımız hissədir və açığı, bunu o qədər də yaxşı bacarmırıq."
+  },
+  "changelog_appeal_costs": {
+    "message": "Return YouTube Dislike Dmitry Selivanov və icma tərəfindən hazırlanan kiçik açıq mənbəli layihədir. Hər gün təxminən 20 milyon insana cavab verir və 15 TB-dan çox məlumatı qoruyur. Bütün bunlar ayda bir neçə yüz dollara işləyir — milyard dollarlıq bir şirkətin götürməyə qərar verdiyi bir şeyi geri qaytarmaq üçün bu, çox deyil."
+  },
+  "changelog_appeal_free": {
+    "message": "Bəyənməmə sayları pulsuzdur və pulsuz qalacaq. Bütün məqsəd elə budur. Amma serverlər pulsuz deyil və açığı, işlətmə xərcləri bizə elə də seçim qoymadı: layihəni ayaqda saxlamaq üçün Premium funksiyaları — RYD şərhləri və Premium analitikanı — təqdim etməli olduq. Hər üzvlük bu xərcləri ödəməyə kömək edir."
+  },
+  "changelog_appeal_ask": {
+    "message": "Əgər RYD sizi heç olmasa bir dəfə klikbeyt videodan və ya işləməyən təlimatdan xilas edibsə, lütfən, Patreon-a qoşulmağı düşünün. Əgər indi uyğun vaxt deyilsə, heç bir problem yoxdur. İstifadə etdiyiniz və səs verdiyiniz üçün təşəkkür edirik: hər səs sayları bir az daha dəqiq edir."
+  },
+  "changelog_appeal_cta": {
+    "message": "Patreon-da qoşulun"
+  },
+  "changelog_appeal_signature": {
+    "message": "— Dmitry və RYD icması"
+  },
+  "changelog_join_title": {
+    "message": "Premium imkanlarını əldə edin"
+  },
+  "changelog_join_step1": {
+    "message": "Patreon-da qoşulun. Commenter şərh yazmağa imkan verir; Premium isə analitikanı da əlavə edir."
+  },
+  "changelog_join_step3": {
+    "message": "İstənilən YouTube videosunu yenidən yükləyin. Yeni imkanlarınız avtomatik görünəcək."
+  },
+  "changelog_also_title": {
+    "message": "Bu buraxılışda həmçinin"
+  },
+  "changelog_also_counts": {
+    "message": "Bəyənmə və bəyənməmə sayları həm genişlənmədə, həm də istifadəçi skriptində daha etibarlı göstərilir."
+  },
+  "changelog_also_consent": {
+    "message": "Firefox-da məlumatlara razılıq prosesi təkmilləşdirildi."
+  },
+  "changelog_also_translations": {
+    "message": "Yeni və təkmilləşdirilmiş tərcümələr."
+  },
+  "reviewPromptTitle": {
+    "message": "RYD xoşunuza gəlir?"
+  },
+  "reviewPromptBody": {
+    "message": "Google Chrome Web Store reytinqlərinin qaydalarını dəyişdi. 16 000+ beşulduzlu rəyə baxmayaraq, bir neçə yeni mənfi rəy RYD-nin reytinqini 4,6-dan 2,5-ə endirdi.\n\nRYD sizə kömək edirsə, zəhmət olmasa, dürüst rəy yazın."
+  },
+  "reviewPromptAction": {
+    "message": "Rəy yazın"
+  },
+  "consent_page_title": {
+    "message": "RYD funksiyalarının icazələri"
+  },
+  "consent_vote_title": {
+    "message": "Səsləriniz sayılsın"
+  },
+  "consent_vote_body": {
+    "message": "Firefox indi hər genişlənmənin hər hansı məlumatı paylaşmazdan əvvəl sizdən soruşmasını tələb edir. RYD-nin bəyənmələrinizi, bəyənməmələrinizi və şərh reaksiyalarınızı sayması üçün buna icazə verin. Bu icazə yalnız YouTube-u əhatə edir, digər veb-saytları yox."
+  },
+  "consent_account_title": {
+    "message": "Hesab icazələrini seçin"
+  },
+  "consent_account_body": {
+    "message": "Profiliniz, bildirişlər və Premium analitika daxil olmaqla hesab funksiyalarından istifadə etmək üçün daxil olun."
+  },
+  "consent_next_step": {
+    "message": "İcazələri nəzərdən keçirmək üçün Firefox-da İcazə ver seçin. İmtina edə bilərsiniz."
+  },
+  "consent_allow": {
+    "message": "Firefox-da icazə ver"
+  },
+  "consent_not_now": {
+    "message": "İndi yox"
+  },
+  "consent_prompt_status": {
+    "message": "Firefox-da bu icazələri verib-verməyəcəyinizi seçin."
+  },
+  "consent_granted_status": {
+    "message": "İcazələr aktivdir. YouTube-a qayıda bilərsiniz."
+  },
+  "consent_declined_status": {
+    "message": "Bu könüllü funksiyalar sönülü qalır. İcazələri daha sonra dəyişə bilərsiniz."
+  },
+  "consent_error_status": {
+    "message": "İcazələri yeniləmək mümkün olmadı. Yenidən cəhd edin."
+  },
+  "consent_details_summary": {
+    "message": "Firefox-un icazə kateqoriyaları nə deməkdir?"
+  },
+  "consent_details_intro": {
+    "message": "Firefox məlumatları geniş kateqoriyalara ayırır. Hər kateqoriyanın RYD üçün mənası budur:"
+  },
+  "consent_browsing_label": {
+    "message": "Baxış fəaliyyəti"
+  },
+  "consent_browsing_body": {
+    "message": "Yalnız açdığınız YouTube videosunun ID-si, onun bəyənməmələrini və RYD şərhlərini yükləmək üçün. Heç vaxt nə brauzer tarixçəniz, nə də digər veb-saytlar."
+  },
+  "consent_content_label": {
+    "message": "Veb-sayt məzmunu"
+  },
+  "consent_content_body": {
+    "message": "Bəyənməmə təxminlərini yaxşılaşdırmaq üçün YouTube videosunda göstərilən bəyənmə sayı."
+  },
+  "consent_activity_label": {
+    "message": "Veb-sayt fəaliyyəti"
+  },
+  "consent_activity_body": {
+    "message": "YouTube-dakı bəyənmələriniz, bəyənməmələriniz və RYD şərhlərinə reaksiyalarınız, sayılmaları üçün. Google və ya YouTube hesabınızla əlaqəsi olmayan təsadüfi identifikatorla göndərilir."
+  },
+  "consent_identity_label": {
+    "message": "Şəxsi identifikasiya məlumatları"
+  },
+  "consent_identity_body": {
+    "message": "Yalnız daxil olmağı seçdiyinizdə görünən ad və e-poçt kimi profil məlumatlarınız."
+  },
+  "consent_auth_label": {
+    "message": "Autentifikasiya məlumatları"
+  },
+  "consent_auth_body": {
+    "message": "Daxil olmaq və hesab funksiyalarından istifadə etmək üçün tələb olunan avtorizasiya və sessiya məlumatları."
+  },
+  "consent_scope": {
+    "message": "RYD youtube.com xaricində heç nə toplamır və YouTube hesabınıza daxil olmur. Daxil olmayınca ad və ya e-poçt almır."
+  },
+  "consent_settings": {
+    "message": "Bu icazələri istənilən vaxt Firefox-un əlavələr ayarlarında (about:addons) dəyişə bilərsiniz."
+  },
+  "consent_private_counts": {
+    "message": "Məxfi pəncərələrdə adi pəncərədə aktivləşdirilmiş icazə ilə yalnız saylar göstərilir. Səsvermə, giriş, Premium analitika və müzakirələr orada mövcud deyil."
+  },
+  "consent_voter_timing": {
+    "message": "Səsvermə identifikatorunuz yalnız səs və ya reaksiya verdikdə göndərilir. Şərhlərə öz reaksiyalarınız bu cihazda yadda saxlanılır."
+  },
+  "popup_signin_next_click": {
+    "message": "Daha bir klik lazımdır: Firefox-un hesab icazələrini nəzərdən keçirib davam etmək üçün aşağıdakı giriş düymənizi seçin."
+  },
+  "changelog_firefox_intro_title": {
+    "message": "Firefox-un yeni məxfilik qaydaları"
+  },
+  "changelog_firefox_intro_body": {
+    "message": "Firefox-da RYD bəyənməmələri göstərməzdən əvvəl icazənizə ehtiyac duyur. Bu icazənin tam olaraq nəyi əhatə etdiyi — və nəyi əhatə etmədiyi — aşağıdadır."
+  },
+  "changelog_firefox_vote_granted": {
+    "message": "Təşəkkürlər. Səsləriniz artıq sayılır."
+  },
+  "vote_consent_hint": {
+    "message": "Səsiniz hələ sayılmayıb. Firefox indi RYD onu göndərməzdən əvvəl icazənizi tələb edir. Bu icazə yalnız YouTube-u əhatə edir, digər veb-saytları yox."
+  },
+  "vote_not_counted": {
+    "message": "Bəyənmə və bəyənməmələriniz sayılmır və bəyənməmə saylarında əks olunmur."
+  },
+  "vote_count_mine": {
+    "message": "Səslərimi say"
+  },
+  "vote_consent_dismiss": {
+    "message": "Bir daha soruşma"
+  },
+  "discussion_reactionConsentRequired": {
+    "message": "Şərhlərə reaksiya vermək üçün səs paylaşımını aktivləşdirin. Reaksiyanız o aktiv olduqdan sonra göndəriləcək."
+  },
+  "discussion_consentContinue": {
+    "message": "Davam et"
+  },
+  "counts_consent_toolbar": {
+    "message": "Davam etmək üçün Firefox-un genişlənmələr menyusundan Return YouTube Dislike-ı açın."
+  },
+  "counts_consent_declined": {
+    "message": "Saylar sönülü qalır. Onları daha sonra buradan aktivləşdirə bilərsiniz."
+  },
+  "counts_consent_enabled": {
+    "message": "Bəyənməmə sayları aktivdir."
+  },
+  "counts_consent_private": {
+    "message": "Əvvəlcə adi pəncərədə bəyənməmə saylarını aktivləşdirin. Məxfi pəncərələrdə yalnız saylar göstərilir."
+  },
+  "data_consent_reason": {
+    "message": "Firefox indi hər genişlənmənin hər hansı məlumatı paylaşmazdan əvvəl sizdən soruşmasını tələb edir. RYD-yə bəyənməmələri göstərməyə və səslərinizi saymağa icazə verin. Bu icazə yalnız YouTube-u əhatə edir, digər veb-saytları yox."
+  },
+  "data_consent_title": {
+    "message": "Bəyənməmələri göstərin və səsləriniz sayılsın"
+  },
+  "data_consent_body": {
+    "message": "Firefox indi hər genişlənmənin hər hansı məlumatı paylaşmazdan əvvəl sizdən soruşmasını tələb edir. O, bütün genişlənmələr üçün eyni ümumi adlardan istifadə edir, ona görə də hər birinin RYD üçün mənası belədir:"
+  },
+  "data_consent_scope": {
+    "message": "RYD yalnız YouTube-da işləyir. Bu icazə ona başqa heç bir veb-sayta giriş vermir."
+  }
+}

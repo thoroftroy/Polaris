@@ -1,0 +1,11 @@
+{
+  "appDesc": {
+    "message": "Download Videos from the Web."
+  },
+  "appLongDesc": {
+    "message": "Prenesite videoposnetke s spleta. Preprosto, pametno, brez sledenja.\n\nNajboljši prenašalnik videoposnetkov že več kot 10 let!\n\nVideo Download Helper podpira več kot 1000 spletnih mest (Dash, HLS, MPD, …), prenose v živo, visoko ločljivost in pretvorbo v vaše najljubše formate (MP4, MKV, WebM, …). Video Download Helper podpira tudi prenos zvoka (izvlečenje zvoka iz videoposnetkov v MP3).\n"
+  },
+  "appLongDescGoogleAddendum": {
+    "message": "Upoštevajte, da ta razširitev ne podpira storitve YouTube.\n"
+  }
+}

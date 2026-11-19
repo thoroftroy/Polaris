@@ -1,0 +1,11 @@
+{
+  "appDesc": {
+    "message": "Download Videos from the Web."
+  },
+  "appLongDesc": {
+    "message": "Videók letöltése a webről. Egyszerű, okos, követés nélkül.\n\nA legjobb videóletöltő már több mint 10 éve!\n\nA Video Download Helper több mint 1000 webhelyet támogat (Dash, HLS, MPD, …), valamint az élő közvetítéseket, a nagy felbontást és a kedvenc formátumokba való konvertálást (MP4, MKV, WebM, …). A Video Download Helper hang letöltésére is képes (a hang kinyerése videókból MP3 fájlokba).\n"
+  },
+  "appLongDescGoogleAddendum": {
+    "message": "Felhívjuk figyelmét, hogy ez a bővítmény nem támogatja a YouTube-ot.\n"
+  }
+}

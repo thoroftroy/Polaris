@@ -1,0 +1,11 @@
+{
+  "appDesc": {
+    "message": "Download Videos from the Web."
+  },
+  "appLongDesc": {
+    "message": "Unduh video dari web. Mudah, cerdas, tanpa pelacakan.\n\nPengunduh video terbaik selama lebih dari 10 tahun!\n\nVideo Download Helper mendukung lebih dari 1000 situs web (Dash, HLS, MPD, …), siaran langsung, definisi tinggi, dan konversi ke format pilihan Anda (MP4, MKV, WebM, …). Video Download Helper juga mendukung unduhan audio (mengekstrak audio dari video menjadi MP3).\n"
+  },
+  "appLongDescGoogleAddendum": {
+    "message": "Harap diperhatikan bahwa ekstensi ini tidak mendukung YouTube.\n"
+  }
+}

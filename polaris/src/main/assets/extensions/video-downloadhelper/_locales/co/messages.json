@@ -1,0 +1,11 @@
+{
+  "appDesc": {
+    "message": "Download Videos from the Web."
+  },
+  "appLongDesc": {
+    "message": "Scaricà i video da u web. Faciule, intelligente, senza tracciamentu.\n\nU megliu scaricadore di video dapoi più di 10 anni!\n\nVideo Download Helper supporta più di 1000 siti web (Dash, HLS, MPD, …), u streaming in direttu, l'alta definizione è a cunversione in i vostri furmati preferiti (MP4, MKV, WebM, …). Video Download Helper permette ancu di scaricà l'audio (estrae l'audio di i video in MP3).\n"
+  },
+  "appLongDescGoogleAddendum": {
+    "message": "Attenzione: st'estensione ùn supporta micca YouTube.\n"
+  }
+}

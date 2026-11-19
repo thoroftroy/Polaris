@@ -1,0 +1,11 @@
+{
+  "appDesc": {
+    "message": "Download Videos from the Web."
+  },
+  "appLongDesc": {
+    "message": "Descarcă videoclipuri de pe web. Simplu, inteligent, fără urmărire.\n\nCel mai bun program de descărcare video de peste 10 ani!\n\nVideo Download Helper acceptă peste 1000 de site-uri (Dash, HLS, MPD, …), transmisiuni live, înaltă definiție și conversie în formatele tale preferate (MP4, MKV, WebM, …). Video Download Helper permite și descărcarea audio (extrage sunetul din videoclipuri în fișiere MP3).\n"
+  },
+  "appLongDescGoogleAddendum": {
+    "message": "Reține că această extensie nu acceptă YouTube.\n"
+  }
+}

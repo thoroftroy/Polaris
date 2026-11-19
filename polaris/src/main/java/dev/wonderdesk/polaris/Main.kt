@@ -14,8 +14,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
-import android.webkit.*
-import android.widget.FrameLayout
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -61,26 +59,25 @@ import java.util.Date
 object Hooks {
     class AppAsk(val url: String, val host: String, val label: String, val pkg: String)
     var appAsk by mutableStateOf<AppAsk?>(null)
-    var customView by mutableStateOf<View?>(null)
-    var customCallback: WebChromeClient.CustomViewCallback? = null
     class Ctx(val url: String, val image: Boolean, val veil: Boolean)
     var ctxMenu by mutableStateOf<Ctx?>(null)
+    var ask by mutableStateOf<Ask?>(null)
+    var fullscreen by mutableStateOf(false)
     var typing by mutableStateOf("")
     var toast: (String) -> Unit = {}
-    var filePick: ((Array<String>, ValueCallback<Array<Uri>>?) -> Unit)? = null
-    var permAsk: ((PermissionRequest) -> Unit)? = null
-    var geoAsk: ((String, GeolocationPermissions.Callback) -> Unit)? = null
+    var pickFile: ((Array<String>, Boolean, (List<Uri>) -> Unit) -> Unit)? = null
+    var androidPerms: ((Array<String>, (Boolean) -> Unit) -> Unit)? = null
 }
 
 class MainActivity : WonderActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        Library.init(this); AdBlock.load(this)
+        Library.init(this); Gecko.init(this)
         super.onCreate(savedInstanceState)
         handle(intent, first = true)
     }
     override fun onNewIntent(intent: Intent) { super.onNewIntent(intent); handle(intent, first = false) }
     override fun onPause() { super.onPause(); Browser.saveSession(this) }
-    override fun onDestroy() { if (isFinishing && Prefs.clearOnExit(this)) { Library.history.clear(); Browser.wipeVeil(this) }; super.onDestroy() }
+    override fun onDestroy() { if (isFinishing && Prefs.clearOnExit(this)) { Library.history.clear(); Browser.wipeAll(this) }; super.onDestroy() }
 
     private fun handle(i: Intent?, first: Boolean) {
         val url = when (i?.action) {
@@ -95,82 +92,7 @@ class MainActivity : WonderActivity() {
     @Composable override fun Content() = PolarisApp(this)
 }
 
-enum class Screen { Browser, Tabs, History, Bookmarks, Downloads, Settings, Sites }
-
-/** One client per tab: blocks ads, hands links to apps, keeps history, and reports progress. */
-fun clients(act: Activity, tab: Tab): Triple<WebViewClient, WebChromeClient, DownloadListener> {
-    val client = object : WebViewClient() {
-        override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
-            if (!Prefs.adBlock(act)) return null
-            val host = request.url.host ?: return null
-            if (host != Uri.parse(tab.url).host && AdBlock.blocked(host)) { tab.blocked++; return emptyResponse() }
-            return null
-        }
-        override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
-            val u = request.url; val scheme = u.scheme ?: return false
-            if (scheme == "http" || scheme == "https") {
-                val host = u.host ?: return false
-                if (!request.isForMainFrame) return false
-                val rule = SiteRules.app(act, host)
-                if (rule == "never") { tab.applyUa(host); return false }
-                if (rule == "always" || rule == "ask") {
-                    val app = appFor(act, u)
-                    if (app != null) {
-                        if (rule == "always") { runCatching { act.startActivity(Intent(Intent.ACTION_VIEW, u).setPackage(app.first).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }; return true }
-                        Hooks.appAsk = Hooks.AppAsk(u.toString(), host, app.second, app.first); return true
-                    }
-                }
-                tab.applyUa(host)
-                return false
-            }
-            // intent:, market:, mailto:, tel: and friends
-            runCatching {
-                val i = if (scheme == "intent") Intent.parseUri(u.toString(), Intent.URI_INTENT_SCHEME) else Intent(Intent.ACTION_VIEW, u)
-                i.addCategory(Intent.CATEGORY_BROWSABLE); i.component = null; i.selector = null; i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                act.startActivity(i)
-            }.onFailure { (u.getQueryParameter("browser_fallback_url") ?: u.toString().substringAfter("S.browser_fallback_url=", "").substringBefore(";").takeIf { it.isNotBlank() }?.let { Uri.decode(it) })?.let { view.loadUrl(it) } }
-            return true
-        }
-        override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) { tab.loading = true; tab.url = url; tab.blocked = 0; tab.favicon = favicon ?: tab.favicon; tab.canBack = view.canGoBack(); tab.canForward = view.canGoForward() }
-        override fun onPageFinished(view: WebView, url: String) {
-            tab.loading = false; tab.url = url; tab.title = view.title ?: tab.title; tab.canBack = view.canGoBack(); tab.canForward = view.canGoForward()
-            if (Prefs.adBlock(act) && Prefs.hideCosmetic(act)) view.evaluateJavascript("(function(){var s=document.createElement('style');s.textContent=\"${AdBlock.CSS}\";document.head&&document.head.appendChild(s)})()", null)
-            if (!tab.veil && url.startsWith("http")) Library.history.add(Entry(url, tab.title, System.currentTimeMillis()), unique = false)
-        }
-        override fun doUpdateVisitedHistory(view: WebView, url: String, isReload: Boolean) { tab.canBack = view.canGoBack(); tab.canForward = view.canGoForward() }
-    }
-    val chrome = object : WebChromeClient() {
-        override fun onProgressChanged(view: WebView, p: Int) { tab.progress = p }
-        override fun onReceivedTitle(view: WebView, title: String) { tab.title = title; if (!tab.veil) Library.history.updateTitle(view.url ?: "", title) }
-        override fun onReceivedIcon(view: WebView, icon: Bitmap?) { tab.favicon = icon }
-        override fun onShowCustomView(v: View, cb: CustomViewCallback) { Hooks.customView = v; Hooks.customCallback = cb }
-        override fun onHideCustomView() { Hooks.customView = null; Hooks.customCallback?.onCustomViewHidden(); Hooks.customCallback = null }
-        override fun onPermissionRequest(r: PermissionRequest) { Hooks.permAsk?.invoke(r) ?: r.deny() }
-        override fun onGeolocationPermissionsShowPrompt(origin: String, cb: GeolocationPermissions.Callback) { Hooks.geoAsk?.invoke(origin, cb) ?: cb.invoke(origin, false, false) }
-        override fun onShowFileChooser(w: WebView, cb: ValueCallback<Array<Uri>>, p: FileChooserParams): Boolean { Hooks.filePick?.invoke(p.acceptTypes.filter { it.isNotBlank() }.toTypedArray().ifEmpty { arrayOf("*/*") }, cb); return true }
-        override fun onJsAlert(v: WebView, url: String, message: String, r: JsResult): Boolean { android.app.AlertDialog.Builder(act).setMessage(message).setPositiveButton("OK") { _, _ -> r.confirm() }.setOnCancelListener { r.cancel() }.show(); return true }
-        override fun onJsConfirm(v: WebView, url: String, message: String, r: JsResult): Boolean { android.app.AlertDialog.Builder(act).setMessage(message).setPositiveButton("OK") { _, _ -> r.confirm() }.setNegativeButton("Cancel") { _, _ -> r.cancel() }.setOnCancelListener { r.cancel() }.show(); return true }
-        override fun onCreateWindow(v: WebView, dialog: Boolean, userGesture: Boolean, msg: android.os.Message): Boolean {
-            if (!userGesture) return false
-            val t = Browser.open(act, null, veil = tab.veil)
-            val trio = clients(act, t)
-            val w = t.webView(trio.first, trio.second, trio.third)
-            (msg.obj as WebView.WebViewTransport).webView = w; msg.sendToTarget(); return true
-        }
-    }
-    tab.web?.let { }
-    val dl = DownloadListener { url, ua, cd, mime, _ ->
-        runCatching {
-            val name = URLUtil.guessFileName(url, cd, mime)
-            val req = DownloadManager.Request(Uri.parse(url)).setMimeType(mime).addRequestHeader("User-Agent", ua)
-                .addRequestHeader("Cookie", CookieManager.getInstance().getCookie(url) ?: "").setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name)
-            act.getSystemService(DownloadManager::class.java).enqueue(req)
-            Hooks.toast("Downloading $name")
-        }.onFailure { Hooks.toast("Couldn't start the download") }
-    }
-    return Triple(client, chrome, dl)
-}
+enum class Screen { Browser, Tabs, History, Bookmarks, Downloads, Extensions, Settings, Sites }
 
 /** An installed app (not a browser) that handles this link, if any: package and name. */
 fun appFor(c: android.content.Context, u: Uri): Pair<String, String>? {
@@ -181,17 +103,22 @@ fun appFor(c: android.content.Context, u: Uri): Pair<String, String>? {
     return pkg to (runCatching { pm.getApplicationLabel(pm.getApplicationInfo(pkg, 0)).toString() }.getOrDefault(pkg))
 }
 
-fun screenshot(c: android.content.Context, w: WebView): Boolean = runCatching {
-    val b = Bitmap.createBitmap(w.width, w.height, Bitmap.Config.ARGB_8888); w.draw(Canvas(b))
-    val values = ContentValues().apply { put(MediaStore.Images.Media.DISPLAY_NAME, "Polaris " + System.currentTimeMillis() + ".png"); put(MediaStore.Images.Media.MIME_TYPE, "image/png"); put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/Polaris") }
-    val uri = c.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
-    c.contentResolver.openOutputStream(uri)!!.use { b.compress(Bitmap.CompressFormat.PNG, 100, it) }
-}.isSuccess
+fun screenshot(c: android.content.Context, tab: Tab) {
+    val v = tab.view ?: return Hooks.toast("Open a page first")
+    v.capturePixels().accept({ b ->
+        val ok = runCatching {
+            val values = ContentValues().apply { put(MediaStore.Images.Media.DISPLAY_NAME, "Polaris " + System.currentTimeMillis() + ".png"); put(MediaStore.Images.Media.MIME_TYPE, "image/png"); put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/Polaris") }
+            val uri = c.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
+            c.contentResolver.openOutputStream(uri)!!.use { b!!.compress(Bitmap.CompressFormat.PNG, 100, it) }
+        }.isSuccess
+        Hooks.toast(if (ok) "Saved to Pictures/Polaris" else "Couldn't save the screenshot")
+    }, { Hooks.toast("Couldn't save the screenshot") })
+}
 
 fun addToHome(c: android.content.Context, tab: Tab) {
     val url = tab.url; if (!url.startsWith("http")) return
     val name = tab.title.ifBlank { Uri.parse(url).host ?: "Site" }.take(24)
-    val icon = tab.favicon?.let { IconCompat.createWithBitmap(Bitmap.createScaledBitmap(it, 192, 192, true)) } ?: IconCompat.createWithBitmap(letterIcon(name))
+    val icon = IconCompat.createWithBitmap(letterIcon(name))
     val info = ShortcutInfoCompat.Builder(c, "site-" + url.hashCode()).setShortLabel(name).setIcon(icon)
         .setIntent(Intent(c, SiteActivity::class.java).setAction(Intent.ACTION_VIEW).setData(Uri.parse(url))).build()
     ShortcutManagerCompat.requestPinShortcut(c, info, null)
@@ -214,42 +141,40 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
     val scope = rememberCoroutineScope()
     val tab = Browser.currentTab
     LaunchedEffect(Unit) { Hooks.toast = { m -> android.widget.Toast.makeText(context, m, android.widget.Toast.LENGTH_SHORT).show() } }
-    // File picker and permissions the page may ask for.
-    var fileCb by remember { mutableStateOf<ValueCallback<Array<Uri>>?>(null) }
-    val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { uris -> fileCb?.onReceiveValue(uris.toTypedArray()); fileCb = null }
-    var permReq by remember { mutableStateOf<PermissionRequest?>(null) }
-    var geo by remember { mutableStateOf<Pair<String, GeolocationPermissions.Callback>?>(null) }
-    val permLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { res ->
-        permReq?.let { r -> if (res.values.all { it }) r.grant(r.resources) else r.deny() }; permReq = null
-        geo?.let { (o, cb) -> cb.invoke(o, res.values.any { it }, false) }; geo = null
-    }
+    // File picker, Android permissions and full-screen video, for the engine.
+    var pickCb by remember { mutableStateOf<((List<Uri>) -> Unit)?>(null) }
+    val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { uris -> pickCb?.invoke(uris); pickCb = null }
+    var permCb by remember { mutableStateOf<((Boolean) -> Unit)?>(null) }
+    val permLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { res -> permCb?.invoke(res.values.all { it }); permCb = null }
     LaunchedEffect(Unit) {
-        Hooks.filePick = { types, cb -> fileCb?.onReceiveValue(null); fileCb = cb; picker.launch(types) }
-        Hooks.permAsk = { r ->
-            val need = r.resources.mapNotNull { when (it) { PermissionRequest.RESOURCE_VIDEO_CAPTURE -> Manifest.permission.CAMERA; PermissionRequest.RESOURCE_AUDIO_CAPTURE -> Manifest.permission.RECORD_AUDIO; else -> null } }.filter { context.checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED }
-            if (need.isEmpty()) r.grant(r.resources) else { permReq = r; permLauncher.launch(need.toTypedArray()) }
-        }
-        Hooks.geoAsk = { o, cb -> if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) cb.invoke(o, true, false) else { geo = o to cb; permLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)) } }
+        Hooks.pickFile = { types, _, cb -> pickCb?.invoke(emptyList()); pickCb = cb; picker.launch(types.filter { it.isNotBlank() }.toTypedArray().ifEmpty { arrayOf("*/*") }) }
+        Hooks.androidPerms = { perms, cb -> permCb = cb; permLauncher.launch(perms) }
     }
-    BackHandler(enabled = Hooks.customView != null || screen != Screen.Browser || tab?.canBack == true) {
-        when { Hooks.customView != null -> Hooks.customCallback?.onCustomViewHidden().also { Hooks.customView = null }; screen != Screen.Browser -> screen = Screen.Browser; else -> tab?.web?.goBack() }
+    LaunchedEffect(Hooks.fullscreen) {
+        val c = androidx.core.view.WindowCompat.getInsetsController(act.window, act.window.decorView)
+        if (Hooks.fullscreen) { c.hide(androidx.core.view.WindowInsetsCompat.Type.systemBars()); c.systemBarsBehavior = androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE } else c.show(androidx.core.view.WindowInsetsCompat.Type.systemBars())
+    }
+    BackHandler(enabled = screen != Screen.Browser || tab?.canBack == true || tab?.findText != null || Hooks.fullscreen) {
+        when { Hooks.fullscreen -> tab?.session?.exitFullScreen(); tab?.findText != null -> { tab.find(""); tab.findText = null }; screen != Screen.Browser -> screen = Screen.Browser; else -> tab?.session?.goBack() }
     }
     Box(Modifier.fillMaxSize().background(p.window)) {
         when (screen) {
             Screen.Tabs -> TabsScreen(onBack = { screen = Screen.Browser })
             Screen.History -> HistoryScreen(onBack = { screen = Screen.Browser }, open = { Browser.currentTab?.go(it); screen = Screen.Browser })
+            Screen.Extensions -> ExtensionsScreen(onBack = { screen = Screen.Browser })
             Screen.Downloads -> DownloadsScreen(onBack = { screen = Screen.Browser })
             Screen.Bookmarks -> BookmarksScreen(onBack = { screen = Screen.Browser }, open = { Browser.currentTab?.go(it); screen = Screen.Browser })
             Screen.Settings -> SettingsScreen(onBack = { screen = Screen.Browser }, sites = { screen = Screen.Sites })
             Screen.Sites -> SitesScreen(onBack = { screen = Screen.Settings })
             Screen.Browser -> Column(Modifier.fillMaxSize()) {
                 if (tab != null) {
-                    TopBar(tab, onMenu = { menu = true }, onHome = { tab.web?.stopLoading(); tab.url = ""; tab.title = "" })
+                    if (!Hooks.fullscreen) TopBar(tab, onMenu = { menu = true }, onHome = { tab.session.stop(); tab.url = ""; tab.title = "" })
                     Box(Modifier.weight(1f).fillMaxWidth()) {
                         if (tab.isStart) StartPage(tab) else key(tab.id) {
-                            AndroidView({ _ -> tab.ctx.baseContext.let { tab.ctx.setBaseContext(act) }; val (c, ch, d) = clients(act, tab); tab.webView(c, ch, d).also { w -> w.setFindListener { active, count, _ -> tab.findIndex = active + 1; tab.findCount = count }; w.setOnLongClickListener { v -> val r = (v as WebView).hitTestResult; when (r.type) { WebView.HitTestResult.SRC_ANCHOR_TYPE, WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE -> { Hooks.ctxMenu = Hooks.Ctx(r.extra ?: "", false, tab.veil); true } WebView.HitTestResult.IMAGE_TYPE -> { Hooks.ctxMenu = Hooks.Ctx(r.extra ?: "", true, tab.veil); true } else -> false } }; (w.parent as? android.view.ViewGroup)?.removeView(w); tab.pendingUrl?.let { u -> w.loadUrl(u); tab.pendingUrl = null } } }, Modifier.fillMaxSize())
+                            AndroidView({ ctx -> org.mozilla.geckoview.GeckoView(ctx).also { gv -> gv.setAutofillEnabled(true); tab.ensureOpen(); gv.setSession(tab.session); tab.view = gv
+                                tab.session.setSelectionActionDelegate(org.mozilla.geckoview.BasicSelectionActionDelegate(act)) } },
+                                Modifier.fillMaxSize(), update = { gv -> if (gv.session !== tab.session) { gv.releaseSession(); tab.ensureOpen(); gv.setSession(tab.session); tab.view = gv } })
                         }
-                        Hooks.customView?.let { v -> AndroidView({ _ -> FrameLayout(act).apply { setBackgroundColor(android.graphics.Color.BLACK); (v.parent as? android.view.ViewGroup)?.removeView(v); addView(v) } }, Modifier.fillMaxSize()) }
                         if (Hooks.typing.isNotBlank()) Suggestions(tab)
                         DropdownMenu(menu, { menu = false }, Modifier.background(p.panel)) { BrowserMenu(tab, { menu = false }, { screen = it }, { siteDialog = true }) }
                     }
@@ -263,13 +188,15 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
         WonderDialog(onDismissRequest = { Hooks.appAsk = null }, title = { Text("Open in ${a.label}?") }, text = { Text("${a.host} can open in the ${a.label} app.") }, confirmButton = {
             TextButton(onClick = { Hooks.appAsk = null; runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(a.url)).setPackage(a.pkg).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } }) { Text("Open app") }
         }, dismissButton = {
-            Row { TextButton(onClick = { Hooks.appAsk = null; Browser.currentTab?.web?.loadUrl(a.url) }) { Text("Stay here") }
+            Row { TextButton(onClick = { Hooks.appAsk = null; Browser.currentTab?.session?.loadUri(a.url) }) { Text("Stay here") }
                 TextButton(onClick = { SiteRules.set(context, a.host, "always", null); Hooks.appAsk = null; runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(a.url)).setPackage(a.pkg).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } }) { Text("Always") }
-                TextButton(onClick = { SiteRules.set(context, a.host, "never", null); Hooks.appAsk = null; Browser.currentTab?.web?.loadUrl(a.url) }) { Text("Never") } }
+                TextButton(onClick = { SiteRules.set(context, a.host, "never", null); Hooks.appAsk = null; Browser.currentTab?.session?.loadUri(a.url) }) { Text("Never") } }
         })
     }
     if (siteDialog && tab != null) SiteDialog(tab) { siteDialog = false }
     Hooks.ctxMenu?.let { c -> LinkMenu(c) { Hooks.ctxMenu = null } }
+    Hooks.ask?.let { a -> AskDialog(a) { Hooks.ask = null } }
+    Gecko.popup?.let { ps -> PopupDialog(ps) { Gecko.popup = null } }
 }
 
 @Composable
@@ -290,7 +217,7 @@ private fun TopBar(tab: Tab, onMenu: () -> Unit, onHome: () -> Unit) {
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri, imeAction = ImeAction.Go), keyboardActions = KeyboardActions(onGo = { Hooks.typing = ""; tab.go(text) }))
                 if (tab.url.startsWith("http")) { var star by remember(tab.url) { mutableStateOf(Library.bookmarks.all().any { it.url == tab.url }) }
                     IconButton(onClick = { if (star) Library.bookmarks.remove(tab.url) else Library.bookmarks.add(Entry(tab.url, tab.title.ifBlank { tab.url }, System.currentTimeMillis()), unique = true); star = !star }, Modifier.size(28.dp)) { Icon(if (star) WonderIcons.Star else WonderIcons.StarBorder, "Bookmark", Modifier.size(18.dp), tint = if (star) Color(0xFFF2A516) else Color(0xFF444444)) } }
-                IconButton(onClick = { if (tab.loading) tab.web?.stopLoading() else tab.web?.reload() }, Modifier.size(28.dp)) { Icon(if (tab.loading) WonderIcons.Close else WonderIcons.Refresh, null, Modifier.size(18.dp), tint = Color(0xFF444444)) }
+                IconButton(onClick = { if (tab.loading) tab.session.stop() else tab.session.reload() }, Modifier.size(28.dp)) { Icon(if (tab.loading) WonderIcons.Close else WonderIcons.Refresh, null, Modifier.size(18.dp), tint = Color(0xFF444444)) }
             }
             IconButton(onClick = onMenu) { Icon(WonderIcons.MoreVert, "Menu", tint = Color.White) }
         }
@@ -303,9 +230,8 @@ private fun TopBar(tab: Tab, onMenu: () -> Unit, onHome: () -> Unit) {
 private fun BottomBar(tab: Tab, onTabs: () -> Unit) {
     val p = wonderPalette()
     Row(Modifier.fillMaxWidth().background(p.panel).navigationBarsPadding().padding(vertical = 4.dp), horizontalArrangement = Arrangement.SpaceAround, verticalAlignment = Alignment.CenterVertically) {
-        IconButton(onClick = { tab.web?.goBack() }, enabled = tab.canBack) { Icon(WonderIcons.ArrowBack, "Back", tint = if (tab.canBack) p.accent else p.secondaryText.copy(alpha = .4f)) }
-        IconButton(onClick = { tab.web?.goForward() }, enabled = tab.canForward) { Icon(WonderIcons.ArrowForward, "Forward", tint = if (tab.canForward) p.accent else p.secondaryText.copy(alpha = .4f)) }
-        if (tab.blocked > 0) Text("${tab.blocked} blocked", color = p.secondaryText, fontSize = 12.sp)
+        IconButton(onClick = { tab.session.goBack() }, enabled = tab.canBack) { Icon(WonderIcons.ArrowBack, "Back", tint = if (tab.canBack) p.accent else p.secondaryText.copy(alpha = .4f)) }
+        IconButton(onClick = { tab.session.goForward() }, enabled = tab.canForward) { Icon(WonderIcons.ArrowForward, "Forward", tint = if (tab.canForward) p.accent else p.secondaryText.copy(alpha = .4f)) }
         Box(Modifier.size(34.dp).clip(RoundedCornerShape(9.dp)).border(2.dp, p.accent, RoundedCornerShape(9.dp)).clickable(onClick = onTabs), contentAlignment = Alignment.Center) { Text("${Browser.tabs.size}", color = p.accent, fontWeight = FontWeight.Bold, fontSize = 14.sp) }
     }
 }
@@ -324,12 +250,13 @@ private fun BrowserMenu(tab: Tab, close: () -> Unit, go: (Screen) -> Unit, site:
     item("History", WonderIcons.History) { go(Screen.History) }()
     item("Downloads", WonderIcons.Download) { go(Screen.Downloads) }()
     HorizontalDivider()
-    DropdownMenuItem({ Text(if (tab.desktop) "Mobile site" else "Desktop site") }, { close(); tab.desktop = !tab.desktop; tab.applyUa(Uri.parse(tab.url).host); tab.web?.reload() }, leadingIcon = { Icon(WonderIcons.Language, null) })
+    DropdownMenuItem({ Text(if (tab.desktop) "Mobile site" else "Desktop site") }, { close(); tab.toggleDesktop() }, leadingIcon = { Icon(WonderIcons.Language, null) })
     item("This site…", WonderIcons.Tune, site)()
     item("Find in page", WonderIcons.Search) { tab.findText = "" }()
-    item("Reader view", WonderIcons.Visibility) { tab.web?.evaluateJavascript(READER_JS, null) }()
+    item("uBlock Origin", WonderIcons.Shield) { Gecko.ubo?.let { u -> Browser.open(context, u.metaData.baseUrl + "dashboard.html", veil = false) } ?: Hooks.toast("uBlock Origin is still starting") }()
+    item("Extensions", WonderIcons.Apps) { go(Screen.Extensions) }()
     item("Add to home screen", WonderIcons.Apps) { addToHome(context, tab) }()
-    item("Screenshot", WonderIcons.PhotoCamera) { Hooks.toast(if (tab.web?.let { screenshot(context, it) } == true) "Saved to Pictures/Polaris" else "Couldn't save the screenshot") }()
+    item("Screenshot", WonderIcons.PhotoCamera) { screenshot(context, tab) }()
     item("Share", WonderIcons.Share) { context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, tab.url), "Share").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }()
     HorizontalDivider()
     item("Passwords (Vault)", WonderIcons.Key) { context.packageManager.getLaunchIntentForPackage("dev.wonderdesk.vault")?.let { context.startActivity(it) } ?: Hooks.toast("Install Wonderdesk Vault to manage passwords") }()
@@ -350,7 +277,7 @@ private fun SiteDialog(tab: Tab, onDismiss: () -> Unit) {
             }
             Text("Pretend to be", style = MaterialTheme.typography.labelLarge)
             Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                UserAgents.LIST.forEach { (k, l) -> Chip(l, ua == k, { ua = k; SiteRules.set(context, host, null, k); tab.applyUa(host); tab.web?.reload() }) }
+                UserAgents.LIST.forEach { (k, l) -> Chip(l, ua == k, { ua = k; SiteRules.set(context, host, null, k); tab.applyUa(host); tab.session.reload() }) }
             }
         }
     }, confirmButton = { TextButton(onClick = onDismiss) { Text("Done") } })
@@ -513,15 +440,13 @@ private fun SettingsScreen(onBack: () -> Unit, sites: () -> Unit) {
     val scope = rememberCoroutineScope()
     var engine by remember { mutableStateOf(Prefs.engine(context)) }
     var veil by remember { mutableStateOf(Prefs.veilDefault(context)) }
-    var ads by remember { mutableStateOf(Prefs.adBlock(context)) }
-    var cosmetic by remember { mutableStateOf(Prefs.hideCosmetic(context)) }
-    var tpc by remember { mutableStateOf(Prefs.blockThirdPartyCookies(context)) }
+    var strict by remember { mutableStateOf(Prefs.strict(context)) }
+    var tor by remember { mutableStateOf(Prefs.tor(context)) }
+    var flash by remember { mutableStateOf(Prefs.flash(context)) }
     var https by remember { mutableStateOf(Prefs.upgradeHttps(context)) }
     var clearExit by remember { mutableStateOf(Prefs.clearOnExit(context)) }
     var ua by remember { mutableStateOf(Prefs.uaKey(context)) }
     var zoom by remember { mutableIntStateOf(Prefs.textZoom(context)) }
-    var status by remember { mutableStateOf("${AdBlock.listSize()} hosts blocked") }
-    var busy by remember { mutableStateOf(false) }
     fun put(k: String, v: Boolean) = Prefs.p(context).edit().putBoolean(k, v).apply()
     WonderScreen("Settings", onBack) {
         Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(14.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
@@ -531,15 +456,13 @@ private fun SettingsScreen(onBack: () -> Unit, sites: () -> Unit) {
             Panel(title = "Privacy") {
                 SwitchRow("Open new tabs as Veil tabs", veil, { veil = it; put("veilDefault", it) }, subtitle = "Nothing from a Veil tab is kept: no history, cookies or form data. Turn off to start in normal tabs", icon = WonderIcons.VisibilityOff, tint = Color(0xFF5B4BC4))
                 PanelDivider()
-                SwitchRow("Block ads and trackers", ads, { ads = it; put("adblock", it) }, subtitle = status, icon = WonderIcons.Shield, tint = Color(0xFF2E9E44))
+                ListRow("uBlock Origin", subtitle = "Blocks ads and trackers. Open its dashboard to choose lists and rules", icon = WonderIcons.Shield, tint = Color(0xFF2E9E44), chevron = true, onClick = { Gecko.ubo?.let { u -> Browser.open(context, u.metaData.baseUrl + "dashboard.html", veil = false) } })
                 PanelDivider()
-                ListRow(if (busy) "Updating the lists…" else "Update the block lists", subtitle = "Downloads EasyList, EasyPrivacy and a tracker host list", icon = WonderIcons.Download, tint = Color(0xFF1E7FE8), onClick = {
-                    if (!busy) { busy = true; scope.launch { val r = withContext(Dispatchers.IO) { runCatching { AdBlock.update(context) } }; busy = false; status = r.fold({ "${AdBlock.listSize()} hosts blocked" }, { "Couldn't update: ${it.message}" }) } }
-                })
+                SwitchRow("Strict tracking protection", strict, { strict = it; put("strict", it); Hooks.toast("Applies the next time Polaris starts") }, subtitle = "Firefox's strict mode: blocks more trackers, may break a few sites", icon = WonderIcons.Security, tint = Color(0xFFE39A12))
                 PanelDivider()
-                SwitchRow("Hide empty ad boxes", cosmetic, { cosmetic = it; put("cosmetic", it) }, icon = WonderIcons.Visibility, tint = Color(0xFF8E44AD))
+                SwitchRow("Route everything through Tor", tor, { tor = it; put("tor", it); Hooks.toast("Install Orbot and start it; applies the next time Polaris starts") }, subtitle = "Uses Orbot's local Tor proxy. Needs the Orbot app running", icon = WonderIcons.VisibilityOff, tint = Color(0xFF5B4BC4))
                 PanelDivider()
-                SwitchRow("Block third-party cookies", tpc, { tpc = it; put("tpc", it) }, icon = WonderIcons.Security, tint = Color(0xFFE39A12))
+                SwitchRow("Flash support (Ruffle)", flash, { flash = it; put("flash", it); Hooks.toast("Applies the next time Polaris starts") }, subtitle = "Plays old Flash games and animations", icon = WonderIcons.Language, tint = Color(0xFFE5483C))
                 PanelDivider()
                 SwitchRow("Prefer secure (HTTPS) addresses", https, { https = it; put("https", it) }, icon = WonderIcons.Lock, tint = Color(0xFF2E9E44))
                 PanelDivider()
@@ -550,7 +473,7 @@ private fun SettingsScreen(onBack: () -> Unit, sites: () -> Unit) {
                     Text("Pretend to be (all sites)", style = MaterialTheme.typography.labelLarge)
                     Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) { UserAgents.LIST.forEach { (k, l) -> Chip(l, ua == k, { ua = k; Prefs.p(context).edit().putString("ua", k).apply() }) } }
                     Text("Page text size $zoom%", style = MaterialTheme.typography.labelLarge)
-                    Slider(zoom.toFloat(), { zoom = (it / 10).toInt() * 10 }, valueRange = 70f..180f, onValueChangeFinished = { Prefs.p(context).edit().putInt("textZoom", zoom).apply(); Browser.tabs.forEach { it.web?.settings?.textZoom = zoom } })
+                    Slider(zoom.toFloat(), { zoom = (it / 10).toInt() * 10 }, valueRange = 70f..180f, onValueChangeFinished = { Prefs.p(context).edit().putInt("textZoom", zoom).apply(); Gecko.runtime.settings.fontSizeFactor = zoom / 100f; Gecko.runtime.settings.automaticFontSizeAdjustment = false })
                 }
                 PanelDivider()
                 ListRow("Site settings", subtitle = "Open-in-app and browser disguise, per site", icon = WonderIcons.Tune, tint = Color(0xFF1E7FE8), chevron = true, onClick = sites)
@@ -560,13 +483,11 @@ private fun SettingsScreen(onBack: () -> Unit, sites: () -> Unit) {
                 PanelDivider()
                 ListRow("Passwords", subtitle = "Wonderdesk Vault fills and saves them through Android autofill", icon = WonderIcons.Key, tint = Color(0xFFF2A516), chevron = true, onClick = { runCatching { context.startActivity(Intent(Settings.ACTION_REQUEST_SET_AUTOFILL_SERVICE).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } })
                 PanelDivider()
-                ListRow("Clear cookies and site data", icon = WonderIcons.Delete, tint = Color(0xFFE5483C), onClick = { Browser.wipeVeil(context); Hooks.toast("Cleared") })
+                ListRow("Clear cookies and site data", icon = WonderIcons.Delete, tint = Color(0xFFE5483C), onClick = { Browser.wipeAll(context); Hooks.toast("Cleared") })
             }
         }
     }
 }
-
-const val READER_JS = """(function(){var a=document.querySelector('article')||document.querySelector('main')||document.body;var ps=[].slice.call(a.querySelectorAll('h1,h2,h3,p,li,blockquote,img')).filter(function(e){return e.tagName=='IMG'?e.width>150:e.innerText.trim().length>25||/^H/.test(e.tagName)});var h='<meta name=viewport content="width=device-width,initial-scale=1"><body style="max-width:40em;margin:auto;padding:1.2em;font:19px/1.6 Georgia,serif;color:#222;background:#faf7f0"><h1>'+document.title+'</h1>';ps.forEach(function(e){h+=e.tagName=='IMG'?'<img src="'+e.src+'" style="max-width:100%">':'<'+e.tagName.toLowerCase()+'>'+e.innerText+'</'+e.tagName.toLowerCase()+'>'});document.open();document.write(h+'</body>');document.close()})()"""
 
 @Composable
 private fun FindBar(tab: Tab) {
@@ -574,12 +495,12 @@ private fun FindBar(tab: Tab) {
     val focus = remember { androidx.compose.ui.focus.FocusRequester() }
     LaunchedEffect(Unit) { runCatching { focus.requestFocus() } }
     Row(Modifier.fillMaxWidth().background(p.panel).padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-        BasicTextField(tab.findText ?: "", { tab.findText = it; if (it.isNotEmpty()) tab.web?.findAllAsync(it) else tab.web?.clearMatches() }, Modifier.weight(1f).androidx_focus(focus).clip(RoundedCornerShape(10.dp)).background(p.window).padding(10.dp), singleLine = true,
-            textStyle = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, color = p.text), cursorBrush = SolidColor(p.accent), keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search), keyboardActions = KeyboardActions(onSearch = { tab.web?.findNext(true) }))
+        BasicTextField(tab.findText ?: "", { tab.findText = it; tab.find(it) }, Modifier.weight(1f).androidx_focus(focus).clip(RoundedCornerShape(10.dp)).background(p.window).padding(10.dp), singleLine = true,
+            textStyle = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, color = p.text), cursorBrush = SolidColor(p.accent), keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search), keyboardActions = KeyboardActions(onSearch = { tab.find(tab.findText ?: "") }))
         Text(if (tab.findCount == 0) "0" else "${tab.findIndex}/${tab.findCount}", Modifier.padding(horizontal = 8.dp), color = p.secondaryText)
-        IconButton(onClick = { tab.web?.findNext(false) }) { Icon(WonderIcons.ArrowBack, "Previous", Modifier.rotate(90f)) }
-        IconButton(onClick = { tab.web?.findNext(true) }) { Icon(WonderIcons.ArrowBack, "Next", Modifier.rotate(-90f)) }
-        IconButton(onClick = { tab.web?.clearMatches(); tab.findText = null }) { Icon(WonderIcons.Close, "Close") }
+        IconButton(onClick = { tab.find(tab.findText ?: "", backwards = true) }) { Icon(WonderIcons.ArrowBack, "Previous", Modifier.rotate(90f)) }
+        IconButton(onClick = { tab.find(tab.findText ?: "") }) { Icon(WonderIcons.ArrowBack, "Next", Modifier.rotate(-90f)) }
+        IconButton(onClick = { tab.find(""); tab.findText = null }) { Icon(WonderIcons.Close, "Close") }
     }
 }
 
@@ -607,7 +528,7 @@ private fun LinkMenu(c: Hooks.Ctx, close: () -> Unit) {
                 ListRow("Open in a new tab", icon = WonderIcons.Add, onClick = { close(); Browser.open(context, c.url, veil = c.veil) }); PanelDivider()
                 ListRow("Open in a new Veil tab", icon = WonderIcons.VisibilityOff, onClick = { close(); Browser.open(context, c.url, veil = true) }); PanelDivider()
             } else { ListRow("Open image in a new tab", icon = WonderIcons.Add, onClick = { close(); Browser.open(context, c.url, veil = c.veil) }); PanelDivider()
-                ListRow("Download image", icon = WonderIcons.Download, onClick = { close(); runCatching { context.getSystemService(DownloadManager::class.java).enqueue(DownloadManager.Request(Uri.parse(c.url)).setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED).setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, URLUtil.guessFileName(c.url, null, null))) ; Hooks.toast("Downloading") } }); PanelDivider() }
+                ListRow("Download image", icon = WonderIcons.Download, onClick = { close(); runCatching { context.getSystemService(DownloadManager::class.java).enqueue(DownloadManager.Request(Uri.parse(c.url)).setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED).setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, android.webkit.URLUtil.guessFileName(c.url, null, null))) ; Hooks.toast("Downloading") } }); PanelDivider() }
             ListRow("Copy address", icon = WonderIcons.ContentCopy, onClick = { close(); context.getSystemService(android.content.ClipboardManager::class.java).setPrimaryClip(android.content.ClipData.newPlainText("Link", c.url)); Hooks.toast("Copied") }); PanelDivider()
             ListRow("Share", icon = WonderIcons.Share, onClick = { close(); context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, c.url), "Share").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) })
         }
@@ -640,3 +561,61 @@ private fun DownloadsScreen(onBack: () -> Unit) {
 }
 
 private fun Modifier.androidx_focus(f: androidx.compose.ui.focus.FocusRequester) = this.then(Modifier.focusRequester(f))
+
+
+@Composable
+private fun AskDialog(a: Ask, close: () -> Unit) {
+    var text by remember { mutableStateOf(a.text) }
+    val picked = remember { mutableStateListOf<String>() }
+    fun finish(v: Any?) { close(); a.done(v) }
+    WonderDialog(onDismissRequest = { finish(if (a.kind == Ask.ALERT) null else false.takeIf { a.kind == Ask.CONFIRM }) }, title = { Text(a.title.ifBlank { when (a.kind) { Ask.CHOICE -> "Choose"; else -> "Polaris" } }) }, text = {
+        Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (a.message.isNotBlank()) Text(a.message)
+            if (a.kind == Ask.TEXT) Field(text, { text = it }, "")
+            if (a.kind == Ask.CHOICE) a.choices.forEach { (id, label) ->
+                ListRow(label, selected = id in picked, onClick = { if (a.multi) { if (id in picked) picked.remove(id) else picked.add(id) } else finish(id) })
+            }
+        }
+    }, confirmButton = {
+        when (a.kind) {
+            Ask.ALERT -> TextButton(onClick = { finish(null) }) { Text("OK") }
+            Ask.CONFIRM -> TextButton(onClick = { finish(true) }) { Text(a.ok) }
+            Ask.TEXT -> TextButton(onClick = { finish(text) }) { Text("OK") }
+            else -> if (a.multi) TextButton(onClick = { finish(picked.toList()) }) { Text("OK") }
+        }
+    }, dismissButton = { if (a.kind != Ask.ALERT) TextButton(onClick = { finish(if (a.kind == Ask.CONFIRM) false else null) }) { Text("Cancel") } })
+}
+
+@Composable
+private fun PopupDialog(session: org.mozilla.geckoview.GeckoSession, close: () -> Unit) {
+    androidx.compose.ui.window.Dialog(onDismissRequest = close) {
+        Box(Modifier.fillMaxWidth().height(520.dp).clip(RoundedCornerShape(16.dp)).background(Color.White)) {
+            AndroidView({ ctx -> org.mozilla.geckoview.GeckoView(ctx).also { gv -> if (!session.isOpen) session.open(Gecko.runtime); gv.setSession(session) } }, Modifier.fillMaxSize())
+        }
+    }
+}
+
+@Composable
+private fun ExtensionsScreen(onBack: () -> Unit) {
+    val context = LocalContext.current
+    val p = wonderPalette()
+    LaunchedEffect(Unit) { Gecko.refreshList() }
+    val install = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri != null) {
+            val f = java.io.File(context.cacheDir, "install.xpi"); context.contentResolver.openInputStream(uri)?.use { i -> f.outputStream().use { o -> i.copyTo(o) } }
+            Gecko.runtime.webExtensionController.install(Uri.fromFile(f).toString()).accept({ e -> if (e != null) { Gecko.watch(e); Hooks.toast("Added ${e.metaData.name}") } }, { e -> Hooks.toast("Couldn't add it: ${e?.message}") })
+        }
+    }
+    WonderScreen("Extensions", onBack, actions = { TextButton(onClick = { install.launch(arrayOf("*/*")) }) { Text("Add from file", color = Color.White) } }) {
+        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            item { Text("Polaris runs real Firefox extensions. uBlock Origin, Ruffle, Video DownloadHelper, FastForward, ClearURLs, SponsorBlock, Return YouTube Dislike and Improve YouTube come with it, and work in Veil tabs too. To make your own, write a normal WebExtension (manifest.json plus scripts), zip it as an .xpi file and add it here. Mozilla's WebExtension guide on developer.mozilla.org explains how.", color = p.secondaryText, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(bottom = 6.dp)) }
+            items(Gecko.extensions.toList(), key = { it.id }) { e ->
+                val builtIn = e.isBuiltIn
+                Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(p.panel).padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) { Text(e.metaData.name ?: e.id, style = MaterialTheme.typography.titleSmall); Text("Version ${e.metaData.version}" + (if (builtIn) " · comes with Polaris" else "") + (if (e.metaData.allowedInPrivateBrowsing) " · on in Veil tabs" else ""), style = MaterialTheme.typography.bodySmall, color = p.secondaryText) }
+                    if (!builtIn) TextButton(onClick = { Gecko.runtime.webExtensionController.uninstall(e).accept({ Gecko.extensions.removeAll { it.id == e.id } }, { }) }) { Text("Remove") }
+                }
+            }
+        }
+    }
+}
