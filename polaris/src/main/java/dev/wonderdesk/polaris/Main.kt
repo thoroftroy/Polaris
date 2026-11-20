@@ -21,6 +21,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.items as gridItems
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -30,6 +31,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
@@ -193,8 +195,9 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
             Screen.Sites -> SitesScreen(onBack = { screen = Screen.Settings })
             Screen.Browser -> Column(Modifier.fillMaxSize()) {
                 if (tab != null) {
-                    if (!Hooks.fullscreen) TopBar(tab, onMenu = { menu = true }, onHome = { tab.session.stop(); tab.url = ""; tab.title = "" }, menuOpen = menu, menuContent = { DropdownMenu(menu, { menu = false }, Modifier.background(p.panel)) { BrowserMenu(tab, { menu = false }, { screen = it }, { siteDialog = true }) } })
-                    Box(Modifier.weight(1f).fillMaxWidth()) {
+                    androidx.compose.animation.AnimatedVisibility(!Hooks.fullscreen && !(tab.barsHidden && !tab.isStart && screen == Screen.Browser && menu.not()), enter = androidx.compose.animation.expandVertically(), exit = androidx.compose.animation.shrinkVertically()) { TopBar(tab, onMenu = { menu = true }, onHome = { tab.session.stop(); tab.url = ""; tab.title = "" }, menuOpen = menu, menuContent = { DropdownMenu(menu, { menu = false }, Modifier.background(p.panel)) { BrowserMenu(tab, { menu = false }, { screen = it }, { siteDialog = true }) } }) }
+                    val barsAway = tab.barsHidden && !tab.isStart && !Hooks.fullscreen
+                    Box(Modifier.weight(1f).fillMaxWidth().then(if (barsAway) Modifier.statusBarsPadding().navigationBarsPadding() else Modifier)) {
                         if (tab.isStart) StartPage(tab) else key(tab.id) {
                             AndroidView({ ctx -> org.mozilla.geckoview.GeckoView(ctx).also { gv -> gv.setAutofillEnabled(false); gv.importantForAutofill = android.view.View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS; tab.ensureOpen(); gv.setSession(tab.session); tab.view = gv
                                 tab.session.setSelectionActionDelegate(org.mozilla.geckoview.BasicSelectionActionDelegate(act)) } },
@@ -203,7 +206,7 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
                         Suggestions(tab)
                     }
                     tab.findText?.let { FindBar(tab) }
-                    BottomBar(tab, onTabs = { screen = Screen.Tabs })
+                    androidx.compose.animation.AnimatedVisibility(!tab.barsHidden || tab.isStart, enter = androidx.compose.animation.expandVertically(), exit = androidx.compose.animation.shrinkVertically()) { BottomBar(tab, onTabs = { tab.capture(); screen = Screen.Tabs }) }
                 }
             }
         }
@@ -438,16 +441,24 @@ private fun TabsScreen(onBack: () -> Unit) {
         TextButton(onClick = { Browser.open(context, veil = false); onBack() }) { Text("New", color = Color.White) }
         TextButton(onClick = { Browser.open(context, veil = true); onBack() }) { Text("New Veil", color = Color.White) }
     }) {
-        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            items(Browser.tabs.toList(), key = { it.id }) { t ->
+        androidx.compose.foundation.lazy.grid.LazyVerticalGrid(androidx.compose.foundation.lazy.grid.GridCells.Fixed(2), Modifier.fillMaxSize(), contentPadding = PaddingValues(12.dp), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            gridItems(Browser.tabs.toList(), key = { it.id }) { t ->
                 val on = Browser.tabs.indexOf(t) == Browser.current
-                Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)).background(if (on) p.accent.copy(alpha = .18f) else p.panel).border(1.dp, if (on) p.accent else p.panelBorder, RoundedCornerShape(14.dp))
-                    .clickable { Browser.current = Browser.tabs.indexOf(t); onBack() }.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Column(Modifier.weight(1f)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) { if (t.veil) Text("Veil  ", color = Color(0xFF8E7BE8), fontWeight = FontWeight.Bold, fontSize = 12.sp); Text(t.title.ifBlank { if (t.isStart) "Start page" else t.url }, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall) }
+                val shape = RoundedCornerShape(16.dp)
+                Column(Modifier.fillMaxWidth().clip(shape).background(if (on) p.accent.copy(alpha = .16f) else p.panel).border(if (on) 2.dp else 1.dp, if (on) p.accent else p.panelBorder, shape)
+                    .clickable { Browser.current = Browser.tabs.indexOf(t); onBack() }) {
+                    // A picture of the page, so you can tell your tabs apart.
+                    Box(Modifier.fillMaxWidth().height(170.dp).background(Brush.verticalGradient(if (t.veil) listOf(Color(0xFF2A1F5E), Color(0xFF14103A)) else listOf(p.accent.darken(.35f), p.accent.darken(.1f))))) {
+                        val th = t.thumb
+                        if (th != null) Image(th, null, Modifier.fillMaxSize(), contentScale = androidx.compose.ui.layout.ContentScale.Crop, alignment = Alignment.TopCenter)
+                        else Image(androidx.compose.ui.res.painterResource(dev.wonderdesk.shared.R.drawable.wonderdesk_polaris_icon), null, Modifier.align(Alignment.Center).size(56.dp).alpha(.85f))
+                        if (t.veil) Text("Veil", Modifier.align(Alignment.TopStart).padding(6.dp).clip(RoundedCornerShape(8.dp)).background(Color(0xFF5B4BC4)).padding(horizontal = 6.dp, vertical = 1.dp), color = Color.White, fontSize = 11.sp)
+                        Box(Modifier.align(Alignment.TopEnd).padding(6.dp).size(30.dp).clip(CircleShape).background(Color.Black.copy(alpha = .5f)).clickable { Browser.close(Browser.tabs.indexOf(t)); if (Browser.tabs.isEmpty()) { Browser.open(context); onBack() } }, contentAlignment = Alignment.Center) { Icon(WonderIcons.Close, "Close tab", Modifier.size(16.dp), tint = Color.White) }
+                    }
+                    Column(Modifier.padding(horizontal = 10.dp, vertical = 8.dp)) {
+                        Text(t.title.ifBlank { if (t.isStart) "Start page" else t.url }, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
                         Text(t.url.ifBlank { "Polaris" }, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall, color = p.secondaryText)
                     }
-                    IconButton(onClick = { Browser.close(Browser.tabs.indexOf(t)); if (Browser.tabs.isEmpty()) { Browser.open(context); onBack() } }) { Icon(WonderIcons.Close, "Close tab") }
                 }
             }
         }
@@ -575,6 +586,8 @@ private fun SettingsScreen(onBack: () -> Unit, sites: () -> Unit) {
             }
             Panel(title = "Browsing") {
                 Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    var hideBars by remember { mutableStateOf(Prefs.autoHideBars(context)) }
+                    SwitchRow("Hide the bars while scrolling", hideBars, { hideBars = it; put("autoHideBars", it) }, subtitle = "The address bar and bottom bar slide away as you scroll down a page and come back when you scroll up", icon = WonderIcons.Fullscreen, tint = Color(0xFF1E7FE8))
                     Text("When Polaris starts", style = MaterialTheme.typography.labelLarge)
                     var startup by remember { mutableStateOf(Prefs.startup(context)) }
                     Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {

@@ -2,6 +2,7 @@ package dev.wonderdesk.polaris
 
 import android.app.Activity
 import android.content.Context
+import androidx.compose.ui.graphics.asImageBitmap
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.compose.runtime.getValue
@@ -167,6 +168,24 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
     var findIndex by mutableIntStateOf(0)
     var view: GeckoView? = null
     var adopted = false
+    /** The tab that opened this one (a sign-in popup), so closing it returns there. */
+    var opener = -1
+    /** True while the page is being scrolled down: the bars slide away so the page gets the whole screen. */
+    var barsHidden by mutableStateOf(false)
+    /** A small picture of the page for the tabs screen. */
+    var thumb by mutableStateOf<androidx.compose.ui.graphics.ImageBitmap?>(null)
+    private var lastScrollY = 0
+    private var scrollAcc = 0
+
+    fun capture() {
+        val v = view ?: return
+        if (isStart) return
+        runCatching {
+            v.capturePixels().accept({ bmp ->
+                if (bmp != null && bmp.width > 0) thumb = android.graphics.Bitmap.createScaledBitmap(bmp, 360, (360f * bmp.height / bmp.width).toInt().coerceAtLeast(1), true).asImageBitmap()
+            }, { })
+        }
+    }
     private var pendingUrl: String? = null
     val isStart get() = url.isEmpty()
 
@@ -198,7 +217,7 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
     private fun install() {
         session.progressDelegate = object : GeckoSession.ProgressDelegate {
             override fun onPageStart(s: GeckoSession, u: String) { loading = true; url = u; progress = 5 }
-            override fun onPageStop(s: GeckoSession, success: Boolean) { loading = false; progress = 100 }
+            override fun onPageStop(s: GeckoSession, success: Boolean) { loading = false; progress = 100; android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({ capture() }, 900) }
             override fun onProgressChange(s: GeckoSession, p: Int) { progress = p }
             override fun onSecurityChange(s: GeckoSession, info: GeckoSession.ProgressDelegate.SecurityInformation) { secure = info.isSecure }
         }
@@ -231,12 +250,24 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
             }
             override fun onNewSession(s: GeckoSession, uri: String): GeckoResult<GeckoSession>? {
                 val t = Browser.open(appContext, null, veil = veil, adopt = true)
+                t.opener = id
                 return GeckoResult.fromValue(t.session)
+            }
+        }
+        session.scrollDelegate = object : GeckoSession.ScrollDelegate {
+            override fun onScrollChanged(s: GeckoSession, scrollX: Int, scrollY: Int) {
+                val d = scrollY - lastScrollY; lastScrollY = scrollY
+                if (scrollY < 40) { scrollAcc = 0; barsHidden = false; return }
+                // Sum movement in one direction so a small wobble doesn't flip the bars.
+                scrollAcc = if ((d > 0) == (scrollAcc > 0)) scrollAcc + d else d
+                if (scrollAcc > 60 && Prefs.autoHideBars(appContext)) barsHidden = true else if (scrollAcc < -30) barsHidden = false
             }
         }
         session.contentDelegate = object : GeckoSession.ContentDelegate {
             override fun onTitleChange(s: GeckoSession, t: String?) { title = t ?: ""; if (!veil && url.startsWith("http")) Library.history.updateTitle(url, title) }
             override fun onFullScreen(s: GeckoSession, full: Boolean) { Hooks.fullscreen = full }
+            // A page (usually a sign-in popup) asks to be closed once it is done: close the tab and go back to where you were.
+            override fun onCloseRequest(s: GeckoSession) { Browser.tabs.indexOf(this@Tab).let { if (it >= 0) Browser.close(it) } }
             override fun onContextMenu(s: GeckoSession, x: Int, y: Int, e: GeckoSession.ContentDelegate.ContextElement) {
                 val link = e.linkUri; val src = e.srcUri
                 when {
@@ -349,8 +380,12 @@ object Browser {
 
     fun close(i: Int) {
         val t = tabs.getOrNull(i) ?: return
+        val wasCurrent = i == current
         t.destroy(); tabs.removeAt(i)
         if (current >= tabs.size) current = tabs.lastIndex
+        else if (current > i) current -= 1
+        // Closing a popup returns to the tab that opened it.
+        if (wasCurrent && t.opener >= 0) tabs.indexOfFirst { it.id == t.opener }.takeIf { it >= 0 }?.let { current = it }
     }
 
     /** Forgets everything (history, cookies, cache, site data). Veil tabs never store any of it in the first place. */

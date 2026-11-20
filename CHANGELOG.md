@@ -1,5 +1,11 @@
 # Polaris changelog
 
+## v0.7.0
+
+- The page now gets the whole screen: the address bar and bottom bar slide away as you scroll down and return when you scroll up (Settings, Browsing, Hide the bars while scrolling)
+- The tabs screen shows a picture of each page in a grid, so tabs are easy to tell apart
+- A page that asks to close itself (a sign-in popup finishing) now closes its tab and returns you to the tab that opened it
+
 ## v0.6.0
 
 - Vault logins now work natively in Polaris: tap a login box and Wonderdesk Vault's sheet opens (it unlocks first if needed) and fills the username and password; a login you type in is offered to Vault to save. No Android autofill setup is needed, and the old system popup is gone from Polaris

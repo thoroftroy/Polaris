@@ -36,6 +36,7 @@ object Prefs {
     fun homeTop(c: Context) = p(c).getBoolean("homeTop", true)
     fun homeScene(c: Context) = p(c).getBoolean("homeScene", true)
     fun startup(c: Context) = p(c).getString("startup", "previous") ?: "previous"
+    fun autoHideBars(c: Context) = p(c).getBoolean("autoHideBars", true)
     fun homePins(c: Context) = p(c).getBoolean("homePins", true)
     fun homeBookmarks(c: Context) = p(c).getBoolean("homeBookmarks", true)
     fun homeRecent(c: Context) = p(c).getBoolean("homeRecent", true)
