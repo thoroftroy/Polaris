@@ -73,11 +73,26 @@ object Hooks {
     lateinit var appContext: android.content.Context
     var pickFile: ((Array<String>, Boolean, (List<Uri>) -> Unit) -> Unit)? = null
     var androidPerms: ((Array<String>, (Boolean) -> Unit) -> Unit)? = null
+    /** Vault: pick a saved login for a site (null result = none chosen), and offer to save a new one. */
+    var pickLogin: ((String, (Pair<String, String>?) -> Unit) -> Unit)? = null
+    var saveLogin: ((String, String, String) -> Unit)? = null
+    val loginSkipUntil = HashMap<String, Long>()
 }
 
 class MainActivity : WonderActivity() {
+    private var loginDone: ((Pair<String, String>?) -> Unit)? = null
+    private val loginResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { r ->
+        val cb = loginDone; loginDone = null
+        cb?.invoke(if (r.resultCode == RESULT_OK && r.data != null) (r.data!!.getStringExtra("user").orEmpty() to r.data!!.getStringExtra("pass").orEmpty()) else null)
+    }
+    private fun vaultIntent(host: String) = Intent().setClassName("dev.wonderdesk.vault", "dev.wonderdesk.vault.LoginPickActivity").putExtra("web", host).putExtra("pkg", packageName)
     override fun onCreate(savedInstanceState: Bundle?) {
         Hooks.appContext = applicationContext
+        Hooks.pickLogin = { host, done ->
+            loginDone = done
+            if (runCatching { loginResult.launch(vaultIntent(host).putExtra("login", true)) }.isFailure) { loginDone = null; done(null) }
+        }
+        Hooks.saveLogin = { host, user, pass -> runCatching { startActivity(vaultIntent(host).putExtra("save", true).putExtra("userValue", user).putExtra("passValue", pass)) } }
         Library.init(this); Gecko.init(this)
         super.onCreate(savedInstanceState)
         handle(intent, first = true)
@@ -181,7 +196,7 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
                     if (!Hooks.fullscreen) TopBar(tab, onMenu = { menu = true }, onHome = { tab.session.stop(); tab.url = ""; tab.title = "" }, menuOpen = menu, menuContent = { DropdownMenu(menu, { menu = false }, Modifier.background(p.panel)) { BrowserMenu(tab, { menu = false }, { screen = it }, { siteDialog = true }) } })
                     Box(Modifier.weight(1f).fillMaxWidth()) {
                         if (tab.isStart) StartPage(tab) else key(tab.id) {
-                            AndroidView({ ctx -> org.mozilla.geckoview.GeckoView(ctx).also { gv -> gv.setAutofillEnabled(true); gv.importantForAutofill = android.view.View.IMPORTANT_FOR_AUTOFILL_YES; tab.ensureOpen(); gv.setSession(tab.session); tab.view = gv
+                            AndroidView({ ctx -> org.mozilla.geckoview.GeckoView(ctx).also { gv -> gv.setAutofillEnabled(false); gv.importantForAutofill = android.view.View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS; tab.ensureOpen(); gv.setSession(tab.session); tab.view = gv
                                 tab.session.setSelectionActionDelegate(org.mozilla.geckoview.BasicSelectionActionDelegate(act)) } },
                                 Modifier.fillMaxSize(), update = { gv -> if (gv.session !== tab.session) { gv.releaseSession(); tab.ensureOpen(); gv.setSession(tab.session); tab.view = gv } })
                         }
@@ -576,7 +591,7 @@ private fun SettingsScreen(onBack: () -> Unit, sites: () -> Unit) {
             Panel(title = "Polaris") {
                 ListRow("Make Polaris your default browser", subtitle = "Links from other apps open here", icon = WonderIcons.Home, tint = Color(0xFF1E7FE8), chevron = true, onClick = { runCatching { context.startActivity(Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } })
                 PanelDivider()
-                ListRow("Passwords", subtitle = "Wonderdesk Vault fills and saves them through Android autofill", icon = WonderIcons.Key, tint = Color(0xFFF2A516), chevron = true, onClick = { runCatching { context.startActivity(Intent(Settings.ACTION_REQUEST_SET_AUTOFILL_SERVICE).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } })
+                ListRow("Passwords", subtitle = "Wonderdesk Vault fills and saves logins right inside Polaris: tap a login box and Vault opens (it unlocks first if needed). Nothing else to set up", icon = WonderIcons.Key, tint = Color(0xFFF2A516), chevron = true, onClick = { runCatching { context.startActivity(context.packageManager.getLaunchIntentForPackage("dev.wonderdesk.vault")!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } })
                 PanelDivider()
                 ListRow("Clear cookies and site data", icon = WonderIcons.Delete, tint = Color(0xFFE5483C), onClick = { Browser.wipeAll(context); Hooks.toast("Cleared") })
             }

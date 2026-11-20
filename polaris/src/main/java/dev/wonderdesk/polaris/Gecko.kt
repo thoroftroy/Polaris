@@ -53,6 +53,19 @@ object Gecko {
             b.configFilePath(f.absolutePath)
         }
         runtime = GeckoRuntime.create(app, b.build())
+        // Wonderdesk Vault holds the passwords. Gecko only needs to know that logins may exist, so each site offers one stand-in entry;
+        // choosing it opens Vault's sheet (unlock, pick) and the real login comes back from there.
+        runtime.autocompleteStorageDelegate = object : org.mozilla.geckoview.Autocomplete.StorageDelegate {
+            override fun onLoginFetch(domain: String): GeckoResult<Array<org.mozilla.geckoview.Autocomplete.LoginEntry>>? {
+                android.util.Log.d("PolarisLogin", "fetch for $domain")
+                val origin = if (domain.contains("://")) domain else "https://$domain"
+                // Two stand-ins on purpose: with exactly one saved login Gecko would fill it into the form by itself, and these are not real.
+                // With two or more it waits for a choice instead, and that choice is what opens Vault.
+                fun standIn(n: Int) = org.mozilla.geckoview.Autocomplete.LoginEntry.Builder().guid("vault-stand-in-$n").origin(origin).formActionOrigin(origin).username("Vault $n").password("vault").build()
+                return GeckoResult.fromValue(arrayOf(standIn(1), standIn(2)))
+            }
+            override fun onLoginFetch(): GeckoResult<Array<org.mozilla.geckoview.Autocomplete.LoginEntry>>? { android.util.Log.d("PolarisLogin", "fetch all"); return GeckoResult.fromValue(emptyArray()) }
+        }
         installBuiltIns(app)
     }
 
@@ -265,6 +278,25 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
             }
         }
         session.promptDelegate = object : GeckoSession.PromptDelegate {
+            // A login box got focus: ask Vault (it unlocks if needed and lists only the logins for this site).
+            override fun onLoginSelect(s: GeckoSession, p: GeckoSession.PromptDelegate.AutocompleteRequest<org.mozilla.geckoview.Autocomplete.LoginSelectOption>): GeckoResult<GeckoSession.PromptDelegate.PromptResponse>? {
+                val r = GeckoResult<GeckoSession.PromptDelegate.PromptResponse>()
+                val host = runCatching { Uri.parse(url).host }.getOrNull().orEmpty()
+                val pick = Hooks.pickLogin
+                if (host.isEmpty() || pick == null || Hooks.loginSkipUntil[host]?.let { it > System.currentTimeMillis() } == true) { r.complete(p.dismiss()); return r }
+                pick(host) { creds ->
+                    if (creds == null) { Hooks.loginSkipUntil[host] = System.currentTimeMillis() + 20_000; r.complete(p.dismiss()) }
+                    else r.complete(p.confirm(org.mozilla.geckoview.Autocomplete.LoginSelectOption(org.mozilla.geckoview.Autocomplete.LoginEntry.Builder().origin("https://$host").formActionOrigin("https://$host").username(creds.first).password(creds.second).build())))
+                }
+                return r
+            }
+            // A login was typed in: offer to keep it in Vault (Gecko's own store is never used).
+            override fun onLoginSave(s: GeckoSession, p: GeckoSession.PromptDelegate.AutocompleteRequest<org.mozilla.geckoview.Autocomplete.LoginSaveOption>): GeckoResult<GeckoSession.PromptDelegate.PromptResponse>? {
+                val e = p.options.firstOrNull()?.value
+                val host = runCatching { Uri.parse(url).host }.getOrNull().orEmpty()
+                if (e != null && host.isNotEmpty() && !veil) Hooks.saveLogin?.invoke(host, e.username ?: "", e.password ?: "")
+                return GeckoResult.fromValue(p.dismiss())
+            }
             override fun onAlertPrompt(s: GeckoSession, p: GeckoSession.PromptDelegate.AlertPrompt): GeckoResult<GeckoSession.PromptDelegate.PromptResponse>? {
                 val r = GeckoResult<GeckoSession.PromptDelegate.PromptResponse>(); Hooks.ask = Ask(p.title ?: "", p.message ?: "", Ask.ALERT) { r.complete(p.dismiss()) }; return r
             }

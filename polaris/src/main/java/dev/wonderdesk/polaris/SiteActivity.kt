@@ -15,7 +15,7 @@ class SiteActivity : Activity() {
         Library.init(this); Gecko.init(this)
         val url = intent.dataString ?: return finish()
         val t = Tab(-1, applicationContext, veil = false).also { tab = it }
-        val gv = GeckoView(this).also { it.setAutofillEnabled(true) }
+        val gv = GeckoView(this).also { it.setAutofillEnabled(false) }
         t.ensureOpen(); gv.setSession(t.session); t.view = gv
         t.session.setSelectionActionDelegate(BasicSelectionActionDelegate(this))
         setContentView(gv)

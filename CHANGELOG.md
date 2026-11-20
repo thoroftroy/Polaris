@@ -1,5 +1,10 @@
 # Polaris changelog
 
+## v0.6.0
+
+- Vault logins now work natively in Polaris: tap a login box and Wonderdesk Vault's sheet opens (it unlocks first if needed) and fills the username and password; a login you type in is offered to Vault to save. No Android autofill setup is needed, and the old system popup is gone from Polaris
+- Settings, Passwords opens Vault
+
 ## v0.5.1
 
 - Fixed Polaris crashing over and over: the add-on update check ran on a background thread and installing an update from there brought the whole browser down. Updates now install safely, and a failure in the check can no longer crash the app
