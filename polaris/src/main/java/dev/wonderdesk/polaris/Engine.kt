@@ -33,6 +33,9 @@ object Prefs {
     fun clearOnExit(c: Context) = p(c).getBoolean("clearOnExit", false)
     fun textZoom(c: Context) = p(c).getInt("textZoom", 100)
     // Start page
+    fun homeTop(c: Context) = p(c).getBoolean("homeTop", true)
+    fun homeScene(c: Context) = p(c).getBoolean("homeScene", true)
+    fun startup(c: Context) = p(c).getString("startup", "previous") ?: "previous"
     fun homePins(c: Context) = p(c).getBoolean("homePins", true)
     fun homeBookmarks(c: Context) = p(c).getBoolean("homeBookmarks", true)
     fun homeRecent(c: Context) = p(c).getBoolean("homeRecent", true)

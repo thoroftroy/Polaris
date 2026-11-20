@@ -1,5 +1,14 @@
 # Polaris changelog
 
+## v0.5.0
+
+- The start page has the same living background as the Wonderdesk Launcher (Aqua, Bliss or Super to match your look, following the time of day; tap for bubbles), with a switch to turn it off
+- The Normal / Veil switch is now a small control in the top corner
+- Frequently visited sites appear on the start page from your history (like Firefox), with a switch to turn them off, and a long-press option to remove one from history
+- Import bookmarks from another browser is in Customize this page
+- Typing a calculation such as 12*(3+4), 15% of 80 or sqrt(2)^3 in the search box shows the answer right away
+- New setting: when Polaris starts, open the previous tabs, the previous tabs and a new tab, or only a new tab
+
 ## v0.4.5
 
 - Fixed an old search suggestion sometimes staying on the address bar after you left it

@@ -35,6 +35,8 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -91,7 +93,7 @@ class MainActivity : WonderActivity() {
             Intent.ACTION_SEND -> i.getStringExtra(Intent.EXTRA_TEXT)
             else -> null
         }
-        if (url != null) Browser.open(this, url) else if (first) { Browser.restoreSession(this); if (Browser.tabs.isEmpty()) Browser.open(this) }
+        if (url != null) Browser.open(this, url) else if (first) { Browser.startUp(this) }
     }
 
     @Composable override fun Content() = PolarisApp(this)
@@ -309,18 +311,33 @@ private fun StartPage(tab: Tab) {
     var q by remember { mutableStateOf("") }
     var rev by remember { mutableStateOf(0) }
     var customize by remember { mutableStateOf(false) }
+    val importMarks = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri != null) {
+            val n = runCatching { Library.importHtml(context.contentResolver.openInputStream(uri)!!.bufferedReader().readText()).also { l -> l.forEach { Library.bookmarks.add(it, unique = true) } }.size }.getOrDefault(0)
+            Hooks.toast(if (n > 0) "Imported $n bookmarks" else "No bookmarks found in that file"); rev++
+        }
+    }
     val cols = remember(rev) { Prefs.homeColumns(context) }
     val pins = remember(rev) { if (Prefs.homePins(context)) Library.pins.all().take(cols * 3) else emptyList() }
     val marks = remember(rev) { if (Prefs.homeBookmarks(context)) Library.bookmarks.all().filter { m -> pins.none { it.url == m.url } }.take(cols * 2) else emptyList() }
     val recent = remember(rev) { if (Prefs.homeRecent(context)) Library.history.all().distinctBy { it.url }.take(5) else emptyList() }
-    var menuFor by remember { mutableStateOf<Pair<Entry, Boolean>?>(null) }
-    @Composable fun ColumnScope.tiles(title: String, list: List<Entry>, isPin: Boolean) {
+    // Most visited sites from history, like Firefox's top sites. Off in Veil tabs and when switched off.
+    val top = remember(rev) {
+        if (!Prefs.homeTop(context) || tab.veil) emptyList() else {
+            fun host(u: String) = runCatching { java.net.URI(u).host?.removePrefix("www.") }.getOrNull().orEmpty()
+            val known = (Library.pins.all() + Library.bookmarks.all()).map { host(it.url) }.toSet()
+            Library.history.all().filter { it.url.startsWith("http") }.groupBy { host(it.url) }.filter { it.key.isNotEmpty() && it.key !in known }
+                .entries.sortedByDescending { it.value.size }.take(cols * 2).map { (h, l) -> Entry("https://$h/", h.substringBeforeLast(".").substringAfterLast(".").replaceFirstChar { c -> c.uppercase() }, l.first().at) }
+        }
+    }
+    var menuFor by remember { mutableStateOf<Pair<Entry, Int>?>(null) }
+    @Composable fun ColumnScope.tiles(title: String, list: List<Entry>, kind: Int) {
         if (list.isEmpty()) return
         Spacer(Modifier.height(22.dp))
         Text(title, Modifier.align(Alignment.Start), color = Color.White.copy(alpha = .8f), style = MaterialTheme.typography.labelLarge)
         list.chunked(cols).forEach { row ->
             Row(Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                row.forEach { m -> Column(Modifier.weight(1f).clip(RoundedCornerShape(14.dp)).combinedClickable(onClick = { tab.go(m.url) }, onLongClick = { menuFor = m to isPin }).padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                row.forEach { m -> Column(Modifier.weight(1f).clip(RoundedCornerShape(14.dp)).combinedClickable(onClick = { tab.go(m.url) }, onLongClick = { menuFor = m to kind }).padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                     Box(Modifier.size(48.dp).clip(CircleShape).background(Color.White.copy(alpha = .2f)), contentAlignment = Alignment.Center) { Text((m.title.firstOrNull() ?: '•').uppercase(), color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold) }
                     Text(m.title.ifBlank { m.url }, color = Color.White, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp))
                 } }
@@ -329,26 +346,15 @@ private fun StartPage(tab: Tab) {
         }
     }
     Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(p.accent.darken(.45f), p.accent.darken(.2f), p.window)))) {
+        // The same living background as the Wonderdesk Launcher: follows your look, the time of day, and bubbles pop when tapped.
+        if (Prefs.homeScene(context)) SceneBackground(Modifier.fillMaxSize())
+        Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = if (tab.veil) .5f else .25f), Color.Black.copy(alpha = if (tab.veil) .62f else .38f)))))
+        if (tab.veil) Box(Modifier.fillMaxSize().background(Color(0x553B1E8C)))
         Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(Modifier.height(36.dp))
             Image(androidx.compose.ui.res.painterResource(dev.wonderdesk.shared.R.drawable.wonderdesk_polaris_icon), "Polaris", Modifier.size(96.dp))
             Text("Polaris", Modifier.padding(top = 8.dp), style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.SemiBold), color = Color.White)
             Text(if (tab.veil) "Veil tab: nothing from here is remembered" else "Search with ${Prefs.engine(context)}", color = Color.White.copy(alpha = .75f), style = MaterialTheme.typography.bodyMedium)
-            if (Prefs.homeVeilSwitch(context)) {
-                Spacer(Modifier.height(14.dp))
-                var startVeil by remember { mutableStateOf(Prefs.veilDefault(context)) }
-                Row(Modifier.clip(RoundedCornerShape(22.dp)).background(Color.White.copy(alpha = .16f)).padding(4.dp)) {
-                    listOf(false to "Normal", true to "Veil").forEach { (v, label) ->
-                        Text(label, Modifier.clip(RoundedCornerShape(18.dp)).background(if (tab.veil == v) (if (v) Color(0xFF5B4BC4) else Color.White) else Color.Transparent)
-                            .clickable { if (tab.veil != v) { val old = tab; Browser.open(context, veil = v); Browser.tabs.indexOf(old).let { i -> if (i >= 0) Browser.close(i) }; Browser.current = Browser.tabs.lastIndex } }.padding(horizontal = 22.dp, vertical = 8.dp),
-                            color = if (tab.veil == v) (if (v) Color.White else Color(0xFF1E3A8A)) else Color.White, fontWeight = FontWeight.SemiBold)
-                    }
-                }
-                Row(Modifier.padding(top = 8.dp).clickable { startVeil = !startVeil; Prefs.p(context).edit().putBoolean("veilDefault", startVeil).apply() }, verticalAlignment = Alignment.CenterVertically) {
-                    Switch(startVeil, { startVeil = it; Prefs.p(context).edit().putBoolean("veilDefault", it).apply() }, Modifier.scale(.8f))
-                    Text("Start new tabs in Veil", color = Color.White.copy(alpha = .85f), style = MaterialTheme.typography.bodySmall)
-                }
-            }
             Spacer(Modifier.height(14.dp))
             Row(Modifier.fillMaxWidth().height(50.dp).clip(RoundedCornerShape(25.dp)).background(Color.White.copy(alpha = .95f)).padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                 Icon(WonderIcons.Search, null, tint = Color(0xFF666666)); Spacer(Modifier.width(10.dp))
@@ -356,8 +362,10 @@ private fun StartPage(tab: Tab) {
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search), keyboardActions = KeyboardActions(onSearch = { if (q.isNotBlank()) tab.go(q) }),
                     decorationBox = { inner -> if (q.isEmpty()) Text("Search or type a web address", color = Color(0xFF888888), fontSize = 17.sp); inner() })
             }
-            tiles("Pinned", pins, true)
-            tiles("Bookmarks", marks, false)
+            MathAnswer.of(q)?.let { ans -> Text("= $ans", Modifier.padding(top = 10.dp).clip(RoundedCornerShape(14.dp)).clickable { context.getSystemService(android.content.ClipboardManager::class.java).setPrimaryClip(android.content.ClipData.newPlainText("Answer", ans)); Hooks.toast("Copied $ans") }.background(Color.White.copy(alpha = .2f)).padding(horizontal = 18.dp, vertical = 8.dp), color = Color.White, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold) }
+            tiles("Pinned", pins, 1)
+            tiles("Bookmarks", marks, 0)
+            tiles("Frequently visited", top, 2)
             if (recent.isNotEmpty() && !tab.veil) {
                 Spacer(Modifier.height(22.dp))
                 Text("Recently visited", Modifier.align(Alignment.Start), color = Color.White.copy(alpha = .8f), style = MaterialTheme.typography.labelLarge)
@@ -365,13 +373,22 @@ private fun StartPage(tab: Tab) {
             }
             Spacer(Modifier.height(48.dp))
         }
+        if (Prefs.homeVeilSwitch(context)) Row(Modifier.align(Alignment.TopEnd).padding(10.dp).clip(RoundedCornerShape(16.dp)).background(Color.Black.copy(alpha = .28f)).padding(2.dp)) {
+            listOf(false to "Normal", true to "Veil").forEach { (v, label) ->
+                Text(label, Modifier.clip(RoundedCornerShape(14.dp)).background(if (tab.veil == v) (if (v) Color(0xFF5B4BC4) else Color.White) else Color.Transparent)
+                    .clickable { if (tab.veil != v) { val old = tab; Browser.open(context, veil = v); Browser.tabs.indexOf(old).let { i -> if (i >= 0) Browser.close(i) }; Browser.current = Browser.tabs.lastIndex } }.padding(horizontal = 10.dp, vertical = 4.dp),
+                    color = if (tab.veil == v) (if (v) Color.White else Color(0xFF1E3A8A)) else Color.White, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+            }
+        }
         Icon(WonderIcons.Tune, "Customize this page", Modifier.align(Alignment.BottomEnd).padding(12.dp).size(34.dp).clip(CircleShape).clickable { customize = true }.background(Color.White.copy(alpha = .14f)).padding(7.dp), tint = Color.White.copy(alpha = .75f))
     }
-    menuFor?.let { (e, isPin) ->
+    menuFor?.let { (e, kind) ->
         WonderDialog(onDismissRequest = { menuFor = null }, title = { Text(e.title.ifBlank { e.url }, maxLines = 1) }, text = {
             Panel {
                 ListRow("Open in a new tab", icon = WonderIcons.OpenInNew, onClick = { menuFor = null; Browser.open(context, veil = tab.veil).go(e.url) }); PanelDivider()
-                if (isPin) ListRow("Unpin", icon = WonderIcons.PushPin, onClick = { Library.pins.remove(e.url); menuFor = null; rev++ })
+                if (kind == 1) ListRow("Unpin", icon = WonderIcons.PushPin, onClick = { Library.pins.remove(e.url); menuFor = null; rev++ })
+                else if (kind == 2) { ListRow("Pin to the top", icon = WonderIcons.PushPin, onClick = { Library.pins.add(e, unique = true); menuFor = null; rev++ }); PanelDivider()
+                    ListRow("Remove from history", icon = WonderIcons.Delete, danger = true, onClick = { val h = java.net.URI(e.url).host.orEmpty(); Library.history.all().filter { runCatching { java.net.URI(it.url).host.orEmpty() }.getOrDefault("") == h }.forEach { Library.history.remove(it.url) }; menuFor = null; rev++ }) }
                 else { ListRow("Pin to the top", icon = WonderIcons.PushPin, onClick = { Library.pins.add(e, unique = true); menuFor = null; rev++ }); PanelDivider()
                     ListRow("Remove bookmark", icon = WonderIcons.Delete, danger = true, onClick = { Library.bookmarks.remove(e.url); menuFor = null; rev++ }) }
             }
@@ -383,8 +400,13 @@ private fun StartPage(tab: Tab) {
                 fun sw(label: String, key: String, def: Boolean, sub: String? = null): @Composable () -> Unit = { var on by remember { mutableStateOf(Prefs.p(context).getBoolean(key, def)) }; SwitchRow(label, on, { on = it; Prefs.p(context).edit().putBoolean(key, it).apply() }, subtitle = sub) }
                 sw("Pinned sites", "homePins", true, "Pin a page from the ⋮ menu")(); PanelDivider()
                 sw("Bookmarks", "homeBookmarks", true)(); PanelDivider()
+                sw("Frequently visited", "homeTop", true, "Your most visited sites, from history. Never in Veil tabs")(); PanelDivider()
                 sw("Recently visited", "homeRecent", true, "Never shown in Veil tabs")(); PanelDivider()
+                sw("Living background", "homeScene", true, "Aqua, Bliss or Super, matching your look")(); PanelDivider()
                 sw("Normal / Veil switch", "homeVeilSwitch", true)()
+            }
+            Panel(Modifier.padding(top = 10.dp)) {
+                ListRow("Import bookmarks", subtitle = "From Chrome, Firefox, Edge, Safari or Brave (an exported HTML file)", icon = WonderIcons.UploadFile, tint = Color(0xFF1E7FE8), onClick = { importMarks.launch(arrayOf("text/html", "*/*")) })
             }
             Text("Tiles per row", Modifier.padding(top = 12.dp, bottom = 6.dp), style = MaterialTheme.typography.labelLarge)
             var c by remember { mutableStateOf(Prefs.homeColumns(context)) }
@@ -538,6 +560,11 @@ private fun SettingsScreen(onBack: () -> Unit, sites: () -> Unit) {
             }
             Panel(title = "Browsing") {
                 Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("When Polaris starts", style = MaterialTheme.typography.labelLarge)
+                    var startup by remember { mutableStateOf(Prefs.startup(context)) }
+                    Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        listOf("previous" to "Previous tabs", "newtab" to "Previous tabs and a new tab", "fresh" to "Only a new tab").forEach { (k, l) -> Chip(l, startup == k, { startup = k; Prefs.p(context).edit().putString("startup", k).apply() }) }
+                    }
                     Text("Pretend to be (all sites)", style = MaterialTheme.typography.labelLarge)
                     Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) { UserAgents.LIST.forEach { (k, l) -> Chip(l, ua == k, { ua = k; Prefs.p(context).edit().putString("ua", k).apply() }) } }
                     Text("Page text size $zoom%", style = MaterialTheme.typography.labelLarge)
@@ -583,7 +610,11 @@ private fun Suggestions(tab: Tab) {
         kotlinx.coroutines.delay(70)
         hits = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { (Library.bookmarks.search(q, 3) + Library.history.search(q, 6)).distinctBy { it.url }.take(6) }
     }
+    val math = remember(q) { MathAnswer.of(q) }
+    val ctx = LocalContext.current
     Column(Modifier.fillMaxWidth().background(p.window).border(1.dp, p.panelBorder)) {
+        if (math != null) Row(Modifier.fillMaxWidth().clickable { ctx.getSystemService(android.content.ClipboardManager::class.java).setPrimaryClip(android.content.ClipData.newPlainText("Answer", math)); Hooks.toast("Copied $math") }.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+            Icon(WonderIcons.Calculate, null, tint = p.accent); Spacer(Modifier.width(12.dp)); Text("= $math", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold); Spacer(Modifier.weight(1f)); Text("Tap to copy", style = MaterialTheme.typography.bodySmall, color = p.secondaryText) }
         Row(Modifier.fillMaxWidth().clickable { Hooks.typing = ""; tab.go(q) }.padding(14.dp), verticalAlignment = Alignment.CenterVertically) { Icon(WonderIcons.Search, null, tint = p.accent); Spacer(Modifier.width(12.dp)); Text("Search for “$q”", maxLines = 1, overflow = TextOverflow.Ellipsis) }
         hits.forEach { e -> Row(Modifier.fillMaxWidth().clickable { Hooks.typing = ""; tab.go(e.url) }.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
             Icon(WonderIcons.History, null, tint = p.secondaryText); Spacer(Modifier.width(12.dp))
@@ -749,6 +780,38 @@ private fun StoreScreen(onBack: () -> Unit) {
                     }
                 }
             }
+        }
+    }
+}
+
+
+/** The Launcher's live scene, drawn small and scaled up so it stays light: 24 frames a second, and only while Polaris is on screen. */
+@Composable
+private fun SceneBackground(modifier: Modifier) {
+    val context = LocalContext.current
+    val resumed = rememberIsResumed()
+    val cfg = remember { SceneConfig(base = SceneConfig.forLook(runCatching { GlobalAppearance.read(context)?.first }.getOrNull())) }
+    BoxWithConstraints(modifier) {
+        val ratio = (constraints.maxWidth.toFloat() / constraints.maxHeight.coerceAtLeast(1)).coerceIn(.3f, 3f)
+        val h = 560; val w = (h * ratio).toInt().coerceAtLeast(120)
+        val bmp = remember(w) { android.graphics.Bitmap.createBitmap(w, h, android.graphics.Bitmap.Config.ARGB_8888) }
+        val canvas = remember(bmp) { android.graphics.Canvas(bmp) }
+        val runner = remember(bmp) { SceneRunner(w, h) }
+        var frame by remember { mutableIntStateOf(0) }
+        LaunchedEffect(runner, resumed) {
+            if (!resumed) return@LaunchedEffect
+            var last = 0L
+            while (true) androidx.compose.runtime.withFrameNanos { t ->
+                if (last == 0L) last = t
+                val dt = ((t - last) / 1e9f).coerceAtMost(.1f)
+                if (dt >= 1f / 24f) { runner.update(dt, cfg, 100, false); runner.draw(canvas, cfg); last = t; frame++ }
+            }
+        }
+        androidx.compose.foundation.Canvas(Modifier.fillMaxSize().pointerInput(runner) {
+            detectTapGestures { o -> runner.tap(o.x / size.width * w, o.y / size.height * h, cfg) }
+        }) {
+            frame
+            drawImage(bmp.asImageBitmap(), dstSize = androidx.compose.ui.unit.IntSize(size.width.toInt(), size.height.toInt()), filterQuality = androidx.compose.ui.graphics.FilterQuality.Low)
         }
     }
 }

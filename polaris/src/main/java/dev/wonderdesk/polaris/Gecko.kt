@@ -325,6 +325,14 @@ object Browser {
         val urls = tabs.filter { !it.veil && it.url.isNotEmpty() }.map { it.url }
         Prefs.p(c).edit().putString("session", JSONArray(urls).toString()).apply()
     }
+    /** What the browser opens on launch: the last tabs, the last tabs plus a new one, or only a new tab. */
+    fun startUp(c: Context) {
+        when (Prefs.startup(c)) {
+            "fresh" -> { Prefs.p(c).edit().remove("session").apply(); open(c) }
+            "newtab" -> { restoreSession(c); open(c) }
+            else -> { restoreSession(c); if (tabs.isEmpty()) open(c) }
+        }
+    }
     fun restoreSession(c: Context) {
         if (tabs.isNotEmpty()) return
         val a = runCatching { JSONArray(Prefs.p(c).getString("session", "[]")) }.getOrDefault(JSONArray())
