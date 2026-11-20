@@ -1,5 +1,9 @@
 # Polaris changelog
 
+## v0.7.1
+
+- The on-screen keyboard no longer covers the page: the page shrinks to what is above the keyboard, the bottom bar steps aside while you type, and the box you tapped is scrolled into the middle of what is left (a small built-in Polaris page helper does this), which fixes sites like games and forms where you could not see what you were typing
+
 ## v0.7.0
 
 - The page now gets the whole screen: the address bar and bottom bar slide away as you scroll down and return when you scroll up (Settings, Browsing, Hide the bars while scrolling)

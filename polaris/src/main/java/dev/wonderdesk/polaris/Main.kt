@@ -193,7 +193,9 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
             Screen.Bookmarks -> BookmarksScreen(onBack = { screen = Screen.Browser }, open = { Browser.currentTab?.go(it); screen = Screen.Browser })
             Screen.Settings -> SettingsScreen(onBack = { screen = Screen.Browser }, sites = { screen = Screen.Sites })
             Screen.Sites -> SitesScreen(onBack = { screen = Screen.Settings })
-            Screen.Browser -> Column(Modifier.fillMaxSize()) {
+            // The page shrinks to what is above the keyboard (Gecko then scrolls the box you tapped into view), and the bottom bar steps aside while typing.
+            Screen.Browser -> Column(Modifier.fillMaxSize().imePadding()) {
+                val imeUp = androidx.compose.foundation.layout.WindowInsets.ime.getBottom(androidx.compose.ui.platform.LocalDensity.current) > 0
                 if (tab != null) {
                     androidx.compose.animation.AnimatedVisibility(!Hooks.fullscreen && !(tab.barsHidden && !tab.isStart && screen == Screen.Browser && menu.not()), enter = androidx.compose.animation.expandVertically(), exit = androidx.compose.animation.shrinkVertically()) { TopBar(tab, onMenu = { menu = true }, onHome = { tab.session.stop(); tab.url = ""; tab.title = "" }, menuOpen = menu, menuContent = { DropdownMenu(menu, { menu = false }, Modifier.background(p.panel)) { BrowserMenu(tab, { menu = false }, { screen = it }, { siteDialog = true }) } }) }
                     val barsAway = tab.barsHidden && !tab.isStart && !Hooks.fullscreen
@@ -206,7 +208,7 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
                         Suggestions(tab)
                     }
                     tab.findText?.let { FindBar(tab) }
-                    androidx.compose.animation.AnimatedVisibility(!tab.barsHidden || tab.isStart, enter = androidx.compose.animation.expandVertically(), exit = androidx.compose.animation.shrinkVertically()) { BottomBar(tab, onTabs = { tab.capture(); screen = Screen.Tabs }) }
+                    androidx.compose.animation.AnimatedVisibility((!tab.barsHidden || tab.isStart) && !imeUp, enter = androidx.compose.animation.expandVertically(), exit = androidx.compose.animation.shrinkVertically()) { BottomBar(tab, onTabs = { tab.capture(); screen = Screen.Tabs }) }
                 }
             }
         }
