@@ -69,6 +69,7 @@ object AddonStore {
         if (checking) return
         checking = true
         Thread {
+          try {
             val found = mutableListOf<Pair<String, Addon>>()
             for (e in Gecko.extensions.toList()) {
                 val a = byGuid(e.id) ?: continue
@@ -78,6 +79,7 @@ object AddonStore {
             Prefs.p(c).edit().putLong("addonCheck", System.currentTimeMillis()).apply()
             checking = false
             if (found.isNotEmpty() && Prefs.autoUpdateAddons(c)) found.forEach { (id, a) -> Gecko.installFromStore(a) }
+          } catch (_: Throwable) { checking = false }
         }.start()
     }
 

@@ -1,5 +1,9 @@
 # Polaris changelog
 
+## v0.5.1
+
+- Fixed Polaris crashing over and over: the add-on update check ran on a background thread and installing an update from there brought the whole browser down. Updates now install safely, and a failure in the check can no longer crash the app
+
 ## v0.5.0
 
 - The start page has the same living background as the Wonderdesk Launcher (Aqua, Bliss or Super to match your look, following the time of day; tap for bubbles), with a switch to turn it off

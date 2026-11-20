@@ -118,6 +118,9 @@ object Gecko {
 
     /** Installs (or updates to) a catalogue version, with the same Veil permission as the bundled ones. */
     fun installFromStore(a: Addon, done: (Boolean, String) -> Unit = { _, _ -> }) {
+        // GeckoView only talks to its engine from a thread with a message loop. The update check runs on a worker thread,
+        // which made installing an update crash the whole browser, so hop to the main thread first.
+        if (android.os.Looper.myLooper() != android.os.Looper.getMainLooper()) { android.os.Handler(android.os.Looper.getMainLooper()).post { installFromStore(a, done) }; return }
         runtime.webExtensionController.install(a.xpiUrl).accept({ ext ->
             if (ext == null) { done(false, "Couldn't add it"); return@accept }
             runtime.webExtensionController.setAllowedInPrivateBrowsing(ext, true).accept({ e2 -> watch(e2 ?: ext); done(true, a.name) }, { watch(ext); done(true, a.name) })
