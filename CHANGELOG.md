@@ -1,5 +1,9 @@
 # Polaris changelog
 
+## v0.7.6
+
+- New tabs open as Veil (private) tabs again, which is the default you asked for unless you switch it off in Settings (the previous update changed it to normal tabs by mistake)
+
 ## v0.7.5
 
 - Built-in extensions (the ad blocker, Ruffle) no longer ask for permission when a page first loads
