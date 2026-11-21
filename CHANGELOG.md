@@ -1,5 +1,12 @@
 # Polaris changelog
 
+## v0.7.5
+
+- Built-in extensions (the ad blocker, Ruffle) no longer ask for permission when a page first loads
+- New tabs now open as normal tabs, so history, frequently visited pins and saved logins work; Veil tabs are one tap away or switch it back in Settings
+- The search hint on the start page no longer wraps and gets cut off
+- At night the animated background gets a stronger wash, so text stays easy to read on dark scenes
+
 ## v0.7.4
 
 - Each app's animated scene now has its own drifting symbols (maths signs in Abacus, notes in Echo, arrows in Wayfinder and so on), and the scene is a little clearer while text stays easy to read

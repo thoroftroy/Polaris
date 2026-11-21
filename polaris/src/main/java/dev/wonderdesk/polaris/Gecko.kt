@@ -75,7 +75,10 @@ object Gecko {
         ctl.setPromptDelegate(object : WebExtensionController.PromptDelegate {
             override fun onInstallPromptRequest(ext: WebExtension, perms: Array<String>, origins: Array<String>): GeckoResult<org.mozilla.geckoview.WebExtension.PermissionPromptResponse>? {
                 val r = GeckoResult<WebExtension.PermissionPromptResponse>()
-                Hooks.ask = Ask("Add ${ext.metaData.name}?", "It will be able to: " + (perms + origins).joinToString(", ").ifBlank { "run on this browser" }, Ask.CONFIRM, "Add") { ok -> r.complete(WebExtension.PermissionPromptResponse(ok == true, false)) }
+                // Extensions that ship inside Polaris (the ad blocker, Ruffle and the helper) are ours: they start without asking you anything.
+                if (ext.isBuiltIn || ext.id == RUFFLE_ID || ext.id == UBO_ID || (ext.metaData.name ?: "").contains("Polaris", true)) { r.complete(WebExtension.PermissionPromptResponse(true, true)); return r }
+                fun plain(p: String) = when (p) { "<all_urls>", "*://*/*" -> "read and change the pages you visit"; "tabs" -> "see your open tabs"; "storage" -> "keep its own settings"; "webRequest", "webRequestBlocking" -> "watch and block page requests"; "cookies" -> "use cookies"; "downloads" -> "manage downloads"; "history" -> "see your history"; "bookmarks" -> "see your bookmarks"; else -> p }
+                Hooks.ask = Ask("Add ${ext.metaData.name}?", "It will be able to: " + (perms + origins).map(::plain).distinct().joinToString(", ").ifBlank { "run in this browser" }, Ask.CONFIRM, "Add") { ok -> r.complete(WebExtension.PermissionPromptResponse(ok == true, false)) }
                 return r
             }
         })

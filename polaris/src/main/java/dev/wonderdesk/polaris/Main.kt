@@ -380,7 +380,7 @@ private fun StartPage(tab: Tab) {
                 Icon(WonderIcons.Search, null, tint = Color(0xFF666666)); Spacer(Modifier.width(10.dp))
                 BasicTextField(q, { q = it }, Modifier.weight(1f), singleLine = true, textStyle = androidx.compose.ui.text.TextStyle(fontSize = 17.sp, color = Color(0xFF111111)), cursorBrush = SolidColor(p.accent),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search), keyboardActions = KeyboardActions(onSearch = { if (q.isNotBlank()) tab.go(q) }),
-                    decorationBox = { inner -> if (q.isEmpty()) Text("Search or type a web address", color = Color(0xFF888888), fontSize = 17.sp); inner() })
+                    decorationBox = { inner -> if (q.isEmpty()) Text("Search or enter address", color = Color(0xFF888888), fontSize = 17.sp, maxLines = 1, softWrap = false, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis); inner() })
             }
             MathAnswer.of(q)?.let { ans -> Text("= $ans", Modifier.padding(top = 10.dp).clip(RoundedCornerShape(14.dp)).clickable { context.getSystemService(android.content.ClipboardManager::class.java).setPrimaryClip(android.content.ClipData.newPlainText("Answer", ans)); Hooks.toast("Copied $ans") }.background(Color.White.copy(alpha = .2f)).padding(horizontal = 18.dp, vertical = 8.dp), color = Color.White, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold) }
             tiles("Pinned", pins, 1)

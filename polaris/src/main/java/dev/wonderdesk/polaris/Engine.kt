@@ -21,8 +21,8 @@ object Prefs {
         "Qwant" to "https://www.qwant.com/?q=%s", "Ecosia" to "https://www.ecosia.org/search?q=%s", "Google" to "https://www.google.com/search?q=%s", "Bing" to "https://www.bing.com/search?q=%s")
     fun engine(c: Context) = p(c).getString("engine", "DuckDuckGo") ?: "DuckDuckGo"
     fun searchUrl(c: Context, q: String) = (ENGINES.firstOrNull { it.first == engine(c) } ?: ENGINES[0]).second.replace("%s", URLEncoder.encode(q, "UTF-8"))
-    /** New tabs open as Veil tabs (nothing is remembered) unless this is switched off. */
-    fun veilDefault(c: Context) = p(c).getBoolean("veilDefault", true)
+    /** New tabs open as normal tabs (history, logins and pins work) unless this is switched on; Veil is one tap away. */
+    fun veilDefault(c: Context) = p(c).getBoolean("veilDefault", false)
     /** 0 standard, 1 strict tracking protection. */
     fun strict(c: Context) = p(c).getBoolean("strict", false)
     fun tor(c: Context) = p(c).getBoolean("tor", false)
