@@ -226,7 +226,15 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
             override fun onSecurityChange(s: GeckoSession, info: GeckoSession.ProgressDelegate.SecurityInformation) { secure = info.isSecure }
         }
         session.navigationDelegate = object : GeckoSession.NavigationDelegate {
-            override fun onLocationChange(s: GeckoSession, u: String?, perms: MutableList<GeckoSession.PermissionDelegate.ContentPermission>, userGesture: Boolean) { if (u != null && !u.startsWith("about:")) url = u }
+            override fun onLocationChange(s: GeckoSession, u: String?, perms: MutableList<GeckoSession.PermissionDelegate.ContentPermission>, userGesture: Boolean) { if (u != null && !u.startsWith("about:") && !u.startsWith("data:text/html")) url = u }
+            // A page that could not load gets a proper explanation (and a way to retry) instead of a blank white screen.
+            override fun onLoadError(s: GeckoSession, uri: String?, error: org.mozilla.geckoview.WebRequestError): GeckoResult<String>? {
+                val failed = uri ?: url
+                if (failed.startsWith("data:") || failed.startsWith("moz-extension:")) return null
+                secure = false; loading = false; progress = 100
+                if (failed.startsWith("http")) url = failed
+                return GeckoResult.fromValue(ErrorPage.build(failed, error))
+            }
             override fun onCanGoBack(s: GeckoSession, v: Boolean) { canBack = v }
             override fun onCanGoForward(s: GeckoSession, v: Boolean) { canForward = v }
             override fun onLoadRequest(s: GeckoSession, req: GeckoSession.NavigationDelegate.LoadRequest): GeckoResult<AllowOrDeny>? {
@@ -246,10 +254,14 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
                 }
                 if (u.scheme == "about" || u.scheme == "moz-extension" || u.scheme == "data" || u.scheme == "blob" || u.scheme == "resource" || u.scheme == "javascript") return null
                 // intent:, market:, mailto:, tel: and friends go to the apps that handle them.
-                runCatching {
+                // If nothing can handle an intent: link, use the web address the page offered as its fallback.
+                val failed = runCatching {
                     val i = if (u.scheme == "intent") android.content.Intent.parseUri(req.uri, android.content.Intent.URI_INTENT_SCHEME) else android.content.Intent(android.content.Intent.ACTION_VIEW, u)
-                    i.addCategory(android.content.Intent.CATEGORY_BROWSABLE); i.component = null; i.selector = null; i.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK); appContext.startActivity(i)
-                }
+                    i.addCategory(android.content.Intent.CATEGORY_BROWSABLE); i.component = null; i.selector = null; i.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                    val fb = i.getStringExtra("browser_fallback_url")
+                    try { appContext.startActivity(i); null } catch (e: android.content.ActivityNotFoundException) { fb }
+                }.getOrNull()
+                if (failed != null && failed.startsWith("http")) android.os.Handler(android.os.Looper.getMainLooper()).post { go(failed) }
                 return GeckoResult.fromValue(AllowOrDeny.DENY)
             }
             override fun onNewSession(s: GeckoSession, uri: String): GeckoResult<GeckoSession>? {
@@ -283,13 +295,14 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
                     e.type == GeckoSession.ContentDelegate.ContextElement.TYPE_IMAGE && src != null -> Hooks.ctxMenu = Hooks.Ctx(src, true, veil)
                 }
             }
+            // Downloads are read through the browser's own connection, so sign-in cookies, blob: links and one-time links all work.
             override fun onExternalResponse(s: GeckoSession, r: org.mozilla.geckoview.WebResponse) {
-                runCatching {
-                    val cd = r.headers["Content-Disposition"]; val mime = r.headers["Content-Type"]
-                    val name = android.webkit.URLUtil.guessFileName(r.uri, cd, mime)
-                    appContext.getSystemService(android.app.DownloadManager::class.java).enqueue(android.app.DownloadManager.Request(Uri.parse(r.uri)).setNotificationVisibility(android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED).setDestinationInExternalPublicDir(android.os.Environment.DIRECTORY_DOWNLOADS, name))
-                    Hooks.toast("Downloading $name")
-                }.onFailure { Hooks.toast("Couldn't start the download") }
+                val cd = r.headers["Content-Disposition"]; val mime = r.headers["Content-Type"]?.substringBefore(';')?.trim() ?: "application/octet-stream"
+                val name = android.webkit.URLUtil.guessFileName(r.uri, cd, mime)
+                val body = r.body
+                if (body == null) { Downloads.viaManager(appContext, r.uri, name, cd, mime); return }
+                Hooks.toast("Downloading $name")
+                Downloads.save(appContext, body, name, mime)
             }
             override fun onCrash(s: GeckoSession) { Hooks.toast("This tab crashed. Reloading"); runCatching { s.open(Gecko.runtime); if (url.isNotEmpty()) s.loadUri(url) } }
             override fun onKill(s: GeckoSession) { runCatching { s.open(Gecko.runtime); if (url.isNotEmpty()) s.loadUri(url) } }
@@ -303,6 +316,7 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
         session.permissionDelegate = object : GeckoSession.PermissionDelegate {
             override fun onAndroidPermissionsRequest(s: GeckoSession, perms: Array<String>?, cb: GeckoSession.PermissionDelegate.Callback) { Hooks.androidPerms?.invoke(perms ?: emptyArray()) { ok -> if (ok) cb.grant() else cb.reject() } ?: cb.reject() }
             override fun onContentPermissionRequest(s: GeckoSession, p: GeckoSession.PermissionDelegate.ContentPermission): GeckoResult<Int>? {
+                if (p.permission == GeckoSession.PermissionDelegate.PERMISSION_MEDIA_KEY_SYSTEM_ACCESS) return GeckoResult.fromValue(GeckoSession.PermissionDelegate.ContentPermission.VALUE_ALLOW)
                 if (p.permission == GeckoSession.PermissionDelegate.PERMISSION_PERSISTENT_STORAGE || p.permission == GeckoSession.PermissionDelegate.PERMISSION_AUTOPLAY_AUDIBLE || p.permission == GeckoSession.PermissionDelegate.PERMISSION_AUTOPLAY_INAUDIBLE)
                     return GeckoResult.fromValue(if (p.permission == GeckoSession.PermissionDelegate.PERMISSION_AUTOPLAY_INAUDIBLE) GeckoSession.PermissionDelegate.ContentPermission.VALUE_ALLOW else GeckoSession.PermissionDelegate.ContentPermission.VALUE_DENY)
                 val what = when (p.permission) { GeckoSession.PermissionDelegate.PERMISSION_GEOLOCATION -> "your location"; GeckoSession.PermissionDelegate.PERMISSION_DESKTOP_NOTIFICATION -> "send you notifications"; GeckoSession.PermissionDelegate.PERMISSION_MEDIA_KEY_SYSTEM_ACCESS -> "play protected video"; else -> "use a permission" }

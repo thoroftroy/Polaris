@@ -1,5 +1,14 @@
 # Polaris changelog
 
+## v0.7.7
+
+- Pages that can't load now show a clear explanation and a Try again button instead of a blank white screen: unknown site, can't connect, slow site, offline, redirect loop, untrusted certificate, blocked as harmful. Sites without secure (https) support offer an "unsecured version" button, with a warning
+- The padlock now shows only on pages whose connection is really verified as secure
+- Downloads now go through the browser's own connection, so files behind a sign-in, one-time links and blob: downloads all work, and they are saved straight to Downloads
+- Links that try to open an app you don't have now open the website instead of doing nothing
+- Protected (DRM) video no longer asks permission every time
+- The start page's Veil caption is centred
+
 ## v0.7.6
 
 - New tabs open as Veil (private) tabs again, which is the default you asked for unless you switch it off in Settings (the previous update changed it to normal tabs by mistake)

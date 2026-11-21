@@ -246,7 +246,7 @@ private fun TopBar(tab: Tab, onMenu: () -> Unit, onHome: () -> Unit, menuOpen: B
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onHome) { Icon(WonderIcons.Home, "Start page", tint = Color.White) }
             Row(Modifier.weight(1f).height(40.dp).clip(RoundedCornerShape(20.dp)).background(Color.White.copy(alpha = .92f)).padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Icon(if (tab.url.startsWith("https")) WonderIcons.Lock else WonderIcons.Language, null, Modifier.size(16.dp), tint = if (tab.url.startsWith("https")) Color(0xFF2E9E44) else Color(0xFF666666))
+                Icon(if ((tab.secure && tab.url.startsWith("https"))) WonderIcons.Lock else WonderIcons.Language, null, Modifier.size(16.dp), tint = if ((tab.secure && tab.url.startsWith("https"))) Color(0xFF2E9E44) else Color(0xFF666666))
                 Spacer(Modifier.width(8.dp))
                 if (tab.veil) Text("Veil", Modifier.clip(RoundedCornerShape(8.dp)).background(Color(0xFF5B4BC4)).padding(horizontal = 6.dp, vertical = 1.dp), color = Color.White, fontSize = 11.sp).also { Spacer(Modifier.width(6.dp)) }
                 BasicTextField(if (focused) text else (Uri.parse(tab.url).host?.removePrefix("www.") ?: tab.url), { text = it; Hooks.typing = it }, Modifier.weight(1f).onFocusChanged { focused = it.isFocused; if (!it.isFocused) Hooks.typing = "" else { text = ""; Hooks.typing = "" } },

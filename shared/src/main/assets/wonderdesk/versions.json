@@ -31,7 +31,7 @@
     "checkup": "0.2.0",
     "fetch": "0.2.0",
     "launcher": "0.2.8",
-    "polaris": "0.7.6"
+    "polaris": "0.7.7"
   },
   "tools": {
     "installer": "0.2.2",
