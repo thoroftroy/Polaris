@@ -174,7 +174,8 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
     var barsHidden by mutableStateOf(false)
     /** A small picture of the page for the tabs screen. */
     var thumb by mutableStateOf<androidx.compose.ui.graphics.ImageBitmap?>(null)
-    private var lastScrollY = 0
+    @Volatile private var barsToggledAt = 0L
+    var lastScrollY = 0
     private var scrollAcc = 0
 
     fun capture() {
@@ -257,10 +258,14 @@ class Tab(val id: Int, val appContext: Context, val veil: Boolean) {
         session.scrollDelegate = object : GeckoSession.ScrollDelegate {
             override fun onScrollChanged(s: GeckoSession, scrollX: Int, scrollY: Int) {
                 val d = scrollY - lastScrollY; lastScrollY = scrollY
-                if (scrollY < 40) { scrollAcc = 0; barsHidden = false; return }
+                val now = android.os.SystemClock.uptimeMillis()
+                // Showing or hiding the bars resizes the page, which itself shifts the scroll position. Ignore that for a moment so the bars never flicker back and forth.
+                if (now - barsToggledAt < 600) { scrollAcc = 0; return }
+                if (scrollY < 40) { scrollAcc = 0; if (barsHidden) { barsHidden = false; barsToggledAt = now }; return }
                 // Sum movement in one direction so a small wobble doesn't flip the bars.
                 scrollAcc = if ((d > 0) == (scrollAcc > 0)) scrollAcc + d else d
-                if (scrollAcc > 60 && Prefs.autoHideBars(appContext)) barsHidden = true else if (scrollAcc < -30) barsHidden = false
+                if (scrollAcc > 80 && Prefs.autoHideBars(appContext)) { if (!barsHidden) { barsHidden = true; barsToggledAt = now; scrollAcc = 0 } }
+                else if (scrollAcc < -50) { if (barsHidden) { barsHidden = false; barsToggledAt = now; scrollAcc = 0 } }
             }
         }
         session.contentDelegate = object : GeckoSession.ContentDelegate {

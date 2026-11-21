@@ -1,5 +1,11 @@
 # Polaris changelog
 
+## v0.7.3
+
+- Smoother scrolling: the bars no longer animate and resize the page, and they no longer flicker back and forth while you scroll
+- Every app window now has the animated scene behind it, in the app's own colour (for example orange water in Abacus, green in Pulse, purple in Scribble), following your Aqua, Bliss or Super look and the real sunrise and sunset. Motion Reduced shows a still picture and Off turns it off
+- Help buttons (?) explain the more confusing settings
+
 ## v0.7.2
 
 - The start page scene now follows the real sunrise and sunset for your time zone instead of the plain clock

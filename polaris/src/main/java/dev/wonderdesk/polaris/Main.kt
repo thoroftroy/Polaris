@@ -197,7 +197,7 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
             Screen.Browser -> Column(Modifier.fillMaxSize().imePadding()) {
                 val imeUp = androidx.compose.foundation.layout.WindowInsets.ime.getBottom(androidx.compose.ui.platform.LocalDensity.current) > 0
                 if (tab != null) {
-                    androidx.compose.animation.AnimatedVisibility(!Hooks.fullscreen && !(tab.barsHidden && !tab.isStart && screen == Screen.Browser && menu.not()), enter = androidx.compose.animation.expandVertically(), exit = androidx.compose.animation.shrinkVertically()) { TopBar(tab, onMenu = { menu = true }, onHome = { tab.session.stop(); tab.url = ""; tab.title = "" }, menuOpen = menu, menuContent = { DropdownMenu(menu, { menu = false }, Modifier.background(p.panel)) { BrowserMenu(tab, { menu = false }, { screen = it }, { siteDialog = true }) } }) }
+                    androidx.compose.animation.AnimatedVisibility(!Hooks.fullscreen && !(tab.barsHidden && !tab.isStart && screen == Screen.Browser && menu.not()), enter = androidx.compose.animation.EnterTransition.None, exit = androidx.compose.animation.ExitTransition.None) { TopBar(tab, onMenu = { menu = true }, onHome = { tab.session.stop(); tab.url = ""; tab.title = "" }, menuOpen = menu, menuContent = { DropdownMenu(menu, { menu = false }, Modifier.background(p.panel)) { BrowserMenu(tab, { menu = false }, { screen = it }, { siteDialog = true }) } }) }
                     val barsAway = tab.barsHidden && !tab.isStart && !Hooks.fullscreen
                     Box(Modifier.weight(1f).fillMaxWidth().then(if (barsAway) Modifier.statusBarsPadding().navigationBarsPadding() else Modifier)) {
                         if (tab.isStart) StartPage(tab) else key(tab.id) {
@@ -208,7 +208,7 @@ fun PolarisApp(act: MainActivity) = WonderKitTheme {
                         Suggestions(tab)
                     }
                     tab.findText?.let { FindBar(tab) }
-                    androidx.compose.animation.AnimatedVisibility((!tab.barsHidden || tab.isStart) && !imeUp, enter = androidx.compose.animation.expandVertically(), exit = androidx.compose.animation.shrinkVertically()) { BottomBar(tab, onTabs = { tab.capture(); screen = Screen.Tabs }) }
+                    androidx.compose.animation.AnimatedVisibility((!tab.barsHidden || tab.isStart) && !imeUp, enter = androidx.compose.animation.EnterTransition.None, exit = androidx.compose.animation.ExitTransition.None) { BottomBar(tab, onTabs = { tab.capture(); screen = Screen.Tabs }) }
                 }
             }
         }
@@ -572,24 +572,24 @@ private fun SettingsScreen(onBack: () -> Unit, sites: () -> Unit) {
                 Row(Modifier.padding(14.dp).horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) { Prefs.ENGINES.forEach { (n, _) -> Chip(n, engine == n, { engine = n; Prefs.p(context).edit().putString("engine", n).apply() }) } }
             }
             Panel(title = "Privacy") {
-                SwitchRow("Open new tabs as Veil tabs", veil, { veil = it; put("veilDefault", it) }, subtitle = "Nothing from a Veil tab is kept: no history, cookies or form data. Turn off to start in normal tabs", icon = WonderIcons.VisibilityOff, tint = Color(0xFF5B4BC4))
+                SwitchRow("Open new tabs as Veil tabs", veil, { veil = it; put("veilDefault", it) }, subtitle = "Nothing from a Veil tab is kept: no history, cookies or form data. Turn off to start in normal tabs", icon = WonderIcons.VisibilityOff, tint = Color(0xFF5B4BC4), help = "Veil tabs are private: they leave no history, cookies or saved data when closed.")
                 PanelDivider()
-                ListRow("uBlock Origin", subtitle = "Blocks ads and trackers. Open its dashboard to choose lists and rules", icon = WonderIcons.Shield, tint = Color(0xFF2E9E44), chevron = true, onClick = { Gecko.ubo?.let { u -> Browser.open(context, u.metaData.baseUrl + "dashboard.html", veil = false) } })
+                ListRow("uBlock Origin", subtitle = "Blocks ads and trackers. Open its dashboard to choose lists and rules", icon = WonderIcons.Shield, tint = Color(0xFF2E9E44), chevron = true, onClick = { Gecko.ubo?.let { u -> Browser.open(context, u.metaData.baseUrl + "dashboard.html", veil = false) } }, help = "The ad and tracker blocker built into Polaris. It is on by default.")
                 PanelDivider()
-                SwitchRow("Strict tracking protection", strict, { strict = it; put("strict", it); Hooks.toast("Applies the next time Polaris starts") }, subtitle = "Firefox's strict mode: blocks more trackers, may break a few sites", icon = WonderIcons.Security, tint = Color(0xFFE39A12))
+                SwitchRow("Strict tracking protection", strict, { strict = it; put("strict", it); Hooks.toast("Applies the next time Polaris starts") }, subtitle = "Firefox's strict mode: blocks more trackers, may break a few sites", icon = WonderIcons.Security, tint = Color(0xFFE39A12), help = "Blocks more trackers and ads. A few sites may stop working; turn it off for those.")
                 PanelDivider()
-                SwitchRow("Route everything through Tor", tor, { tor = it; put("tor", it); Hooks.toast("Install Orbot and start it; applies the next time Polaris starts") }, subtitle = "Uses Orbot's local Tor proxy. Needs the Orbot app running", icon = WonderIcons.VisibilityOff, tint = Color(0xFF5B4BC4))
+                SwitchRow("Route everything through Tor", tor, { tor = it; put("tor", it); Hooks.toast("Install Orbot and start it; applies the next time Polaris starts") }, subtitle = "Uses Orbot's local Tor proxy. Needs the Orbot app running", icon = WonderIcons.VisibilityOff, tint = Color(0xFF5B4BC4), help = "Sends your browsing through the Tor network for privacy. Pages load much slower.")
                 PanelDivider()
-                SwitchRow("Flash support (Ruffle)", flash, { flash = it; put("flash", it); Hooks.toast("Applies the next time Polaris starts") }, subtitle = "Plays old Flash games and animations", icon = WonderIcons.Language, tint = Color(0xFFE5483C))
+                SwitchRow("Flash support (Ruffle)", flash, { flash = it; put("flash", it); Hooks.toast("Applies the next time Polaris starts") }, subtitle = "Plays old Flash games and animations", icon = WonderIcons.Language, tint = Color(0xFFE5483C), help = "Plays old Flash games and animations without Flash, using the Ruffle emulator.")
                 PanelDivider()
-                SwitchRow("Prefer secure (HTTPS) addresses", https, { https = it; put("https", it) }, icon = WonderIcons.Lock, tint = Color(0xFF2E9E44))
+                SwitchRow("Prefer secure (HTTPS) addresses", https, { https = it; put("https", it) }, icon = WonderIcons.Lock, tint = Color(0xFF2E9E44), help = "Tries the secure version of a site first, so what you send can't be read on the way.")
                 PanelDivider()
-                SwitchRow("Clear history and data when closing", clearExit, { clearExit = it; put("clearOnExit", it) }, icon = WonderIcons.Delete, tint = Color(0xFFE5483C))
+                SwitchRow("Clear history and data when closing", clearExit, { clearExit = it; put("clearOnExit", it) }, icon = WonderIcons.Delete, tint = Color(0xFFE5483C), help = "Wipes history, cookies and site data every time you close Polaris.")
             }
             Panel(title = "Browsing") {
                 Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     var hideBars by remember { mutableStateOf(Prefs.autoHideBars(context)) }
-                    SwitchRow("Hide the bars while scrolling", hideBars, { hideBars = it; put("autoHideBars", it) }, subtitle = "The address bar and bottom bar slide away as you scroll down a page and come back when you scroll up", icon = WonderIcons.Fullscreen, tint = Color(0xFF1E7FE8))
+                    SwitchRow("Hide the bars while scrolling", hideBars, { hideBars = it; put("autoHideBars", it) }, subtitle = "The address bar and bottom bar slide away as you scroll down a page and come back when you scroll up", icon = WonderIcons.Fullscreen, tint = Color(0xFF1E7FE8), help = "The top and bottom bars slide away as you scroll down to give pages more room, and come back when you scroll up.")
                     Text("When Polaris starts", style = MaterialTheme.typography.labelLarge)
                     var startup by remember { mutableStateOf(Prefs.startup(context)) }
                     Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -606,7 +606,7 @@ private fun SettingsScreen(onBack: () -> Unit, sites: () -> Unit) {
             Panel(title = "Polaris") {
                 ListRow("Make Polaris your default browser", subtitle = "Links from other apps open here", icon = WonderIcons.Home, tint = Color(0xFF1E7FE8), chevron = true, onClick = { runCatching { context.startActivity(Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } })
                 PanelDivider()
-                ListRow("Passwords", subtitle = "Wonderdesk Vault fills and saves logins right inside Polaris: tap a login box and Vault opens (it unlocks first if needed). Nothing else to set up", icon = WonderIcons.Key, tint = Color(0xFFF2A516), chevron = true, onClick = { runCatching { context.startActivity(context.packageManager.getLaunchIntentForPackage("dev.wonderdesk.vault")!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } })
+                ListRow("Passwords", subtitle = "Wonderdesk Vault fills and saves logins right inside Polaris: tap a login box and Vault opens (it unlocks first if needed). Nothing else to set up", icon = WonderIcons.Key, tint = Color(0xFFF2A516), chevron = true, onClick = { runCatching { context.startActivity(context.packageManager.getLaunchIntentForPackage("dev.wonderdesk.vault")!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } }, help = "Saved logins come from Vault. Polaris asks Vault to fill and save them.")
                 PanelDivider()
                 ListRow("Clear cookies and site data", icon = WonderIcons.Delete, tint = Color(0xFFE5483C), onClick = { Browser.wipeAll(context); Hooks.toast("Cleared") })
             }
