@@ -1,5 +1,9 @@
 # Polaris changelog
 
+## v0.7.8
+
+- The animated background is now drawn directly on the screen at full sharpness instead of a small picture stretched up, so it is smooth and no longer looks pixelated; the grain over it is much subtler, and long tab names (like Feedback) shrink to fit instead of being cut off
+
 ## v0.7.7
 
 - Pages that can't load now show a clear explanation and a Try again button instead of a blank white screen: unknown site, can't connect, slow site, offline, redirect loop, untrusted certificate, blocked as harmful. Sites without secure (https) support offer an "unsecured version" button, with a warning
