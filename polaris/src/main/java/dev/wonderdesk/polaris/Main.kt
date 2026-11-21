@@ -820,6 +820,7 @@ private fun StoreScreen(onBack: () -> Unit) {
 private fun SceneBackground(modifier: Modifier) {
     val context = LocalContext.current
     val resumed = rememberIsResumed()
+    LaunchedEffect(Unit) { Sun.refresh(context) }
     val cfg = remember { SceneConfig(base = SceneConfig.forLook(runCatching { GlobalAppearance.read(context)?.first }.getOrNull())) }
     BoxWithConstraints(modifier) {
         val ratio = (constraints.maxWidth.toFloat() / constraints.maxHeight.coerceAtLeast(1)).coerceIn(.3f, 3f)
