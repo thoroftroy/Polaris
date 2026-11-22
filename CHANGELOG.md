@@ -1,5 +1,9 @@
 # Polaris changelog
 
+## v0.7.10
+
+- Internal update to the shared animated background (it can now follow what each app is doing); nothing changes in Polaris itself
+
 ## v0.7.9
 
 - The symbols drifting in the background are smaller and fainter so they no longer crowd text; selected segments and chips are readable in every look (including Super); the warning banner at the top has a solid backing so its text is easy to read

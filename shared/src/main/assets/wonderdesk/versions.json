@@ -4,7 +4,6 @@
     "wayfinder": "0.2.4",
     "packrat": "0.2.5",
     "memories": "0.2.3",
-    "cinema": "0.2.3",
     "melody": "0.2.4",
     "pages": "0.2.3",
     "gateway": "0.2.2",
@@ -31,7 +30,7 @@
     "checkup": "0.2.0",
     "fetch": "0.2.0",
     "launcher": "0.2.8",
-    "polaris": "0.7.9"
+    "polaris": "0.7.10"
   },
   "tools": {
     "installer": "0.2.2",
