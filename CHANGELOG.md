@@ -1,5 +1,9 @@
 # Polaris changelog
 
+## v0.7.11
+
+- Internal update to the shared animated background; nothing changes in browsing
+
 ## v0.7.10
 
 - Internal update to the shared animated background (it can now follow what each app is doing); nothing changes in Polaris itself
