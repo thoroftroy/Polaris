@@ -1,5 +1,10 @@
 # Polaris changelog
 
+## v0.8.0
+
+- New browser engine: Firefox's engine is updated from version 140 to 153 (August 2026), thirteen versions newer. Pages lay out and scroll like current Firefox, newer web features work, and many rendering and stability fixes come with it
+- Extensions that ask to send data to their makers now say so in the prompt before you add them; the ones built into Polaris never get that permission
+
 ## v0.7.12
 
 - The moving background holds still while Battery Saver is on, so it uses next to no power then. It still changes with what the app is doing

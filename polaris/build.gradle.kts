@@ -1,6 +1,6 @@
 // Phones are arm64. For the emulator build with: ./gradlew -Pabi=x86_64 :polaris:assembleDebug
 val polarisAbi: String = (findProperty("abi") as String?) ?: "arm64-v8a"
-plugins { id("com.android.application"); id("org.jetbrains.kotlin.android") }
+plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id("org.jetbrains.kotlin.plugin.compose") }
 
 // Keep the newest installable APK in the repo root (BlissPlayer-style) so it
 // can be attached to a release; older versioned APKs in the root are pruned.
@@ -25,13 +25,13 @@ afterEvaluate {
 }
 
 dependencies {
-    implementation("org.mozilla.geckoview:geckoview-${polarisAbi}:140.0.20250707120347")
+    implementation("org.mozilla.geckoview:geckoview-${polarisAbi}:153.0.20260810162159")
     testImplementation("junit:junit:4.13.2")
 }
 
 // GeckoView asks for newer AndroidX than the suite's build tools accept; these older ones work with it.
 configurations.all { resolutionStrategy { force("androidx.core:core:1.15.0", "androidx.core:core-ktx:1.15.0")
-    eachDependency { if (requested.group == "org.jetbrains.kotlin" && requested.name.startsWith("kotlin-stdlib")) useVersion("1.9.24") } }
+    eachDependency { if (requested.group == "org.jetbrains.kotlin" && requested.name.startsWith("kotlin-stdlib")) useVersion("2.1.21") } }
 }
 
 

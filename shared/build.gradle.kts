@@ -1,14 +1,13 @@
-plugins { id("com.android.library"); id("org.jetbrains.kotlin.android") }
+plugins { id("com.android.library"); id("org.jetbrains.kotlin.android"); id("org.jetbrains.kotlin.plugin.compose") }
 
 android {
     namespace = "dev.wonderdesk.shared"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         minSdk = 29
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures { compose = true }
-    composeOptions { kotlinCompilerExtensionVersion = "1.5.14" }
 }
 dependencies {
     api("androidx.core:core-ktx:1.13.1")

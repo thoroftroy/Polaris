@@ -5,7 +5,8 @@ import groovy.json.JsonSlurper
 plugins {
     id("com.android.application") version "8.5.2" apply false
     id("com.android.library") version "8.5.2" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.24" apply false
+    id("org.jetbrains.kotlin.android") version "2.1.21" apply false
+    id("org.jetbrains.kotlin.plugin.compose") version "2.1.21" apply false
 }
 
 // Keep generated files, signing keys and caches out of the source/owner's home.
@@ -18,7 +19,7 @@ subprojects {
     plugins.withId("com.android.application") {
         extensions.configure<BaseAppModuleExtension> {
             namespace = "dev.wonderdesk.${project.name}"
-            compileSdk = 35
+            compileSdk = 36
             defaultConfig {
                 applicationId = "dev.wonderdesk.${project.name}"
                 minSdk = 29
@@ -33,7 +34,6 @@ subprojects {
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             }
             buildFeatures { compose = true }
-            composeOptions { kotlinCompilerExtensionVersion = "1.5.14" }
             // Speed: the APK people install is optimised (R8, not debuggable, so Android runs it at full speed and applies
             // the Compose baseline profiles). It stays signed with the same key, so it updates over earlier versions.
             // Names are kept (no obfuscation) so crash reports stay readable.
@@ -63,7 +63,5 @@ subprojects {
     }
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions.jvmTarget = "17"
-        // Strong skipping: screens skip recomposing when nothing they use has changed.
-        kotlinOptions.freeCompilerArgs += listOf("-P", "plugin:androidx.compose.compiler.plugins.kotlin:experimentalStrongSkipping=true")
     }
 }
