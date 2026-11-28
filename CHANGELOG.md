@@ -1,5 +1,9 @@
 # Polaris changelog
 
+## v0.7.12
+
+- The moving background holds still while Battery Saver is on, so it uses next to no power then. It still changes with what the app is doing
+
 ## v0.7.11
 
 - Internal update to the shared animated background; nothing changes in browsing
